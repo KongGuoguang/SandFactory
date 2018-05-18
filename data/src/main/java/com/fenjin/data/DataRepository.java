@@ -2,8 +2,11 @@ package com.fenjin.data;
 
 import android.content.Context;
 
+import com.fenjin.data.bean.User;
 import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
+
+import io.reactivex.Observable;
 
 /**
  * Author:kongguoguang
@@ -44,5 +47,14 @@ public class DataRepository {
     private void init(Context context){
         networkRepository = NetworkRepository.getInstance();
         preferencesRepository = PreferencesRepository.getInstance(context);
+    }
+
+    public Observable<User> login(String userName, String password){
+        return networkRepository.login(userName, password);
+    }
+
+    public void saveUserNameAndPassword(String userName, String password){
+        preferencesRepository.saveUserName(userName);
+        preferencesRepository.savePassword(password);
     }
 }

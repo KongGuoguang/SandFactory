@@ -2,6 +2,7 @@ package com.fenjin.sandfactory;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.fenjin.data.DataRepository;
 
@@ -19,10 +20,15 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         dataRepository = DataRepository.getInstance(this);
-        Utils.init(this);
+        initLUtils();
     }
 
     public DataRepository getDataRepository(){
         return dataRepository;
+    }
+
+    private void initLUtils(){
+        Utils.init(this);
+        LogUtils.getConfig().setGlobalTag("KGG");
     }
 }

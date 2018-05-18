@@ -20,12 +20,10 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public class BaseViewModel extends AndroidViewModel {
 
-    protected static String TAG;
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
-        TAG = getClass().getSimpleName();
-        LogUtils.d(TAG, "onCreate()");
+        LogUtils.d("onCreate()");
         EventBus.getDefault().register(this);
     }
 
@@ -34,7 +32,7 @@ public class BaseViewModel extends AndroidViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        LogUtils.d(TAG, "onCleared()");
+        LogUtils.d("onCleared()");
         EventBus.getDefault().unregister(this);
     }
 

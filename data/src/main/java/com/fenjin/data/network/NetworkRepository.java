@@ -1,23 +1,15 @@
 package com.fenjin.data.network;
 
-import android.util.Log;
+import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.fenjin.data.bean.User;
 
-import java.io.IOException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.X509TrustManager;
-
-import okhttp3.Interceptor;
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okio.Buffer;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -53,11 +45,22 @@ public class NetworkRepository {
     }
 
     private void init(){
+
+        HttpLoggingInterceptor.Logger logger = new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(@NonNull String message) {
+                LogUtils.d(message);
+            }
+        };
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(logger);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(new LoggingInterceptor())
+                .addInterceptor(interceptor)
                 .build();
 
         String baseUrl = "http://47.95.225.104:8081/workRecord/";
@@ -71,58 +74,48 @@ public class NetworkRepository {
         serverInterface = retrofit.create(ServerInterface.class);
     }
 
-    private static class LoggingInterceptor implements Interceptor {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            //这个chain里面包含了request和response，所以你要什么都可以从这里拿
-            Request request = chain.request();
-            String method = request.method();
-            if ("POST".equals(method)) {//打印post请求体
-                Buffer buffer = new Buffer();
-                request.body().writeTo(buffer);
-                LogUtils.file("OkHttpLog", String.format("发送请求:%s %n requestBody:%s",
-                        request.url(), buffer.readUtf8()));
-
-            } else {
-                LogUtils.file("OkHttpLog", String.format("发送请求:%s", request.url()));
-            }
-
-            long t1 = System.nanoTime();//请求发起的时间
-
-            Response response = chain.proceed(request);
-            long t2 = System.nanoTime();//收到响应的时间
-
-            //这里不能直接使用response.body().string()的方式输出日志
-            //因为response.body().string()之后，response中的流会被关闭，程序会报错，我们需要创建出一
-            //个新的response给应用层处理
-            ResponseBody responseBody = response.peekBody(1024 * 1024);
-
-            LogUtils.file("OkHttpLog",
-                    String.format(Locale.CHINESE,"接收响应:%s %n" +
-                                    "httpCode:%s %n" +
-                                    "responseBody:%s %n" +
-                                    "time consuming:%.1fms %n",
-                            response.request().url(),
-                            response.code(),
-                            responseBody.string(),
-                            (t2 - t1) / 1e6d));
-            return response;
-        }
+    public Observable<User> login(String userName, String password){
+        return serverInterface.login(userName, password);
     }
 
-    private static class TrustAllCertsManager implements X509TrustManager {
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            Log.d("TrustAllCertsManager","checkClientTrusted");
-        }
+//    private static class LoggingInterceptor implements Interceptor {
+//        @Override
+//        public Response intercept(Chain chain) throws IOException {
+//            //这个chain里面包含了request和response，所以你要什么都可以从这里拿
+//            Request request = chain.request();
+//            String method = request.method();
+//            if ("POST".equals(method)) {//打印post请求体
+//                Buffer buffer = new Buffer();
+//                request.body().writeTo(buffer);
+//                LogUtils.file("OkHttpLog", String.format("发送请求:%s %n requestBody:%s",
+//                        request.url(), buffer.readUtf8()));
+//
+//            } else {
+//                LogUtils.file("OkHttpLog", String.format("发送请求:%s", request.url()));
+//            }
+//
+//            long t1 = System.nanoTime();//请求发起的时间
+//
+//            Response response = chain.proceed(request);
+//            long t2 = System.nanoTime();//收到响应的时间
+//
+//            //这里不能直接使用response.body().string()的方式输出日志
+//            //因为response.body().string()之后，response中的流会被关闭，程序会报错，我们需要创建出一
+//            //个新的response给应用层处理
+//            ResponseBody responseBody = response.peekBody(1024 * 1024);
+//
+//            LogUtils.file("OkHttpLog",
+//                    String.format(Locale.CHINESE,"接收响应:%s %n" +
+//                                    "httpCode:%s %n" +
+//                                    "responseBody:%s %n" +
+//                                    "time consuming:%.1fms %n",
+//                            response.request().url(),
+//                            response.code(),
+//                            responseBody.string(),
+//                            (t2 - t1) / 1e6d));
+//            return response;
+//        }
+//    }
 
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            Log.d("TrustAllCertsManager","checkServerTrusted");
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {return new X509Certificate[0];}
-    }
 
 }
