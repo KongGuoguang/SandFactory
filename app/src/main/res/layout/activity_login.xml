@@ -16,11 +16,23 @@
         android:layout_height="match_parent"
         tools:context=".LoginActivity">
 
+        <TextView
+            android:id="@+id/view_title"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/app_color_blue"
+            android:gravity="center"
+            android:text="商城采砂"
+            android:textColor="#ffffff"
+            android:textSize="20sp"/>
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/layout_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:layout_below="@+id/view_title"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp">
 
             <EditText
                 android:layout_width="match_parent"
@@ -34,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_user_name"
-            android:layout_marginTop="10dp">
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp">
 
             <EditText
                 android:layout_width="match_parent"
@@ -44,14 +57,19 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_below="@+id/layout_password"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
             android:text="@string/login"
+            android:background="@color/app_color_blue"
             android:onClick="@{() -> viewModel.login()}"
-            app:enableOrNot="@{viewModel.userName.get().length() > 0 &amp;&amp; viewModel.password.get().length() > 5}"/>
+            app:enableOrNot="@{viewModel.userName.get().length() > 0 &amp;&amp; viewModel.password.get().length() > 3}"/>
 
             <!-- xml中 '<'和'&'这两个字符是严格禁止使用的，需要转义  -->
             <!-- &lt; < 小于号 -->

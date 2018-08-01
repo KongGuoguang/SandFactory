@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.LoginResult;
 
 import java.util.concurrent.TimeUnit;
 
@@ -63,7 +64,7 @@ public class NetworkRepository {
                 .addInterceptor(interceptor)
                 .build();
 
-        String baseUrl = "http://47.95.225.104:8081/workRecord/";
+        String baseUrl = "http://112.35.23.101:9090/api/public/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
@@ -74,8 +75,8 @@ public class NetworkRepository {
         serverInterface = retrofit.create(ServerInterface.class);
     }
 
-    public Observable<User> login(String userName, String password){
-        return serverInterface.login(userName, password);
+    public Observable<LoginResult> login(User user){
+        return serverInterface.login(user);
     }
 
 //    private static class LoggingInterceptor implements Interceptor {

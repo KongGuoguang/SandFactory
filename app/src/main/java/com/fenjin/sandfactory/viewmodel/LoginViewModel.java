@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.LoginResult;
 import com.fenjin.sandfactory.usecase.LoginUseCase;
 
 import io.reactivex.Observer;
@@ -41,27 +42,37 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public void login(){
+
+//        loginSuccess.postValue(true);
+
         loginIng.setValue(true);
         if (loginUseCase == null){
             loginUseCase = new LoginUseCase(getApplication());
         }
         loginUseCase.login(userName.get(), password.get())
-                .execute(new Observer<User>() {
+                .execute(new Observer<LoginResult>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(User user) {
+                    public void onNext(LoginResult loginResult) {
                         loginIng.postValue(false);
-                        loginSuccess.postValue(true);
+                        if (loginResult.getFlag() == 1){
+                            loginSuccess.postValue(true);
+                        }else {
+                            loginErrorMessage = loginResult.getMessage();
+                            loginSuccess.postValue(false);
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         loginIng.postValue(false);
                         LogUtils.d(e.getMessage());
+                        loginErrorMessage = "登录失败,请检查网络设置";
                         loginSuccess.postValue(false);
                     }
 

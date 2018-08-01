@@ -1,9 +1,12 @@
 package com.fenjin.data.network;
 
 import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.LoginResult;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -14,8 +17,7 @@ import retrofit2.http.Query;
  */
 public interface ServerInterface {
 
-    @GET("login")
-    Observable<User> login(@Query("userName") String userName,
-                           @Query("password") String password);
+    @POST("login")
+    Observable<LoginResult> login(@Body User user);
 
 }

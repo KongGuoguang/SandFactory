@@ -3,6 +3,7 @@ package com.fenjin.data;
 import android.content.Context;
 
 import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
 
@@ -49,8 +50,8 @@ public class DataRepository {
         preferencesRepository = PreferencesRepository.getInstance(context);
     }
 
-    public Observable<User> login(String userName, String password){
-        return networkRepository.login(userName, password);
+    public Observable<LoginResult> login(User user){
+        return networkRepository.login(user);
     }
 
     public void saveUserNameAndPassword(String userName, String password){

@@ -22,4 +22,7 @@
     <string name="reset">重置</string>
     <string name="tips_add_day_record">提交日报后如需修改，需提请修改审核，请核对无误后提交！</string>
     <string name="tips_no_select_result">无查询结果！</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
