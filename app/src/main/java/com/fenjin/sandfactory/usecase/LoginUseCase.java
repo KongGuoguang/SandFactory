@@ -2,7 +2,7 @@ package com.fenjin.sandfactory.usecase;
 
 import android.content.Context;
 
-import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 
 import io.reactivex.Observable;
@@ -30,11 +30,12 @@ public class LoginUseCase extends BaseUseCase<LoginResult> {
 
     @Override
     public Observable<LoginResult> buildObservable() {
-        return dataRepository.login(new User(userName, password))
+        return dataRepository.login(new LoginParam(userName, password))
                 .doOnNext(new Consumer<LoginResult>() {
                     @Override
                     public void accept(LoginResult loginResult) throws Exception {
                         dataRepository.saveUserNameAndPassword(userName, password);
+                        dataRepository.saveToken(loginResult.getResult());
                     }
                 });
     }

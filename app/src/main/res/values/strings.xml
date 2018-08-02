@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">沙场APP</string>
+    <string name="app_name">商城采砂</string>
     <string name="day_count">工作天数：%d天</string>
     <string name="work_count">完成总量：%d件</string>
     <string name="hint_user_name">用户名</string>

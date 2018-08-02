@@ -3,12 +3,14 @@ package com.fenjin.data.network;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -64,7 +66,7 @@ public class NetworkRepository {
                 .addInterceptor(interceptor)
                 .build();
 
-        String baseUrl = "http://112.35.23.101:9090/api/public/";
+        String baseUrl = "http://112.35.23.101:9090/api/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
@@ -75,8 +77,12 @@ public class NetworkRepository {
         serverInterface = retrofit.create(ServerInterface.class);
     }
 
-    public Observable<LoginResult> login(User user){
-        return serverInterface.login(user);
+    public Observable<LoginResult> login(LoginParam loginParam){
+        return serverInterface.login(loginParam);
+    }
+
+    public Observable<ChengZhongRecordListResult> getList(int pageNum, int pageSize){
+        return serverInterface.getList(pageNum, pageSize);
     }
 
 //    private static class LoggingInterceptor implements Interceptor {

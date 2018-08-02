@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.DataRepository;
-import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.LoginParam;
 import com.fenjin.sandfactory.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,5 +37,5 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     @Subscribe
-    public void onNullEvent(User user){}
+    public void onNullEvent(LoginParam loginParam){}
 }

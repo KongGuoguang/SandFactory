@@ -2,12 +2,14 @@ package com.fenjin.data;
 
 import android.content.Context;
 
-import com.fenjin.data.bean.User;
+import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 /**
  * Author:kongguoguang
@@ -50,12 +52,24 @@ public class DataRepository {
         preferencesRepository = PreferencesRepository.getInstance(context);
     }
 
-    public Observable<LoginResult> login(User user){
-        return networkRepository.login(user);
+    public Observable<LoginResult> login(LoginParam loginParam){
+        return networkRepository.login(loginParam);
+    }
+
+    public Observable<ChengZhongRecordListResult> getList(int pageNum, int pageSize){
+        return networkRepository.getList(pageNum, pageSize);
     }
 
     public void saveUserNameAndPassword(String userName, String password){
         preferencesRepository.saveUserName(userName);
         preferencesRepository.savePassword(password);
+    }
+
+    public String getToken(){
+        return preferencesRepository.getToken();
+    }
+
+    public void saveToken(String token){
+        preferencesRepository.saveToken(token);
     }
 }

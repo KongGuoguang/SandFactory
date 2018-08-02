@@ -6,7 +6,6 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.fenjin.data.bean.User;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.sandfactory.usecase.LoginUseCase;
 

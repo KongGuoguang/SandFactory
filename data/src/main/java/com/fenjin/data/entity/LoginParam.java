@@ -1,4 +1,4 @@
-package com.fenjin.data.bean;
+package com.fenjin.data.entity;
 
 /**
  * Author:kongguoguang
@@ -6,13 +6,13 @@ package com.fenjin.data.bean;
  * Time:15:43
  * Summary:
  */
-public class User {
+public class LoginParam {
 
     private String username;
 
     private String password;
 
-    public User(String username, String password) {
+    public LoginParam(String username, String password) {
         this.username = username;
         this.password = password;
     }

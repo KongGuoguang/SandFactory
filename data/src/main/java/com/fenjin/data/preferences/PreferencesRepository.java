@@ -19,6 +19,8 @@ public class PreferencesRepository {
 
     private static final String PASSWORD = "password";
 
+    private static final String TOKEN = "token";
+
     private SharedPreferences sharedPreferences;
 
     public static PreferencesRepository getInstance(Context context){
@@ -51,5 +53,13 @@ public class PreferencesRepository {
 
     public void savePassword(String password){
         sharedPreferences.edit().putString(PASSWORD, password).apply();
+    }
+
+    public String getToken(){
+        return sharedPreferences.getString(TOKEN, "");
+    }
+
+    public void saveToken(String token){
+        sharedPreferences.edit().putString(TOKEN, token).apply();
     }
 }
