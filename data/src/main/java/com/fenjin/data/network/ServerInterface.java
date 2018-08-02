@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -23,7 +24,8 @@ public interface ServerInterface {
     Observable<LoginResult> login(@Body LoginParam loginParam);
 
     @GET("record/list")
-    Observable<ChengZhongRecordListResult> getList(@Query("pageNum") int pageNum,
+    Observable<ChengZhongRecordListResult> getList(@Header("token") String token,
+                                                   @Query("pageNum") int pageNum,
                                                  @Query("pageSize") int pageSize);
 
 }

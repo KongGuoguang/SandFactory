@@ -81,8 +81,8 @@ public class NetworkRepository {
         return serverInterface.login(loginParam);
     }
 
-    public Observable<ChengZhongRecordListResult> getList(int pageNum, int pageSize){
-        return serverInterface.getList(pageNum, pageSize);
+    public Observable<ChengZhongRecordListResult> getList(String token,int pageNum, int pageSize){
+        return serverInterface.getList(token,pageNum, pageSize);
     }
 
 //    private static class LoggingInterceptor implements Interceptor {

@@ -57,7 +57,7 @@ public class DataRepository {
     }
 
     public Observable<ChengZhongRecordListResult> getList(int pageNum, int pageSize){
-        return networkRepository.getList(pageNum, pageSize);
+        return networkRepository.getList(getToken(), pageNum, pageSize);
     }
 
     public void saveUserNameAndPassword(String userName, String password){
