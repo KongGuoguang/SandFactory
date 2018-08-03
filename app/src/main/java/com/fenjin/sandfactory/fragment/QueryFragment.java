@@ -17,6 +17,7 @@ import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.adapter.ChengZhongListAdapter;
 import com.fenjin.sandfactory.viewmodel.QueryViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import java.util.List;
 
@@ -38,6 +39,11 @@ public class QueryFragment extends Fragment {
 
     private QMUITipDialog loginDialog;
 
+    //Fragment的View加载完毕的标记
+    protected boolean isViewCreated;
+
+    private QMUIPullRefreshLayout pullRefreshLayout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,18 +64,35 @@ public class QueryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
+        pullRefreshLayout = view.findViewById(R.id.layout_pull_refresh);
+        pullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+            }
+
+            @Override
+            public void onRefresh() {
+                viewModel.loadChengZhongRecordList();
+            }
+        });
+        isViewCreated = true;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        viewModel.loadChengZhongRecordList();
+
     }
 
     private void init(){
         viewModel.chengZhongRecordListLive.observe(this, new Observer<List<ChengZhongRecord>>() {
             @Override
             public void onChanged(@Nullable List<ChengZhongRecord> chengZhongRecords) {
+                pullRefreshLayout.finishRefresh();
                 if (chengZhongRecords != null){
                     adapter.setChengZhongRecordList(chengZhongRecords);
                     adapter.notifyDataSetChanged();
@@ -97,6 +120,15 @@ public class QueryFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
+        if (isVisibleToUser && isViewCreated){
+            viewModel.loadChengZhongRecordList();
+        }
     }
 
 }
