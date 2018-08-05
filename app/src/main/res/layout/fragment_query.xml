@@ -1,32 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragment.QueryFragment">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    </com.qmuiteam.qmui.widget.QMUITopBar>
+    <data>
 
-    <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.QueryViewModel"/>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout_pull_refresh">
+        android:orientation="vertical"
+        tools:context=".fragment.QueryFragment">
 
-        <ListView
-            android:id="@+id/list_view"
+        <!--<com.qmuiteam.qmui.widget.QMUITopBar-->
+            <!--android:id="@+id/top_bar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/qmui_topbar_height">-->
+
+        <!--</com.qmuiteam.qmui.widget.QMUITopBar>-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="60dp"
+            android:background="@color/app_color_blue">
 
-        </ListView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/tv_search"
+                android:layout_marginStart="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:textColorHint="#9d9e9e"
+                android:hint="输入票据编号、车号或货名等"
+                android:text="@={viewModel.searchKey}"
+                android:background="@drawable/shape_round_rectangle"/>
 
-    </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="16sp"
+                android:textColor="#ffffff"
+                android:text="搜索"
+                android:onClick="@{() -> viewModel.loadChengZhongRecordList()}"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+
+        </RelativeLayout>
+
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/layout_pull_refresh">
+
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
 
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</layout>
+

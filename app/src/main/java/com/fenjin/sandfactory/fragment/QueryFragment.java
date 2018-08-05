@@ -3,6 +3,7 @@ package com.fenjin.sandfactory.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.adapter.ChengZhongListAdapter;
+import com.fenjin.sandfactory.databinding.FragmentQueryBinding;
 import com.fenjin.sandfactory.viewmodel.QueryViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
@@ -37,12 +39,14 @@ public class QueryFragment extends Fragment {
 
     private ChengZhongListAdapter adapter;
 
-    private QMUITipDialog loginDialog;
+    private QMUITipDialog loadingDialog;
 
     //Fragment的View加载完毕的标记
     protected boolean isViewCreated;
 
     private QMUIPullRefreshLayout pullRefreshLayout;
+
+    private boolean firstLoad = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,12 +60,18 @@ public class QueryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_query, container, false);
+        FragmentQueryBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_query, container, false);
+        binding.setViewModel(viewModel);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+//        QMUITopBar topBar = view.findViewById(R.id.top_bar);
+//        topBar.setTitle("查询");
+
         listView = view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         pullRefreshLayout = view.findViewById(R.id.layout_pull_refresh);
@@ -92,10 +102,13 @@ public class QueryFragment extends Fragment {
         viewModel.chengZhongRecordListLive.observe(this, new Observer<List<ChengZhongRecord>>() {
             @Override
             public void onChanged(@Nullable List<ChengZhongRecord> chengZhongRecords) {
-                pullRefreshLayout.finishRefresh();
                 if (chengZhongRecords != null){
                     adapter.setChengZhongRecordList(chengZhongRecords);
                     adapter.notifyDataSetChanged();
+
+                    if (chengZhongRecords.size() > 0){
+                        firstLoad = false;
+                    }
                 }
             }
         });
@@ -105,17 +118,18 @@ public class QueryFragment extends Fragment {
             public void onChanged(@Nullable Boolean aBoolean) {
                 if (aBoolean == null) return;
                 if (aBoolean){
-                    if (loginDialog == null){
-                        loginDialog = new QMUITipDialog.Builder(getActivity())
+                    if (loadingDialog == null){
+                        loadingDialog = new QMUITipDialog.Builder(getActivity())
                                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                                 .setTipWord("正在加载")
                                 .create();
-                        loginDialog.setCancelable(false);
+                        loadingDialog.setCancelable(true);
                     }
-                    loginDialog.show();
+                    loadingDialog.show();
                 }else {
-                    if (loginDialog != null && loginDialog.isShowing()){
-                        loginDialog.dismiss();
+                    pullRefreshLayout.finishRefresh();
+                    if (loadingDialog != null && loadingDialog.isShowing()){
+                        loadingDialog.dismiss();
                     }
                 }
             }
@@ -126,7 +140,7 @@ public class QueryFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-        if (isVisibleToUser && isViewCreated){
+        if (isVisibleToUser && isViewCreated && firstLoad){
             viewModel.loadChengZhongRecordList();
         }
     }

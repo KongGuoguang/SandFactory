@@ -13,7 +13,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 public class LoginActivity extends BaseActivity {
 
-    private QMUITipDialog loginDialog;
+    private QMUITipDialog loadingDialog;
 
     private LoginViewModel viewModel;
 
@@ -46,17 +46,17 @@ public class LoginActivity extends BaseActivity {
             public void onChanged(@Nullable Boolean aBoolean) {
                 if (aBoolean == null) return;
                 if (aBoolean){
-                   if (loginDialog == null){
-                       loginDialog = new QMUITipDialog.Builder(LoginActivity.this)
+                   if (loadingDialog == null){
+                       loadingDialog = new QMUITipDialog.Builder(LoginActivity.this)
                                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                                .setTipWord("正在登录")
                                .create();
-                       loginDialog.setCancelable(false);
+                       loadingDialog.setCancelable(true);
                    }
-                   loginDialog.show();
+                   loadingDialog.show();
                 }else {
-                    if (loginDialog != null && loginDialog.isShowing()){
-                        loginDialog.dismiss();
+                    if (loadingDialog != null && loadingDialog.isShowing()){
+                        loadingDialog.dismiss();
                     }
                 }
             }

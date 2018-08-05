@@ -5,7 +5,6 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -24,8 +23,9 @@ public interface ServerInterface {
     Observable<LoginResult> login(@Body LoginParam loginParam);
 
     @GET("record/list")
-    Observable<ChengZhongRecordListResult> getList(@Header("token") String token,
-                                                   @Query("pageNum") int pageNum,
-                                                 @Query("pageSize") int pageSize);
+    Observable<ChengZhongRecordListResult> getChengZhongRecordList(@Header("token") String token,
+                                                                   @Query("pageNum") int pageNum,
+                                                                   @Query("pageSize") int pageSize,
+                                                                   @Query("searchKey") String searchKey);
 
 }

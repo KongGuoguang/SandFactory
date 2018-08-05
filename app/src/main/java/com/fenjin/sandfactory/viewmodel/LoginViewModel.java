@@ -2,6 +2,7 @@ package com.fenjin.sandfactory.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
+import android.databinding.Observable;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
@@ -22,11 +23,24 @@ public class LoginViewModel extends BaseViewModel {
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
+        userName.set(dataRepository.getUserName());
+        rememberPassword.set(dataRepository.getRememberPassword());
+        if (rememberPassword.get()){
+            password.set(dataRepository.getPassword());
+        }
+        rememberPassword.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                dataRepository.setRememberPassword(rememberPassword.get());
+            }
+        });
     }
 
     public ObservableField<String> userName = new ObservableField<>();
 
     public ObservableField<String> password = new ObservableField<>();
+
+    public ObservableField<Boolean> rememberPassword = new ObservableField<>();
 
     public MutableLiveData<Boolean> loginSuccess = new MutableLiveData<>();
 

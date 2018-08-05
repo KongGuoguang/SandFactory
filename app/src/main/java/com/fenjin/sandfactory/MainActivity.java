@@ -41,8 +41,8 @@ public class MainActivity extends BaseActivity {
                 ContextCompat.getDrawable(this, R.mipmap.ic_tab_search_pressed),
                 "查询",false);
         QMUITabSegment.Tab workStatistics = new QMUITabSegment.Tab(
-                ContextCompat.getDrawable(this, R.mipmap.ic_station_normal),
-                ContextCompat.getDrawable(this, R.mipmap.ic_station_pressed),
+                ContextCompat.getDrawable(this, R.mipmap.ic_monitor_normal),
+                ContextCompat.getDrawable(this, R.mipmap.ic_monitor_selected),
                 "监控",false);
         QMUITabSegment.Tab me = new QMUITabSegment.Tab(
                 ContextCompat.getDrawable(this, R.mipmap.ic_mine_normal),

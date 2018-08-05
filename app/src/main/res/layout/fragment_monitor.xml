@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.MonitorFragment">
+    android:orientation="vertical"
+    tools:context=".fragment.QueryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextureView
-        android:id="@+id/texture_view"
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="?attr/qmui_topbar_height">
 
-</FrameLayout>
+    </com.qmuiteam.qmui.widget.QMUITopBar>
+
+    <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_pull_refresh">
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null">
+
+        </ListView>
+
+    </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+
+
+
+</LinearLayout>

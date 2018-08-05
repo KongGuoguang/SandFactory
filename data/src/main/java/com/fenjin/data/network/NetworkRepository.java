@@ -4,13 +4,14 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.GetAllChannelResult;
+import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -34,6 +35,8 @@ public class NetworkRepository {
     private static NetworkRepository instance;
 
     private ServerInterface serverInterface;
+
+    private CameraInterface cameraInterface;
 
     public static NetworkRepository getInstance(){
         if (instance == null){
@@ -66,6 +69,12 @@ public class NetworkRepository {
                 .addInterceptor(interceptor)
                 .build();
 
+        initServerInterface(client);
+
+        initCameraInterface(client);
+    }
+
+    private void initServerInterface(OkHttpClient client){
         String baseUrl = "http://112.35.23.101:9090/api/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -77,12 +86,39 @@ public class NetworkRepository {
         serverInterface = retrofit.create(ServerInterface.class);
     }
 
+    private void initCameraInterface(OkHttpClient client){
+
+        String baseUrl = "http://112.35.23.101:10800/api/v1/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        cameraInterface = retrofit.create(CameraInterface.class);
+
+    }
+
     public Observable<LoginResult> login(LoginParam loginParam){
         return serverInterface.login(loginParam);
     }
 
-    public Observable<ChengZhongRecordListResult> getList(String token,int pageNum, int pageSize){
-        return serverInterface.getList(token,pageNum, pageSize);
+    public Observable<ChengZhongRecordListResult> getChengZhongRecordList(String token, int pageNum,
+                                                                          int pageSize, String searchKey){
+        return serverInterface.getChengZhongRecordList(token,pageNum, pageSize, searchKey);
+    }
+
+    public Observable<GetAllChannelResult> getAllChannel(){
+        return cameraInterface.getAllChannel();
+    }
+
+    public Observable<GetChannelResult> getChannel(int channel,String protocol){
+        return cameraInterface.getChannel(channel, protocol);
+    }
+
+    public Observable<GetChannelResult> touchChannel(int channel, String line, String protocol){
+        return cameraInterface.touchChannel(channel, line, protocol);
     }
 
 //    private static class LoggingInterceptor implements Interceptor {

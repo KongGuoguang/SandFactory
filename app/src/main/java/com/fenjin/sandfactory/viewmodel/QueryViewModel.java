@@ -2,12 +2,16 @@ package com.fenjin.sandfactory.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.sandfactory.usecase.GetChengZhongrecordListUseCase;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -24,6 +28,8 @@ public class QueryViewModel extends BaseViewModel {
         super(application);
     }
 
+    public ObservableField<String> searchKey = new ObservableField<>();
+
     public MutableLiveData<List<ChengZhongRecord>> chengZhongRecordListLive = new MutableLiveData<>();
 
     private GetChengZhongrecordListUseCase useCase = new GetChengZhongrecordListUseCase(getApplication());
@@ -31,8 +37,12 @@ public class QueryViewModel extends BaseViewModel {
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
     public void loadChengZhongRecordList(){
+
+        chengZhongRecordListLive.postValue(new ArrayList<ChengZhongRecord>());
+
         loading.postValue(true);
-        useCase.get(1, 40).execute(
+
+        useCase.get(1, 40, searchKey.get()).execute(
                 new Observer<ChengZhongRecordListResult>() {
                     @Override
                     public void onSubscribe(Disposable d) {

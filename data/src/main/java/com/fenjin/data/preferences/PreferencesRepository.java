@@ -21,6 +21,8 @@ public class PreferencesRepository {
 
     private static final String TOKEN = "token";
 
+    private static final String REMEMBER_PASSWORD = "remember_password";
+
     private SharedPreferences sharedPreferences;
 
     public static PreferencesRepository getInstance(Context context){
@@ -61,5 +63,14 @@ public class PreferencesRepository {
 
     public void saveToken(String token){
         sharedPreferences.edit().putString(TOKEN, token).apply();
+    }
+
+
+    public void setRememberPassword(boolean rememberPassword){
+        sharedPreferences.edit().putBoolean(REMEMBER_PASSWORD, rememberPassword).apply();
+    }
+
+    public boolean getRememberPassword(){
+        return sharedPreferences.getBoolean(REMEMBER_PASSWORD, false);
     }
 }

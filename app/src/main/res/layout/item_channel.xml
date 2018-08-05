@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="196.33dp"
+    android:paddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/image_snap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:background="@android:color/darker_gray"/>
+
+    <ImageView
+        android:id="@+id/image_play"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:background="@mipmap/ic_play"/>
+
+    <TextView
+        android:id="@+id/tv_off_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:text="离线"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/text_channel_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_play"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:textColor="#ffffff"
+        android:textSize="14sp"/>
+
+</RelativeLayout>

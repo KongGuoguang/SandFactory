@@ -3,13 +3,14 @@ package com.fenjin.data;
 import android.content.Context;
 
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.GetAllChannelResult;
+import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 
 /**
  * Author:kongguoguang
@@ -56,8 +57,8 @@ public class DataRepository {
         return networkRepository.login(loginParam);
     }
 
-    public Observable<ChengZhongRecordListResult> getList(int pageNum, int pageSize){
-        return networkRepository.getList(getToken(), pageNum, pageSize);
+    public Observable<ChengZhongRecordListResult> getChengZhongRecordList(int pageNum, int pageSize, String searchKey){
+        return networkRepository.getChengZhongRecordList(getToken(), pageNum, pageSize, searchKey);
     }
 
     public void saveUserNameAndPassword(String userName, String password){
@@ -69,7 +70,35 @@ public class DataRepository {
         return preferencesRepository.getToken();
     }
 
+    public String getUserName(){
+        return preferencesRepository.getUserName();
+    }
+
+    public String getPassword(){
+        return preferencesRepository.getPassword();
+    }
+
     public void saveToken(String token){
         preferencesRepository.saveToken(token);
+    }
+
+    public Observable<GetAllChannelResult> getAllChannel(){
+        return networkRepository.getAllChannel();
+    }
+
+    public Observable<GetChannelResult> getChannel(int channel, String protocol){
+        return networkRepository.getChannel(channel, protocol);
+    }
+
+    public Observable<GetChannelResult> touchChannel(int channel, String line, String protocol){
+        return networkRepository.touchChannel(channel, line, protocol);
+    }
+
+    public void setRememberPassword(boolean rememberPassword){
+        preferencesRepository.setRememberPassword(rememberPassword);
+    }
+
+    public boolean getRememberPassword(){
+        return preferencesRepository.getRememberPassword();
     }
 }

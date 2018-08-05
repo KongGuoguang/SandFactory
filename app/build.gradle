@@ -10,15 +10,26 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', 'KEY', '"79393674363536526D343241692F4E61705178304A655A76636D63755A57467A65575268636E64706269356C59584E356347786865575679567778576F502B6C34456468646D6C754A6B4A68596D397A595541794D4445325257467A65555268636E6470626C526C5957316C59584E35"'
+//        buildConfigField 'String', 'KEY', '"79393674363536526D343241692F4E61705178304A655A76636D63755A57467A65575268636E64706269356C59584E356347786865575679567778576F502B6C34456468646D6C754A6B4A68596D397A595541794D4445325257467A65555268636E6470626C526C5957316C59584E35"'
         //buildConfigField 'String', 'RTSP_URL', '"rtsp://cloud.easydarwin.org:554/652987.sdp"'
-        buildConfigField 'String', 'RTSP_URL', '"rtsp://admin:hik12345@120.194.169.232:561/h264/ch1/sub/av_stream"'
+//        buildConfigField 'String', 'RTSP_URL', '"rtsp://admin:hik12345@120.194.169.232:561/h264/ch1/sub/av_stream"'
+
+        // 此处很重要，指定APP只使用 armeabi-v7a和arm64-v8a的库
+        ndk {
+            abiFilters 'armeabi-v7a'
+//            abiFilters 'armeabi-v7a','arm64-v8a'
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    sourceSets.main {
+        jniLibs.srcDirs 'libs' // 动态库和jar的存放路径
+        jni.srcDirs = [] // This prevents the auto generation of Android.mk
     }
 
     dataBinding {
@@ -29,7 +40,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -39,5 +50,10 @@ dependencies {
     annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
     implementation 'com.qmuiteam:qmui:1.1.0'
     implementation project(':data')
-    implementation project(':easyplayer')
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+
+    //implementation 'com.ksyun.media:libksyplayer-java:1.9.2'
+//    implementation 'com.ksyun.media:libksyplayer-armv7a:1.9.2'
+//    implementation 'com.ksyun.media:libksyplayer-arm64:1.9.2'
 }

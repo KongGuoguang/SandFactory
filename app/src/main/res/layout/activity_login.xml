@@ -16,15 +16,19 @@
         android:layout_height="match_parent"
         tools:context=".LoginActivity">
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/view_title"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@color/app_color_blue"
-            android:gravity="center"
-            android:text="商城采砂"
-            android:textColor="#ffffff"
-            android:textSize="20sp"/>
+            android:layout_height="300dp"
+            android:background="@color/app_color_blue">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ic_launcher"/>
+
+        </RelativeLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/layout_user_name"
@@ -32,12 +36,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_title"
             android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp">
+            android:layout_marginRight="24dp"
+            android:hint="用户名">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.userName}"/>
+                android:text="@={viewModel.userName}" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -47,16 +52,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_user_name"
             android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp">
+            android:layout_marginRight="24dp"
+            android:hint="密码">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.password}"/>
+                android:inputType="textPassword"
+                android:text="@={viewModel.password}" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -70,6 +78,32 @@
             android:background="@color/app_color_blue"
             android:onClick="@{() -> viewModel.login()}"
             app:enableOrNot="@{viewModel.userName.get().length() > 0 &amp;&amp; viewModel.password.get().length() > 3}"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="24dp"
+            android:layout_below="@+id/button_login"
+            android:gravity="center_vertical">
+
+            <CheckBox
+                android:id="@+id/check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={viewModel.rememberPassword}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginStart="5dp"
+                android:text="记住密码？"/>
+
+
+
+        </LinearLayout>
 
             <!-- xml中 '<'和'&'这两个字符是严格禁止使用的，需要转义  -->
             <!-- &lt; < 小于号 -->
