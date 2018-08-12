@@ -5,18 +5,67 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragment.FirstFragment">
+    
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="73dp"
+       android:background="#3076f6"
+       android:gravity="center_horizontal">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/top_bar"
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="38dp"
+           android:textColor="#ffffff"
+           android:textSize="16sp"
+           android:text="统计"/>
+
+   </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height">
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
-    </com.qmuiteam.qmui.widget.QMUITopBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="12sp"
+            android:textColor="#9d9e9e"
+            android:text="总车数："/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_static"/>
+        <TextView
+            android:id="@+id/tv_zong_che_shu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:layout_marginStart="48dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toStartOf="@+id/tv_zong_zhong_liang"
+            android:textSize="12sp"
+            android:textColor="#9d9e9e"
+            android:text="总重量："/>
+
+        <TextView
+            android:id="@+id/tv_zong_zhong_liang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:layout_marginStart="48dp"/>
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"

@@ -11,17 +11,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
-import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.adapter.ChengZhongListAdapter;
 import com.fenjin.sandfactory.databinding.FragmentQueryBinding;
 import com.fenjin.sandfactory.viewmodel.QueryViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,15 +42,15 @@ public class QueryFragment extends Fragment {
     //Fragment的View加载完毕的标记
     protected boolean isViewCreated;
 
-    private QMUIPullRefreshLayout pullRefreshLayout;
+    private boolean isBottom;
 
-    private boolean firstLoad = true;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(QueryViewModel.class);
         adapter = new ChengZhongListAdapter();
+        adapter.setChengZhongRecordList(viewModel.chengZhongRecordList);
         init();
     }
 
@@ -69,46 +67,51 @@ public class QueryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        QMUITopBar topBar = view.findViewById(R.id.top_bar);
-//        topBar.setTitle("查询");
 
         listView = view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
-        pullRefreshLayout = view.findViewById(R.id.layout_pull_refresh);
-        pullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onMoveTarget(int offset) {
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    if (isBottom) {
+                        // 下载更多数据
+//                        Toast.makeText(MainActivity.this, "正在加载",
+//                                Toast.LENGTH_SHORT).show();
+                        //加载数据的方法代码.......
+                        //这里面的代码通常是根据mPageNum加载不同的数据
+                        // 对mPageNum处理: mPageNum++
+
+                        viewModel.loadNextPageChengZhongRecords();
+
+                    }
+                }
+
             }
 
             @Override
-            public void onMoveRefreshView(int offset) {
-            }
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // 说明:
+                // fistVisibleItem:表示划出屏幕的ListView子项个数
+                // visibleItemCount:表示屏幕中正在显示的ListView子项个数
+                // totalItemCount:表示ListView子项的总数
+                // 前两个相加==最后一个说明ListView滑到底部
+                isBottom = firstVisibleItem + visibleItemCount == totalItemCount;
 
-            @Override
-            public void onRefresh() {
-                viewModel.loadChengZhongRecordList();
             }
         });
+
         isViewCreated = true;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
     private void init(){
-        viewModel.chengZhongRecordListLive.observe(this, new Observer<List<ChengZhongRecord>>() {
-            @Override
-            public void onChanged(@Nullable List<ChengZhongRecord> chengZhongRecords) {
-                if (chengZhongRecords != null){
-                    adapter.setChengZhongRecordList(chengZhongRecords);
-                    adapter.notifyDataSetChanged();
 
-                    if (chengZhongRecords.size() > 0){
-                        firstLoad = false;
-                    }
+        viewModel.dataChanged.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean dateChanged) {
+
+                if (dateChanged){
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -127,7 +130,6 @@ public class QueryFragment extends Fragment {
                     }
                     loadingDialog.show();
                 }else {
-                    pullRefreshLayout.finishRefresh();
                     if (loadingDialog != null && loadingDialog.isShowing()){
                         loadingDialog.dismiss();
                     }
@@ -140,8 +142,8 @@ public class QueryFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-        if (isVisibleToUser && isViewCreated && firstLoad){
-            viewModel.loadChengZhongRecordList();
+        if (isVisibleToUser && isViewCreated && viewModel.currentPage == 0){
+            viewModel.loadFirstPageChengZhongRecords();
         }
     }
 

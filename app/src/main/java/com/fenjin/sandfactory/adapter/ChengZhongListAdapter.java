@@ -69,9 +69,9 @@ public class ChengZhongListAdapter extends BaseAdapter {
         viewHolder.sandName.setText(chengZhongRecord.getSandName());
         viewHolder.hm.setText(chengZhongRecord.getHm());
         viewHolder.ch.setText("车辆号码:" + chengZhongRecord.getCh());
-        viewHolder.mz.setText("毛重：" + chengZhongRecord.getMz() + "吨");
+        viewHolder.mz.setText("毛重：" + chengZhongRecord.getMz() + "千克");
         viewHolder.je.setText("金额：" + chengZhongRecord.getJe());
-        viewHolder.jz.setText("净重：" + chengZhongRecord.getJz() + "吨");
+        viewHolder.jz.setText("净重：" + chengZhongRecord.getJz() + "千克");
         viewHolder.dateTime.setText(chengZhongRecord.getRq() + " " + chengZhongRecord.getShijian());
 
         return view;

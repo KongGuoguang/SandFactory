@@ -17,34 +17,71 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".fragment.MeFragment">
+        tools:context=".fragment.MeFragment"
+        android:background="#f4f4f4">
 
-        <!-- TODO: Update blank fragment layout -->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/app_color_blue">
+            android:layout_height="273dp"
+            android:background="#3076f6"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="我的"/>
 
             <ImageView
                 android:id="@+id/image_head"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/shape_white_round"
-                android:src="@mipmap/ic_user"
-                android:scaleType="center"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_head"
+                android:layout_marginTop="62dp"/>
 
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/image_head"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:textSize="16sp"
                 android:textColor="#ffffff"
                 android:text="@{viewModel.userName}"/>
 
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:src="@mipmap/ic_modify_password"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_centerVertical="true"
+                android:textColor="#2a2f2f"
+                android:textSize="16sp"
+                android:text="修改密码"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:src="@mipmap/ic_arrow"/>
 
         </RelativeLayout>
 
@@ -53,13 +90,13 @@
             android:id="@+id/tv_logout"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:background="@android:color/holo_red_light"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/logout_button"
             android:gravity="center"
             android:text="退出登录"
-            android:textColor="#ffffff"
+            android:textColor="#fc2424"
             android:textSize="16sp"
             android:onClick="@{() -> viewModel.showLogoutDialog()}"/>
 

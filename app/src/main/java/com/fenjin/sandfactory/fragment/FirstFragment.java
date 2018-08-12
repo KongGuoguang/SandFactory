@@ -62,9 +62,6 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        QMUITopBar topBar = view.findViewById(R.id.top_bar);
-        topBar.setTitle("统计");
-
         listView = view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         pullRefreshLayout = view.findViewById(R.id.layout_pull_refresh);

@@ -5,13 +5,12 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.sandfactory.usecase.GetChengZhongrecordListUseCase;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -30,19 +29,43 @@ public class QueryViewModel extends BaseViewModel {
 
     public ObservableField<String> searchKey = new ObservableField<>();
 
-    public MutableLiveData<List<ChengZhongRecord>> chengZhongRecordListLive = new MutableLiveData<>();
-
     private GetChengZhongrecordListUseCase useCase = new GetChengZhongrecordListUseCase(getApplication());
 
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
-    public void loadChengZhongRecordList(){
+    public MutableLiveData<Boolean> dataChanged = new MutableLiveData<>();
 
-        chengZhongRecordListLive.postValue(new ArrayList<ChengZhongRecord>());
+    public int currentPage;
+
+    private int pageSize = 10;
+
+    public List<ChengZhongRecord> chengZhongRecordList = new ArrayList<>();
+
+    public void loadFirstPageChengZhongRecords(){
+
+        chengZhongRecordList.clear();
+
+        currentPage = 0;
+
+        dataChanged.postValue(true);
 
         loading.postValue(true);
 
-        useCase.get(1, 40, searchKey.get()).execute(
+        loadChengZhongRecordList(currentPage + 1);
+    }
+
+    public void loadNextPageChengZhongRecords(){
+
+        loadChengZhongRecordList(currentPage + 1);
+    }
+
+
+
+    private void loadChengZhongRecordList(int pageNumber){
+
+        LogUtils.d("load page " + pageNumber);
+
+        useCase.get(pageNumber, pageSize, searchKey.get()).execute(
                 new Observer<ChengZhongRecordListResult>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -53,9 +76,23 @@ public class QueryViewModel extends BaseViewModel {
                     public void onNext(ChengZhongRecordListResult chengZhongRecordListResult) {
                         loading.postValue(false);
                         if (chengZhongRecordListResult.getFlag() == 1){
-                            chengZhongRecordListLive.postValue(
-                                    chengZhongRecordListResult.getResult().getList());
+
+                            List<ChengZhongRecord> chengZhongRecords = chengZhongRecordListResult.getResult().getList();
+
+                            if (chengZhongRecords != null && chengZhongRecords.size() > 0){
+                                chengZhongRecordList.addAll(chengZhongRecords);
+                                dataChanged.postValue(true);
+
+                                int count = chengZhongRecordList.size();
+                                if (count % pageSize == 0){
+                                    currentPage = count / pageSize;
+                                }else {
+                                    currentPage = count / pageSize + 1;
+                                }
+                            }
+
                         }
+
                     }
 
                     @Override
@@ -70,4 +107,5 @@ public class QueryViewModel extends BaseViewModel {
                 }
         );
     }
+
 }

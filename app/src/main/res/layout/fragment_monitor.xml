@@ -4,14 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.QueryFragment">
+    tools:context=".fragment.MonitorFragment">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/top_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height">
+        android:layout_height="73dp"
+        android:background="#3076f6"
+        android:gravity="center_horizontal">
 
-    </com.qmuiteam.qmui.widget.QMUITopBar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:text="监控"/>
+
+    </LinearLayout>
 
     <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
         android:layout_width="match_parent"

@@ -69,9 +69,6 @@ public class MonitorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        QMUITopBar topBar = view.findViewById(R.id.top_bar);
-        topBar.setTitle("监控");
-
         listView = view.findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
