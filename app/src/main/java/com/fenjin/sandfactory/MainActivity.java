@@ -1,5 +1,6 @@
 package com.fenjin.sandfactory;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity {
 
     private void initTabs(){
         tabSegment = findViewById(R.id.tabs);
+        tabSegment.setDefaultSelectedColor(Color.parseColor("#3076f6"));
         QMUITabSegment.Tab workRecord = new QMUITabSegment.Tab(
                 ContextCompat.getDrawable(this, R.mipmap.ic_vehicle_normal),
                 ContextCompat.getDrawable(this, R.mipmap.ic_vehicle_pressed),

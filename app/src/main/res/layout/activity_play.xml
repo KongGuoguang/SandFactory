@@ -1,23 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    tools:context=".PlayActivity">
+    tools:context=".PlayActivity"
+    android:orientation="vertical">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/top_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/qmui_topbar_height">
+        android:layout_height="73dp"
+        android:background="#3076f6"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    </com.qmuiteam.qmui.widget.QMUITopBar>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="25dp">
 
-    <SurfaceView
-        android:id="@+id/surface_view"
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:src="@mipmap/ic_arrow_back"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="监控"/>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="295dp"
-        android:layout_centerVertical="true"/>
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+        <SurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="295dp"
+            android:layout_centerVertical="true"/>
+        
+        <ImageView
+            android:id="@+id/iv_enlarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/surface_view"
+            android:layout_alignEnd="@+id/surface_view"
+            android:src="@mipmap/ic_enlarge"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:visibility="gone"/>
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_shrink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/surface_view"
+            android:src="@mipmap/ic_shrink"
+            android:padding="14dp"
+            android:visibility="gone"/>
+        
+    </RelativeLayout>
+
+
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.fenjin.sandfactory;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
@@ -24,5 +25,9 @@ public class BaseActivity extends AppCompatActivity {
                     }
                 })
                 .create().show();
+    }
+
+    protected void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

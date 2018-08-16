@@ -35,6 +35,8 @@ public class QueryViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> dataChanged = new MutableLiveData<>();
 
+    public MutableLiveData<Boolean> loadAllData = new MutableLiveData<>();
+
     public int currentPage;
 
     private int pageSize = 10;
@@ -79,6 +81,8 @@ public class QueryViewModel extends BaseViewModel {
 
                             List<ChengZhongRecord> chengZhongRecords = chengZhongRecordListResult.getResult().getList();
 
+                            int total = chengZhongRecordListResult.getResult().getTotal();
+
                             if (chengZhongRecords != null && chengZhongRecords.size() > 0){
                                 chengZhongRecordList.addAll(chengZhongRecords);
                                 dataChanged.postValue(true);
@@ -90,6 +94,8 @@ public class QueryViewModel extends BaseViewModel {
                                     currentPage = count / pageSize + 1;
                                 }
                             }
+
+                            loadAllData.postValue(chengZhongRecordList.size() == total);
 
                         }
 

@@ -44,6 +44,8 @@ public class QueryFragment extends Fragment {
 
     private boolean isBottom;
 
+    private View footerView;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +60,10 @@ public class QueryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.layout_foot, container, false);
+        footerView = view.findViewById(R.id.tv_foot);
+        footerView.setVisibility(View.GONE);
+
         FragmentQueryBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_query, container, false);
         binding.setViewModel(viewModel);
         return binding.getRoot();
@@ -74,7 +80,7 @@ public class QueryFragment extends Fragment {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int scrollState) {
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    if (isBottom) {
+                    if (isBottom && footerView.getVisibility() == View.GONE) {
                         // 下载更多数据
 //                        Toast.makeText(MainActivity.this, "正在加载",
 //                                Toast.LENGTH_SHORT).show();
@@ -100,6 +106,7 @@ public class QueryFragment extends Fragment {
 
             }
         });
+        listView.addFooterView(footerView);
 
         isViewCreated = true;
     }
@@ -133,6 +140,17 @@ public class QueryFragment extends Fragment {
                     if (loadingDialog != null && loadingDialog.isShowing()){
                         loadingDialog.dismiss();
                     }
+                }
+            }
+        });
+
+        viewModel.loadAllData.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean){
+                    footerView.setVisibility(View.VISIBLE);
+                }else {
+                    footerView.setVisibility(View.GONE);
                 }
             }
         });
