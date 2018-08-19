@@ -1,8 +1,10 @@
-package com.fenjin.sandfactory;
+package com.fenjin.sandfactory.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,11 +13,12 @@ import android.view.OrientationEventListener;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.fenjin.sandfactory.app.BaseActivity;
+import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.databinding.ActivityPlayBinding;
 import com.fenjin.sandfactory.viewmodel.PlayViewModel;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
@@ -25,8 +28,6 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import java.io.IOException;
 
 public class PlayActivity extends BaseActivity {
-
-    private TextView title;
 
     private PlayViewModel viewModel;
 
@@ -38,18 +39,10 @@ public class PlayActivity extends BaseActivity {
 
     private SurfaceView mVideoSurfaceView;
 
-    private ImageView enlarge, shrink;//放大、缩小按钮
-
-    private String url;//视频地址
-
     //视频宽高比
     private float aspectRatio = ((float)704) / ((float) 576);
 
     private int screenWidth, screenHeight;//屏幕宽高
-
-    private boolean isPlayingHalfScreen;//半屏播放标识
-
-    private boolean isPlayingFullScreen;//全屏播放标识
 
 
     @Override
@@ -57,16 +50,14 @@ public class PlayActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         QMUIStatusBarHelper.translucent(this);
 
-        setContentView(R.layout.activity_play);
-
+        ActivityPlayBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_play);
         viewModel = ViewModelProviders.of(this).get(PlayViewModel.class);
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        screenWidth = dm.widthPixels;
-        screenHeight = dm.heightPixels;
+        binding.setViewModel(viewModel);
+
 
         initPlayer();
 
-        initView();
+        initSurfaceView();
 
         registerObserver();
 
@@ -109,11 +100,10 @@ public class PlayActivity extends BaseActivity {
                     case KSYMediaPlayer.MEDIA_INFO_AUDIO_RENDERING_START:
                         LogUtils.d("PlayActivity", "开始播放音频");
                         break;
-                    case KSYMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START:
+                    case KSYMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START://播放成功
                         LogUtils.d("PlayActivity", "开始渲染视频");
                         loadingDialog.dismiss();
-                        enlarge.setVisibility(View.VISIBLE);
-                        isPlayingHalfScreen = true;
+                        viewModel.playSuccess.set(true);
                         break;
                     case KSYMediaPlayer.MEDIA_INFO_SUGGEST_RELOAD:
                         LogUtils.d("PlayActivity", "调用reload接口");
@@ -121,7 +111,7 @@ public class PlayActivity extends BaseActivity {
                         // 当播放器读到另一个流的数据时会发出此消息通知
                         // 请务必调用reload接口
                         if(ksyMediaPlayer != null)
-                            ksyMediaPlayer.reload(url, false);
+                            ksyMediaPlayer.reload(viewModel.channelUrl.getValue(), false);
                         break;
                     case KSYMediaPlayer.MEDIA_INFO_RELOADED:
                         LogUtils.d("PlayActivity", "reload成功");
@@ -147,16 +137,7 @@ public class PlayActivity extends BaseActivity {
         });
     }
 
-    private void initView(){
-        title = findViewById(R.id.tv_title);
-
-        ImageView back = findViewById(R.id.iv_back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+    private void initSurfaceView(){
 
         mVideoSurfaceView  = findViewById(R.id.surface_view);
         SurfaceHolder mSurfaceHolder = mVideoSurfaceView.getHolder();
@@ -183,21 +164,9 @@ public class PlayActivity extends BaseActivity {
             }
         });
 
-        enlarge = findViewById(R.id.iv_enlarge);
-        enlarge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                playFullScreen();
-            }
-        });
-
-        shrink = findViewById(R.id.iv_shrink);
-        shrink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                playHalfScreen();
-            }
-        });
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        screenWidth = dm.widthPixels;
+        screenHeight = dm.heightPixels;
 
         RelativeLayout.LayoutParams params  = (RelativeLayout.LayoutParams) mVideoSurfaceView.getLayoutParams();
         params.height = (int) (screenWidth / aspectRatio);
@@ -215,6 +184,7 @@ public class PlayActivity extends BaseActivity {
                             .setTipWord("获取视频地址")
                             .create();
                     loadingDialog.setCancelable(true);
+                    loadingDialog.setCanceledOnTouchOutside(true);
                     loadingDialog.show();
                 }else {
                     if (loadingDialog != null && loadingDialog.isShowing()){
@@ -224,21 +194,20 @@ public class PlayActivity extends BaseActivity {
             }
         });
 
-        viewModel.urlLive.observe(this, new Observer<String>() {
+        viewModel.channelUrl.observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 
                 LogUtils.d("PlayActivity", "rtmp url：" + s);
 
 
-
                 if (!TextUtils.isEmpty(s)){
-                    url = s;
                     loadingDialog = new QMUITipDialog.Builder(PlayActivity.this)
                             .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                             .setTipWord("正在缓冲")
                             .create();
                     loadingDialog.setCancelable(true);
+                    loadingDialog.setCanceledOnTouchOutside(true);
                     loadingDialog.show();
                     try {
                         ksyMediaPlayer.setDataSource(s);
@@ -246,15 +215,36 @@ public class PlayActivity extends BaseActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }else {
+                    showToast("视频地址获取失败，请返回重试");
                 }
 
+            }
+        });
+
+        viewModel.finishActivity.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                finish();
+            }
+        });
+
+        viewModel.playFullScreen.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (viewModel.playFullScreen.get()){
+                    playFullScreen();
+                }else {
+                    playHalfScreen();
+                }
             }
         });
     }
 
     private void loadVideo(){
         Intent intent = getIntent();
-        title.setText(intent.getStringExtra("channelName"));
+        viewModel.channelName.set(intent.getStringExtra("channelName"));
+
         int channel = intent.getIntExtra("channel", -1);
         viewModel.getChannel(channel);
         viewModel.touchChannel(channel);
@@ -266,11 +256,11 @@ public class PlayActivity extends BaseActivity {
             public void onOrientationChanged(int rotation) {
                 LogUtils.d("PlayActivity", "rotation = " + rotation);
                 if (((rotation >= 0) && (rotation <= 45)) || (rotation > 315)) {
-                    if (isPlayingFullScreen){
+                    if (viewModel.playFullScreen.get()){
                         playHalfScreen();
                     }
                 } else if (rotation > 225) {
-                    if (isPlayingHalfScreen){
+                    if (!viewModel.playFullScreen.get()){
                         playFullScreen();
                     }
                 }
@@ -302,11 +292,6 @@ public class PlayActivity extends BaseActivity {
         // 设置视频伸缩模式，此模式为全屏模式，视频宽高比例与手机频幕宽高比例不一致时，使用此模式视频播放会有画面拉伸
         ksyMediaPlayer.setVideoScalingMode(KSYMediaPlayer.VIDEO_SCALING_MODE_NOSCALE_TO_FIT);
 
-        enlarge.setVisibility(View.GONE);
-        shrink.setVisibility(View.VISIBLE);
-
-        isPlayingFullScreen = true;
-        isPlayingHalfScreen = false;
     }
 
     private void playHalfScreen(){
@@ -320,11 +305,6 @@ public class PlayActivity extends BaseActivity {
         // 设置视频伸缩模式，此模式为填充模式，会有黑边
         ksyMediaPlayer.setVideoScalingMode(KSYMediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT);
 
-        enlarge.setVisibility(View.VISIBLE);
-        shrink.setVisibility(View.GONE);
-
-        isPlayingHalfScreen = true;
-        isPlayingFullScreen = false;
     }
 
     private void setSystemUIVisible(boolean show) {

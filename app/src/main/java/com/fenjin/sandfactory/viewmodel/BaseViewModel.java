@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.DataRepository;
 import com.fenjin.data.entity.LoginParam;
-import com.fenjin.sandfactory.BaseApplication;
+import com.fenjin.sandfactory.app.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

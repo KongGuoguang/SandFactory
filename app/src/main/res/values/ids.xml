@@ -5,6 +5,7 @@
 
     <item name="empty_button" type="id"/>
 
+    <item name="topbar_left_image_button" type="id"/>
     <item name="topbar_right_about_button" type="id"/>
     <item name="topbar_right_change_button" type="id"/>
 </resources>

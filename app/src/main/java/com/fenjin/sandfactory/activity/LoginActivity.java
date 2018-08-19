@@ -1,4 +1,4 @@
-package com.fenjin.sandfactory;
+package com.fenjin.sandfactory.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -7,6 +7,8 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 
+import com.fenjin.sandfactory.app.BaseActivity;
+import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityLoginBinding;
 import com.fenjin.sandfactory.viewmodel.LoginViewModel;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;

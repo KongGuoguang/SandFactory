@@ -1,4 +1,4 @@
-package com.fenjin.sandfactory;
+package com.fenjin.sandfactory.app;
 
 import android.app.Application;
 

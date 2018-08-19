@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.DataRepository;
-import com.fenjin.sandfactory.BaseApplication;
+import com.fenjin.sandfactory.app.BaseApplication;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;

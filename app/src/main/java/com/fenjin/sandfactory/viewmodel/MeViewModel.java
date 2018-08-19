@@ -16,6 +16,8 @@ public class MeViewModel extends BaseViewModel {
 
    public MutableLiveData<Boolean> logoutDialog = new MutableLiveData<>();
 
+   public MutableLiveData<Boolean> startAboutActivity = new MutableLiveData<>();
+
    public void showLogoutDialog(){
        logoutDialog.postValue(true);
    }
@@ -23,5 +25,13 @@ public class MeViewModel extends BaseViewModel {
     public void logout(){
         dataRepository.saveToken("");
 
+    }
+
+    public void startModifyPasswordActicity(){
+
+    }
+
+    public void startAboutActivity(){
+       startAboutActivity.postValue(true);
     }
 }

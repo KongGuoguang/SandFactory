@@ -2,6 +2,7 @@ package com.fenjin.sandfactory.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -25,9 +26,17 @@ public class PlayViewModel extends BaseViewModel {
 
     private TouchChannelUseCase touchChannelUseCase = new TouchChannelUseCase(getApplication());
 
+    public ObservableField<String> channelName = new ObservableField<>();
+
+    public ObservableField<Boolean> playFullScreen = new ObservableField<>();
+
+    public ObservableField<Boolean> playSuccess = new ObservableField<>();
+
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
-    public MutableLiveData<String> urlLive = new MutableLiveData<>();
+    public MutableLiveData<String> channelUrl = new MutableLiveData<>();
+
+    public MutableLiveData<Boolean> finishActivity = new MutableLiveData<>();
 
     private Timer timer;
 
@@ -49,13 +58,11 @@ public class PlayViewModel extends BaseViewModel {
                 loading.postValue(false);
                 String url = getChannelResult.getEasyDarwin().getBody().getURL();
 
-                if (!TextUtils.isEmpty(url)){
-                    if (url.contains("{host}")){
-                        url = url.replace("{host}", "112.35.23.101");
-                    }
-
-                    urlLive.postValue(url);
+                if (!TextUtils.isEmpty(url) && url.contains("{host}")){
+                    url = url.replace("{host}", "112.35.23.101");
                 }
+
+                channelUrl.postValue(url);
             }
 
             @Override
@@ -91,6 +98,19 @@ public class PlayViewModel extends BaseViewModel {
 
         timer.schedule(timerTask, 30000, 30000);
     }
+
+    public void playFullScreen(boolean fullScreen){
+
+        LogUtils.d("PlayViewModel", "playFullScreen(), fullScreen = " + fullScreen);
+
+        playFullScreen.set(fullScreen);
+    }
+
+    public void finishActivity(){
+        finishActivity.postValue(true);
+    }
+
+
 
     @Override
     protected void onCleared() {

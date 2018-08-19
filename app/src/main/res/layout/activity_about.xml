@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.AboutViewModel"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.AboutActivity"
+        android:background="#f1f1f1"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/app_color_main"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:drawableStart="@mipmap/ic_arrow_back"
+                android:drawablePadding="10dp"
+                android:text="关于"
+                android:onClick="@{() -> viewModel.finishActivity()}"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:src="@mipmap/ic_logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            android:textColor="#2a2f2f"
+            android:text="@string/app_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textColor="#9d9e9e"
+            android:text="@{viewModel.versionName}"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/common_cilck_item_bg"
+            android:clickable="true"
+            android:focusable="true">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_centerVertical="true"
+                android:textColor="#2a2f2f"
+                android:textSize="16sp"
+                android:text="检查更新"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="10dp"
+                android:textSize="14sp"
+                android:textColor="#9d9e9e"
+                android:drawableEnd="@mipmap/ic_arrow"
+                android:text="@{viewModel.updateResult}"/>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

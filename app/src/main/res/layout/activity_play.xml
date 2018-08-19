@@ -1,81 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PlayActivity"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.PlayViewModel"/>
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:background="#3076f6"
-        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
+        tools:context=".activity.PlayActivity"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="25dp">
-
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
-                android:padding="8dp"
-                android:src="@mipmap/ic_arrow_back"/>
+            android:layout_height="73dp"
+            android:background="@color/app_color_main"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
-                android:text="监控"/>
+                android:text="@{viewModel.channelName}"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:src="@mipmap/ic_arrow_back"
+                android:onClick="@{() -> viewModel.finishActivity()}"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/black">
+            <SurfaceView
+                android:id="@+id/surface_view"
+                android:layout_width="match_parent"
+                android:layout_height="295dp"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/iv_enlarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/surface_view"
+                android:layout_alignEnd="@+id/surface_view"
+                android:src="@mipmap/ic_enlarge"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                app:visibleGone="@{viewModel.playSuccess  &amp;&amp; !viewModel.playFullScreen}"
+                android:onClick="@{() -> viewModel.playFullScreen(true)}"/>
+
+            <!-- xml中 '<'和'&'这两个字符是严格禁止使用的，需要转义  -->
+            <!-- &lt; < 小于号 -->
+            <!-- &amp; & 和  -->
+
+            <ImageView
+                android:id="@+id/iv_shrink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/surface_view"
+                android:src="@mipmap/ic_shrink"
+                android:padding="14dp"
+                app:visibleGone="@{viewModel.playFullScreen}"
+                android:onClick="@{() -> viewModel.playFullScreen(false)}"/>
+
         </RelativeLayout>
 
 
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/black">
-        <SurfaceView
-            android:id="@+id/surface_view"
-            android:layout_width="match_parent"
-            android:layout_height="295dp"
-            android:layout_centerVertical="true"/>
-        
-        <ImageView
-            android:id="@+id/iv_enlarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/surface_view"
-            android:layout_alignEnd="@+id/surface_view"
-            android:src="@mipmap/ic_enlarge"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:visibility="gone"/>
+</layout>
 
-        <ImageView
-            android:id="@+id/iv_shrink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/surface_view"
-            android:src="@mipmap/ic_shrink"
-            android:padding="14dp"
-            android:visibility="gone"/>
-        
-    </RelativeLayout>
-
-
-
-</LinearLayout>

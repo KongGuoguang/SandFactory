@@ -15,11 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.fenjin.data.entity.Channel;
-import com.fenjin.sandfactory.PlayActivity;
+import com.fenjin.sandfactory.activity.PlayActivity;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.adapter.ChannelListAdapter;
 import com.fenjin.sandfactory.viewmodel.MonitorViewModel;
-import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 

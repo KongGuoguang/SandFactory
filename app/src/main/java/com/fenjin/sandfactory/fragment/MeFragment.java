@@ -12,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fenjin.sandfactory.LoginActivity;
+import com.fenjin.sandfactory.activity.AboutActivity;
+import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.FragmentMeBinding;
 import com.fenjin.sandfactory.viewmodel.MeViewModel;
@@ -55,29 +56,33 @@ public class MeFragment extends Fragment {
         viewModel.logoutDialog.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean){
-                    new QMUIDialog.MessageDialogBuilder(getActivity())
-                            .setTitle("提示")
-                            .setMessage("确定要退出登录吗？")
-                            .addAction("取消", new QMUIDialogAction.ActionListener() {
-                                @Override
-                                public void onClick(QMUIDialog dialog, int index) {
-                                    dialog.dismiss();
-                                }
-                            })
-                            .addAction(0, "退出", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
-                                @Override
-                                public void onClick(QMUIDialog dialog, int index) {
-                                    viewModel.logout();
-                                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                                    getActivity().finish();
-                                }
-                            })
-                            .show();
-                }
+                new QMUIDialog.MessageDialogBuilder(getActivity())
+                        .setTitle("提示")
+                        .setMessage("确定要退出登录吗？")
+                        .addAction("取消", new QMUIDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(QMUIDialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .addAction(0, "退出", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(QMUIDialog dialog, int index) {
+                                viewModel.logout();
+                                startActivity(new Intent(getActivity(), LoginActivity.class));
+                                getActivity().finish();
+                            }
+                        })
+                        .show();
             }
         });
 
+        viewModel.startAboutActivity.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                startActivity(new Intent(getActivity(), AboutActivity.class));
+            }
+        });
 
     }
 
