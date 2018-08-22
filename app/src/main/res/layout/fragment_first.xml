@@ -1,97 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragment.FirstFragment">
-    
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="73dp"
-       android:background="#3076f6"
-       android:gravity="center_horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="38dp"
-           android:textColor="#ffffff"
-           android:textSize="16sp"
-           android:text="统计"/>
+    <data>
 
-   </LinearLayout>
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.FirstViewModel"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+    </data>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="12sp"
-            android:textColor="#9d9e9e"
-            android:text="总车数："/>
 
-        <TextView
-            android:id="@+id/tv_zong_che_shu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="14sp"
-            android:textColor="#000000"
-            android:layout_marginStart="48dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toStartOf="@+id/tv_zong_zhong_liang"
-            android:textSize="12sp"
-            android:textColor="#9d9e9e"
-            android:text="总重量："/>
-
-        <TextView
-            android:id="@+id/tv_zong_zhong_liang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:textSize="14sp"
-            android:textColor="#000000"
-            android:layout_marginStart="48dp"/>
-
-    </RelativeLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="12sp"
-        android:textColor="#9d9e9e"
-        android:text="最新称重记录"/>
-
-    <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layout_pull_refresh">
+        android:orientation="vertical"
+        tools:context=".fragment.FirstFragment">
 
-        <ListView
-            android:id="@+id/list_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="73dp"
+            android:background="#3076f6"
+            android:gravity="center_horizontal">
 
-        </ListView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="统计"/>
 
-    </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="#9d9e9e"
+                android:text="总车数："/>
+
+            <TextView
+                android:id="@+id/tv_zong_che_shu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginStart="48dp"
+                android:text="@{viewModel.totalTruckNumber}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@+id/tv_zong_zhong_liang"
+                android:textSize="12sp"
+                android:textColor="#9d9e9e"
+                android:text="总重量："/>
+
+            <TextView
+                android:id="@+id/tv_zong_zhong_liang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginStart="48dp"
+                android:text="@{viewModel.totalWeight}"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="12sp"
+            android:textColor="#9d9e9e"
+            android:text="最新称重记录"/>
+
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/layout_pull_refresh"
+            >
+
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adapter="@{viewModel.adapter}">
+
+            </ListView>
+
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
 
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:padding="5dp"
-        android:textSize="12sp"
+        android:padding="1dp"
+        android:textSize="10sp"
         android:textColor="#9d9e9e"
-        android:text="没有更多数据了"/>
+        android:text="@string/no_more_data"/>
 
 </LinearLayout>
