@@ -66,8 +66,7 @@ public class QueryFragment extends Fragment {
         ListView listView = view.findViewById(R.id.list_view);
 
         View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_foot, listView, false);
-        listView.addFooterView(footerView, null, true);
-        listView.setFooterDividersEnabled(false);
+        listView.addFooterView(footerView);
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override

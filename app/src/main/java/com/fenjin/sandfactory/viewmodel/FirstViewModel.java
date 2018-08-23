@@ -5,22 +5,15 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
-import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.sandfactory.adapter.ChengZhongListAdapter;
 import com.fenjin.sandfactory.usecase.GetChengZhongrecordListUseCase;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
-import java.util.List;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class FirstViewModel extends BaseViewModel {
-    public FirstViewModel(@NonNull Application application) {
-        super(application);
-    }
-
 
     private GetChengZhongrecordListUseCase useCase = new GetChengZhongrecordListUseCase(getApplication());
 
@@ -33,6 +26,11 @@ public class FirstViewModel extends BaseViewModel {
     public ObservableField<String> totalWeight = new ObservableField<>();
 
     public ChengZhongListAdapter adapter = new ChengZhongListAdapter();
+
+    public FirstViewModel(@NonNull Application application) {
+        super(application);
+        adapter.setHideHeadDivider(true);
+    }
 
     public void loadChengZhongRecordList(){
         loading.postValue(true);

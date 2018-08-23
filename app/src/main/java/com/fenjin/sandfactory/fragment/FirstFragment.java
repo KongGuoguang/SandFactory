@@ -12,8 +12,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.LoginActivity;
@@ -59,6 +59,11 @@ public class FirstFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ListView listView = view.findViewById(R.id.list_view);
+
+        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_foot, listView, false);
+        listView.addFooterView(footerView);
 
         pullRefreshLayout = view.findViewById(R.id.layout_pull_refresh);
         pullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {

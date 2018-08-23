@@ -12,150 +12,164 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_corner_white">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/view_header"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:background="@drawable/shape_chengzhong_item">
+            android:layout_height="10dp" />
 
-            <TextView
-                android:id="@+id/tv_xh"
-                android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/shape_corner_white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/shape_chengzhong_item">
+
+                <TextView
+                    android:id="@+id/tv_xh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_centerVertical="true"
+                    android:text="@{viewModel.xh}" />
+
+                <TextView
+                    android:id="@+id/tv_crlx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:text="@{viewModel.crlx}" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="16sp"
                 android:layout_marginStart="10dp"
-                android:layout_centerVertical="true"
-                android:text="@{viewModel.xh}"/>
-
-            <TextView
-                android:id="@+id/tv_crlx"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
-                android:text="@{viewModel.crlx}"/>
+                android:layout_marginTop="10dp">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_sandName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#0b83e2"
+                    android:layout_centerVertical="true"
+                    android:text="@{viewModel.sandName}" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:id="@+id/tv_sandName"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_hm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:text="@{viewModel.hm}" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="#0b83e2"
-                android:layout_centerVertical="true"
-                android:text="@{viewModel.sandName}"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="18dp">
 
-            <TextView
-                android:id="@+id/tv_hm"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_ch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/hint_color"
+                    android:text="@{@string/che_liang_hao_ma + viewModel.ch}" />
+
+                <TextView
+                    android:id="@+id/tv_mz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/hint_color"
+                    android:text="@{@string/mao_zhong + viewModel.mz + @string/KG}" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textSize="16sp"
-                android:textColor="@color/red"
-                android:text="@{viewModel.hm}"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_je"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/hint_color"
+                    android:text="@{@string/jin_e + viewModel.je}" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="18dp">
+                <TextView
+                    android:id="@+id/tv_jz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp"
+                    android:textColor="@color/hint_color"
+                    android:text="@{@string/jing_zhong + viewModel.jz + @string/KG}" />
 
-            <TextView
-                android:id="@+id/tv_ch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="12sp"
-                android:textColor="@color/hint_color"
-                android:text="@{`车辆号码：` + viewModel.xh}"/>
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_mz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textSize="12sp"
-                android:textColor="@color/hint_color"
-                android:text="@{`毛重：` + viewModel.mz}"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp">
 
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_date_time" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/tv_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/black"
+                    android:text="@{viewModel.rq + @string/blank + viewModel.shijian}" />
 
-            <TextView
-                android:id="@+id/tv_je"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="12sp"
-                android:textColor="@color/hint_color"
-                android:text="@{`金额：` + viewModel.je}"/>
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@mipmap/ic_arrow" />
 
-            <TextView
-                android:id="@+id/tv_jz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textSize="12sp"
-                android:textColor="@color/hint_color"
-                android:text="@{`净重：` + viewModel.jz}"/>
+            </RelativeLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/ic_date_time"/>
-
-            <TextView
-                android:id="@+id/tv_date_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:textSize="12sp"
-                android:textColor="@color/black"
-                android:text="@{viewModel.rq + ` ` + viewModel.shijian}"/>
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@mipmap/ic_arrow"/>
-
-        </RelativeLayout>
 
     </LinearLayout>
 

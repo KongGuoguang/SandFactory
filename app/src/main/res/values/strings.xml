@@ -24,6 +24,12 @@
     <string name="confirm">确定</string>
     <string name="no_more_data">没有更多数据了</string>
     <string name="check_update">检查更新</string>
+    <string name="che_liang_hao_ma">车辆号码：</string>
+    <string name="mao_zhong">毛重：</string>
+    <string name="jin_e">金额：</string>
+    <string name="jing_zhong">净重：</string>
+    <string name="KG">千克</string>
+    <string name="blank">&#160;</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
@@ -23,6 +22,8 @@ public class ChengZhongListAdapter extends BaseAdapter {
 
     private List<ChengZhongRecord> chengZhongRecordList;
 
+    private boolean hideHeadDivider;
+
     public ChengZhongListAdapter(){}
 
     public ChengZhongListAdapter(List<ChengZhongRecord> chengZhongRecordList) {
@@ -33,8 +34,13 @@ public class ChengZhongListAdapter extends BaseAdapter {
         this.chengZhongRecordList = chengZhongRecordList;
     }
 
+    public void setHideHeadDivider(boolean hideHeadDivider) {
+        this.hideHeadDivider = hideHeadDivider;
+    }
+
     @Override
     public int getCount() {
+
         return chengZhongRecordList == null ? 0 : chengZhongRecordList.size();
     }
 
@@ -60,8 +66,14 @@ public class ChengZhongListAdapter extends BaseAdapter {
             binding = DataBindingUtil.getBinding(view);
         }
 
-        if (binding != null) {
-            binding.setViewModel(chengZhongRecord);
+        if (binding == null) return view;
+
+        binding.setViewModel(chengZhongRecord);
+
+        if (hideHeadDivider && i == 0) {
+            binding.viewHeader.setVisibility(View.GONE);
+        } else {
+            binding.viewHeader.setVisibility(View.VISIBLE);
         }
 
         return view;
