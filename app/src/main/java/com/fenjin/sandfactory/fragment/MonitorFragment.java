@@ -49,8 +49,6 @@ public class MonitorFragment extends Fragment {
 
     private boolean firstLoad = true;
 
-    private View footerView;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +61,6 @@ public class MonitorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.layout_foot, container, false);
-        footerView = view.findViewById(R.id.tv_foot);
-        footerView.setVisibility(View.GONE);
 
         return inflater.inflate(R.layout.fragment_monitor, container, false);
     }
@@ -89,8 +83,6 @@ public class MonitorFragment extends Fragment {
                 }
             }
         });
-
-        listView.addFooterView(footerView);
 
         pullRefreshLayout = view.findViewById(R.id.layout_pull_refresh);
         pullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {

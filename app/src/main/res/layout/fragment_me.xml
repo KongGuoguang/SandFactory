@@ -33,7 +33,7 @@
                 android:layout_marginTop="38dp"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
-                android:text="我的"/>
+                android:text="@string/me"/>
 
             <ImageView
                 android:id="@+id/image_head"
@@ -76,7 +76,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="#2a2f2f"
                 android:textSize="16sp"
-                android:text="修改密码"/>
+                android:text="@string/modify_password"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="#2a2f2f"
                 android:textSize="16sp"
-                android:text="关于"/>
+                android:text="@string/about"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -124,19 +124,11 @@
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/tv_logout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/button_logout"
-            android:gravity="center"
-            android:text="退出登录"
-            android:textColor="#fc2424"
-            android:textSize="16sp"
-            android:onClick="@{() -> viewModel.showLogoutDialog()}"/>
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            style="@style/RoundButtonWhite"
+            android:text="@string/logout"
+            android:onClick="@{() -> viewModel.showLogoutDialog()}"
+            app:changeAlphaWhenPress="@{true}"/>
 
     </LinearLayout>
 

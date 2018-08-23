@@ -1,143 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp"
-    android:background="#ffffff">
+<layout>
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.data.entity.ChengZhongRecord"/>
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/shape_chengzhong_item">
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_corner_white">
 
-        <TextView
-            android:id="@+id/tv_xh"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/shape_chengzhong_item">
+
+            <TextView
+                android:id="@+id/tv_xh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginStart="10dp"
+                android:layout_centerVertical="true"
+                android:text="@{viewModel.xh}"/>
+
+            <TextView
+                android:id="@+id/tv_crlx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:text="@{viewModel.crlx}"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
             android:layout_marginStart="10dp"
-            android:layout_centerVertical="true"/>
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/tv_sandName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#0b83e2"
+                android:layout_centerVertical="true"
+                android:text="@{viewModel.sandName}"/>
 
-        <TextView
-            android:id="@+id/tv_crlx"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_hm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:textColor="@color/red"
+                android:text="@{viewModel.hm}"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="18dp">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_ch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/hint_color"
+                android:text="@{`车辆号码：` + viewModel.xh}"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp">
-        <TextView
-            android:id="@+id/tv_sandName"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_mz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/hint_color"
+                android:text="@{`毛重：` + viewModel.mz}"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#0b83e2"
-            android:layout_centerVertical="true"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp">
 
-        <TextView
-            android:id="@+id/tv_hm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="#fc2424"/>
+            <TextView
+                android:id="@+id/tv_je"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/hint_color"
+                android:text="@{`金额：` + viewModel.je}"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_jz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:textColor="@color/hint_color"
+                android:text="@{`净重：` + viewModel.jz}"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="18dp">
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_ch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="12sp"
-            android:textColor="#9d9e9e"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
 
-        <TextView
-            android:id="@+id/tv_mz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:textSize="12sp"
-            android:textColor="#9d9e9e"/>
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_date_time"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:text="@{viewModel.rq + ` ` + viewModel.shijian}"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/ic_arrow"/>
 
-        <TextView
-            android:id="@+id/tv_je"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="12sp"
-            android:textColor="#9d9e9e"/>
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_jz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:textSize="12sp"
-            android:textColor="#9d9e9e"/>
+    </LinearLayout>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
-
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_date_time"/>
-
-        <TextView
-            android:id="@+id/tv_date_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:textSize="12sp"
-            android:textColor="#2a2f2f"/>
-
-        <ImageView
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:src="@mipmap/ic_arrow"/>
-
-    </RelativeLayout>
-
-</LinearLayout>
+</layout>

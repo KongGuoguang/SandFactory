@@ -18,7 +18,7 @@
             android:layout_marginTop="38dp"
             android:textColor="#ffffff"
             android:textSize="16sp"
-            android:text="监控"/>
+            android:text="@string/monitor"/>
 
     </LinearLayout>
 

@@ -1,27 +1,29 @@
 <resources>
     <string name="app_name">商城采砂</string>
-    <string name="day_count">工作天数：%d天</string>
-    <string name="work_count">完成总量：%d件</string>
     <string name="hint_user_name">请输入用户名</string>
     <string name="hint_password">请输入密码</string>
     <string name="remember_me">记住我</string>
     <string name="login">登录</string>
-    <string name="login_name">登录名：</string>
-    <string name="name">姓  名：</string>
-    <string name="sex">性  别：</string>
+    <string name="statistics">统计</string>
+    <string name="total_truck">总车数：</string>
+    <string name="total_weight">总重量：</string>
+    <string name="latest_cheng_zhong">最新称重记录</string>
+    <string name="hint_search">输入票据编号、车号或货名等</string>
+    <string name="search">搜索</string>
+    <string name="monitor">监控</string>
+    <string name="offline">离线</string>
+    <string name="me">我的</string>
     <string name="modify_password">修改密码</string>
-    <string name="notification_mesage">通知消息</string>
     <string name="about">关于</string>
     <string name="logout">退出登录</string>
-    <string name="digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="old_pwd">原  密  码：</string>
-    <string name="new_pwd">新  密  码：</string>
+    <string name="old_pwd">原密码：</string>
+    <string name="new_pwd">新密码：</string>
     <string name="confirm_pwd">确认密码：</string>
+    <string name="hint_old_pwd">请输入原密码：</string>
+    <string name="hint_new_pwd">请输入新密码：</string>
     <string name="confirm">确定</string>
-    <string name="cancel">取消</string>
-    <string name="reset">重置</string>
     <string name="no_more_data">没有更多数据了</string>
+    <string name="check_update">检查更新</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

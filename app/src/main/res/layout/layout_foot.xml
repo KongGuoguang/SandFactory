@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#ffffff">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_foot"
+        android:id="@+id/tv_no_more_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:padding="1dp"
-        android:textSize="10sp"
-        android:textColor="#9d9e9e"
-        android:text="@string/no_more_data"/>
+        android:padding="2dp"
+        android:textSize="12sp"
+        android:textColor="@color/hint_color"/>
 
 </LinearLayout>

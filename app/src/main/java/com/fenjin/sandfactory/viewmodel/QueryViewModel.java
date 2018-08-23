@@ -2,13 +2,18 @@ package com.fenjin.sandfactory.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.res.ColorStateList;
 import android.databinding.ObservableField;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.sandfactory.adapter.ChengZhongListAdapter;
 import com.fenjin.sandfactory.usecase.GetChengZhongrecordListUseCase;
+import com.fenjin.sandfactory.util.ErrorCodeUtil;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +28,14 @@ import io.reactivex.disposables.Disposable;
  * Summary:
  */
 public class QueryViewModel extends BaseViewModel {
+
+    public QMUIRoundButtonDrawable drawable;
+
     public QueryViewModel(@NonNull Application application) {
         super(application);
+        drawable = new QMUIRoundButtonDrawable();
+        drawable.setBgData(ColorStateList.valueOf(Color.WHITE));
+        drawable.setIsRadiusAdjustBounds(true);
     }
 
     public ObservableField<String> searchKey = new ObservableField<>();
@@ -33,9 +44,9 @@ public class QueryViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
-    public MutableLiveData<Boolean> dataChanged = new MutableLiveData<>();
+    public MutableLiveData<Boolean> lastPage = new MutableLiveData<>();
 
-    public MutableLiveData<Boolean> loadAllData = new MutableLiveData<>();
+    public MutableLiveData<Integer> errorCode = new MutableLiveData<>();
 
     public int currentPage;
 
@@ -43,13 +54,15 @@ public class QueryViewModel extends BaseViewModel {
 
     public List<ChengZhongRecord> chengZhongRecordList = new ArrayList<>();
 
+    public ChengZhongListAdapter adapter = new ChengZhongListAdapter(chengZhongRecordList);
+
     public void loadFirstPageChengZhongRecords(){
 
         chengZhongRecordList.clear();
 
         currentPage = 0;
 
-        dataChanged.postValue(true);
+        adapter.notifyDataSetChanged();
 
         loading.postValue(true);
 
@@ -85,7 +98,7 @@ public class QueryViewModel extends BaseViewModel {
 
                             if (chengZhongRecords != null && chengZhongRecords.size() > 0){
                                 chengZhongRecordList.addAll(chengZhongRecords);
-                                dataChanged.postValue(true);
+                                adapter.notifyDataSetChanged();
 
                                 int count = chengZhongRecordList.size();
                                 if (count % pageSize == 0){
@@ -95,7 +108,7 @@ public class QueryViewModel extends BaseViewModel {
                                 }
                             }
 
-                            loadAllData.postValue(chengZhongRecordList.size() == total);
+                            lastPage.postValue(chengZhongRecordList.size() == total);
 
                         }
 
@@ -104,6 +117,7 @@ public class QueryViewModel extends BaseViewModel {
                     @Override
                     public void onError(Throwable e) {
                         loading.postValue(false);
+                        errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
                     }
 
                     @Override

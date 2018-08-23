@@ -15,58 +15,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".fragment.QueryFragment">
+        tools:context=".fragment.QueryFragment"
+        android:background="@color/app_color_background">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="#3076f6"
-            android:gravity="center_horizontal">
+            android:background="@color/app_color_main">
 
-            <RelativeLayout
+            <EditText
+                android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp">
+                android:layout_toStartOf="@+id/tv_search"
+                android:layout_marginStart="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textColorHint="@color/hint_color"
+                android:hint="@string/hint_search"
+                android:text="@={viewModel.searchKey}"
+                android:background="@{viewModel.drawable}"/>
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/tv_search"
-                    android:layout_marginStart="20dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_centerVertical="true"
-                    android:textSize="16sp"
-                    android:textColorHint="#9d9e9e"
-                    android:hint="输入票据编号、车号或货名等"
-                    android:text="@={viewModel.searchKey}"
-                    android:background="@drawable/shape_round_rectangle"/>
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/et_search"
+                android:layout_alignBottom="@+id/et_search"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:text="@string/search"
+                android:onClick="@{() -> viewModel.loadFirstPageChengZhongRecords()}" />
 
-                <TextView
-                    android:id="@+id/tv_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:textSize="16sp"
-                    android:textColor="#ffffff"
-                    android:text="搜索"
-                    android:onClick="@{() -> viewModel.loadFirstPageChengZhongRecords()}"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-
+        </RelativeLayout>
 
         <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:dividerHeight="10dp"
+            android:divider="@null"
+            android:adapter="@{viewModel.adapter}"
+            android:footerDividersEnabled="false"
+            android:overScrollFooter="@android:color/transparent">
 
         </ListView>
 

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.fenjin.sandfactory.activity.AboutActivity;
 import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.activity.PasswordActivity;
 import com.fenjin.sandfactory.databinding.FragmentMeBinding;
 import com.fenjin.sandfactory.viewmodel.MeViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -81,6 +82,13 @@ public class MeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 startActivity(new Intent(getActivity(), AboutActivity.class));
+            }
+        });
+
+        viewModel.startPasswordActivity.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                startActivity(new Intent(getActivity(), PasswordActivity.class));
             }
         });
 

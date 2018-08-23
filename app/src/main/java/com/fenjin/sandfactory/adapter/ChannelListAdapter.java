@@ -1,5 +1,6 @@
 package com.fenjin.sandfactory.adapter;
 
+import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.fenjin.data.entity.Channel;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.databinding.ItemChannelBinding;
 
 import java.util.List;
 
@@ -44,56 +46,43 @@ public class ChannelListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        ViewHolder viewHolder;
-
         Channel channel = channelList.get(i);
 
+        ItemChannelBinding binding;
+
         if (view == null){
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_channel, viewGroup, false);
-            viewHolder = new ViewHolder();
-            viewHolder.snapImage = view.findViewById(R.id.image_snap);
-            viewHolder.playImage = view.findViewById(R.id.image_play);
-            viewHolder.channelName = view.findViewById(R.id.text_channel_name);
-            viewHolder.offline = view.findViewById(R.id.tv_off_line);
-            view.setTag(viewHolder);
+            binding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
+                    R.layout.item_channel, viewGroup, false);
+            view = binding.getRoot();
         }else {
-            viewHolder = (ViewHolder) view.getTag();
+            binding = DataBindingUtil.getBinding(view);
         }
 
-        viewHolder.channelName.setText(channel.getName());
+        if (binding == null) return view;
 
-        if (channel.getOnline() == 1){
-            viewHolder.playImage.setVisibility(View.VISIBLE);
-            viewHolder.offline.setVisibility(View.INVISIBLE);
+        binding.setViewModel(channel);
+
+        if (i == 0){
+            binding.viewHeader.setVisibility(View.VISIBLE);
         }else {
-            viewHolder.playImage.setVisibility(View.INVISIBLE);
-            viewHolder.offline.setVisibility(View.VISIBLE);
+            binding.viewHeader.setVisibility(View.GONE);
         }
+
 
         if (!TextUtils.isEmpty(channel.getSnapURL())){
             Glide.with(view)
                     .load(SERVER_ADDRESS + channel.getSnapURL())
                     .apply(options)
-                    .into(viewHolder.snapImage);
+                    .into(binding.imageSnap);
         }else {
             Glide.with(view)
                     .load(android.R.color.darker_gray)
-                    .into(viewHolder.snapImage);
+                    .into(binding.imageSnap);
         }
 
         return view;
     }
 
-
-    private class ViewHolder{
-        ImageView snapImage;
-
-        ImageView playImage;
-
-        TextView channelName;
-
-        TextView offline;
-    }
 
     private RequestOptions options = new RequestOptions()
 

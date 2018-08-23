@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.databinding.FragmentFirstBinding;
@@ -111,6 +112,7 @@ public class FirstFragment extends Fragment {
                 if (integer == ErrorCodeUtil.TOKEN_TIME_OUT){
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     getActivity().finish();
+                    ToastUtils.showShort("登录信息超时，请重新登录");
                 }
             }
         });
