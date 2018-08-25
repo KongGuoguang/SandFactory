@@ -12,10 +12,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.activity.DetailActivity;
 import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.databinding.FragmentFirstBinding;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
@@ -64,6 +67,16 @@ public class FirstFragment extends Fragment {
 
         View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_foot, listView, false);
         listView.addFooterView(footerView);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ChengZhongRecord record = (ChengZhongRecord) viewModel.adapter.getItem(i);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("record",record);
+                startActivity(intent);
+            }
+        });
 
         pullRefreshLayout = view.findViewById(R.id.layout_pull_refresh);
         pullRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
@@ -118,6 +131,7 @@ public class FirstFragment extends Fragment {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     getActivity().finish();
                     ToastUtils.showShort("登录信息超时，请重新登录");
+                    viewModel.dataRepository.saveToken("");
                 }
             }
         });

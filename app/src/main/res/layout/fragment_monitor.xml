@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.MonitorFragment">
+    tools:context=".fragment.MonitorFragment"
+    android:background="@color/app_color_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="73dp"
-        android:background="#3076f6"
+        android:background="@color/app_color_main"
         android:gravity="center_horizontal">
 
         <TextView
@@ -27,13 +28,18 @@
         android:layout_height="match_parent"
         android:id="@+id/layout_pull_refresh">
 
-        <ListView
-            android:id="@+id/list_view"
+        <GridView
+            android:id="@+id/grid_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null">
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
-        </ListView>
+        </GridView>
 
     </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
 

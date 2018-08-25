@@ -8,11 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.app.BaseActivity;
 import com.fenjin.sandfactory.databinding.ActivityPasswordBinding;
 import com.fenjin.sandfactory.viewmodel.PasswordViewModel;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
-public class PasswordActivity extends AppCompatActivity {
+public class PasswordActivity extends BaseActivity {
 
     private PasswordViewModel viewModel;
 

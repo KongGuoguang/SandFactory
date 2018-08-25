@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.fenjin.data.entity.Channel;
@@ -35,8 +36,6 @@ public class MonitorFragment extends Fragment {
     }
 
     private MonitorViewModel viewModel;
-
-    private ListView listView;
 
     private ChannelListAdapter adapter;
 
@@ -69,9 +68,9 @@ public class MonitorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView = view.findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        GridView gridView = view.findViewById(R.id.grid_view);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Channel channel = (Channel) adapter.getItem(i);

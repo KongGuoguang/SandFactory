@@ -48,11 +48,13 @@ public class QueryViewModel extends BaseViewModel {
 
     public MutableLiveData<Integer> errorCode = new MutableLiveData<>();
 
+    public MutableLiveData<String> errorMessage = new MutableLiveData<>();
+
     public int currentPage;
 
     private int pageSize = 10;
 
-    public List<ChengZhongRecord> chengZhongRecordList = new ArrayList<>();
+    private List<ChengZhongRecord> chengZhongRecordList = new ArrayList<>();
 
     public ChengZhongListAdapter adapter = new ChengZhongListAdapter(chengZhongRecordList);
 
@@ -110,6 +112,8 @@ public class QueryViewModel extends BaseViewModel {
 
                             lastPage.postValue(chengZhongRecordList.size() == total);
 
+                        }else {
+                            errorMessage.postValue(chengZhongRecordListResult.getMessage());
                         }
 
                     }

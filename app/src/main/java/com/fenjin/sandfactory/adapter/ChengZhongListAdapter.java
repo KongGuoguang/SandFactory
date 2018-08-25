@@ -46,7 +46,7 @@ public class ChengZhongListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return chengZhongRecordList.get(i);
     }
 
     @Override

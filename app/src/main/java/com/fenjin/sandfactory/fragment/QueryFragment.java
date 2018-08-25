@@ -3,6 +3,7 @@ package com.fenjin.sandfactory.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,18 +13,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.activity.DetailActivity;
+import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.databinding.FragmentQueryBinding;
+import com.fenjin.sandfactory.util.ErrorCodeUtil;
 import com.fenjin.sandfactory.viewmodel.QueryViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QueryFragment extends Fragment {
+public class QueryFragment extends BaseFragment {
 
 
     public QueryFragment() {
@@ -46,7 +53,7 @@ public class QueryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(QueryViewModel.class);
-        init();
+        registerObserver();
     }
 
     @Override
@@ -93,12 +100,22 @@ public class QueryFragment extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ChengZhongRecord record = (ChengZhongRecord) viewModel.adapter.getItem(i);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("record",record);
+                startActivity(intent);
+            }
+        });
+
         noMoreData = footerView.findViewById(R.id.tv_no_more_data);
 
         isViewCreated = true;
     }
 
-    private void init(){
+    private void registerObserver(){
 
         viewModel.loading.observe(this, new Observer<Boolean>() {
             @Override
@@ -129,6 +146,28 @@ public class QueryFragment extends Fragment {
                 }else {
                     noMoreData.setText("");
                 }
+            }
+        });
+
+        viewModel.errorCode.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+
+                if (integer == null) return;
+
+                if (integer == ErrorCodeUtil.TOKEN_TIME_OUT){
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    getActivity().finish();
+                    ToastUtils.showShort("登录信息超时，请重新登录");
+                    viewModel.dataRepository.saveToken("");
+                }
+            }
+        });
+
+        viewModel.errorMessage.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                showErrorDialog(s);
             }
         });
     }

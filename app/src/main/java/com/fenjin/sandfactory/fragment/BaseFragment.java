@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fenjin.sandfactory.R;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,22 +22,19 @@ public class BaseFragment extends Fragment {
         // Required empty public constructor
     }
 
-    //Fragment的View加载完毕的标记
-    protected boolean isViewCreated;
 
-    //Fragment对用户可见的标记
-    protected boolean isUIVisible;
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-
-//        if (isVisibleToUser) {
-//            isUIVisible = true;
-//        } else {
-//            isUIVisible = false;
-//        }
+    protected void showErrorDialog(String errorMessage){
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setTitle("提示")
+                .setMessage(errorMessage)
+                .addAction("知道了", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
     }
+
 
 }

@@ -27,7 +27,7 @@ public class BaseViewModel extends AndroidViewModel {
         EventBus.getDefault().register(this);
     }
 
-    protected DataRepository dataRepository = ((BaseApplication)getApplication()).getDataRepository();
+    public DataRepository dataRepository = ((BaseApplication)getApplication()).getDataRepository();
 
     @Override
     protected void onCleared() {

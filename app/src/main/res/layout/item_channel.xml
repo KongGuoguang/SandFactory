@@ -5,9 +5,14 @@
 
     <data>
 
+
         <variable
             name="viewModel"
             type="com.fenjin.data.entity.Channel"/>
+
+        <variable
+            name="position"
+            type="int"/>
 
     </data>
 
@@ -19,13 +24,13 @@
         <View
             android:id="@+id/view_header"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#ffffff"
-            android:visibility="gone"/>
+            android:layout_height="5dp"
+            visibleGone="@{position == 0 || position == 1}"/>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="184dp">
+            android:layout_height="140dp">
 
             <ImageView
                 android:id="@+id/image_snap"
@@ -36,8 +41,8 @@
 
             <ImageView
                 android:id="@+id/image_play"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_centerInParent="true"
                 android:background="@mipmap/ic_play"
                 app:visibleOrNot="@{viewModel.Online == 1}"/>
@@ -47,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:text="@string/offline"
                 app:visibleOrNot="@{viewModel.Online != 1}"/>
@@ -65,12 +70,9 @@
 
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#ffffff"/>
 
     </LinearLayout>
+
 
 
 </layout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.DetailViewModel"/>
+
+        <variable
+            name="record"
+            type="com.fenjin.data.entity.ChengZhongRecord"/>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/app_color_background">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:background="@color/app_color_main"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:text="@string/detail"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_alignParentBottom="true"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:src="@mipmap/ic_arrow_back"
+                    android:onClick="@{() -> viewModel.finishActivity()}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem"
+                android:layout_marginTop="10dp">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/piao_ju_bian_hao"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.xh}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/chu_ru_lei_xing"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.crlx}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/sha_chang"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.sandName}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/huo_wu_ming_cheng"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.hm}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/che_liang_hao_ma_1"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.ch}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/jin_e_1"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.jeString + @string/yuan}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/mao_zhong_1"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.mzString + @string/KG}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/jing_zhong_1"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.jzString + @string/KG}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/shi_jian"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.rq + @string/blank + record.shijian}"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout style="@style/DetailItem">
+
+                <TextView style="@style/TextDetailKey"
+                    android:text="@string/si_ji"/>
+
+                <TextView style="@style/TextDetailValue"
+                    android:text="@{record.siji}"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

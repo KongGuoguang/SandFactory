@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.fenjin.data.DataRepository;
+import com.fenjin.sandfactory.app.BaseActivity;
 import com.fenjin.sandfactory.app.BaseApplication;
 import com.fenjin.sandfactory.R;
 
-public class InitActivity extends AppCompatActivity {
+public class InitActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -19,8 +17,6 @@ import com.fenjin.sandfactory.databinding.ItemChannelBinding;
 import java.util.List;
 
 public class ChannelListAdapter extends BaseAdapter {
-
-    private String SERVER_ADDRESS = "http://112.35.23.101:10800/";
 
     private List<Channel> channelList;
 
@@ -61,17 +57,11 @@ public class ChannelListAdapter extends BaseAdapter {
         if (binding == null) return view;
 
         binding.setViewModel(channel);
-
-        if (i == 0){
-            binding.viewHeader.setVisibility(View.VISIBLE);
-        }else {
-            binding.viewHeader.setVisibility(View.GONE);
-        }
-
+        binding.setPosition(i);
 
         if (!TextUtils.isEmpty(channel.getSnapURL())){
             Glide.with(view)
-                    .load(SERVER_ADDRESS + channel.getSnapURL())
+                    .load("http://112.35.23.101:10800/" + channel.getSnapURL())
                     .apply(options)
                     .into(binding.imageSnap);
         }else {

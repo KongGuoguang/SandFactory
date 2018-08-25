@@ -65,11 +65,15 @@ public class ChengZhongRecord implements Serializable {
   //毛重 kg
   private float mz;
 
+  private String mzString;
+
   //皮重
   private float pz;
 
   //净重
   private float jz;
+
+  private String jzString;
 
   //扣杂 扣重
   private float kz;
@@ -83,8 +87,11 @@ public class ChengZhongRecord implements Serializable {
   //单价
   private float dj;
 
-  //金额
+  //金额float
   private float je;
+
+  //金额String
+  private String jeString;
 
   //折方系数
   private float zfxs;
@@ -343,6 +350,15 @@ public class ChengZhongRecord implements Serializable {
     this.mz = mz;
   }
 
+  public String getMzString() {
+    mzString = String.valueOf(mz);
+    return subZeroAndDot(mzString);
+  }
+
+  public void setMzString(String mzString) {
+    this.mzString = mzString;
+  }
+
   public float getPz() {
     return pz;
   }
@@ -357,6 +373,15 @@ public class ChengZhongRecord implements Serializable {
 
   public void setJz(float jz) {
     this.jz = jz;
+  }
+
+  public String getJzString() {
+    jzString = String.valueOf(jz);
+    return subZeroAndDot(jzString);
+  }
+
+  public void setJzString(String jzString) {
+    this.jzString = jzString;
   }
 
   public float getKz() {
@@ -397,6 +422,15 @@ public class ChengZhongRecord implements Serializable {
 
   public void setJe(float je) {
     this.je = je;
+  }
+
+  public String getJeString() {
+    jeString = String.valueOf(je);
+    return subZeroAndDot(jeString);
+  }
+
+  public void setJeString(String jeString) {
+    this.jeString = jeString;
   }
 
   public float getZfxs() {
@@ -670,4 +704,14 @@ public class ChengZhongRecord implements Serializable {
   public void setYk(float yk) {
     this.yk = yk;
   }
+
+
+  private String subZeroAndDot(String s){
+    if(s.indexOf(".") > 0){
+      s = s.replaceAll("0+?$", "");//去掉多余的0
+      s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
+    }
+    return s;
+  }
+
 }
