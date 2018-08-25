@@ -3,6 +3,8 @@ package com.fenjin.data.network;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
+import com.fenjin.data.entity.ModifyPasswordParam;
+import com.fenjin.data.entity.ModifyPasswordResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -21,6 +23,9 @@ public interface ServerInterface {
 
     @POST("public/login")
     Observable<LoginResult> login(@Body LoginParam loginParam);
+
+    @POST("user/updatePwd")
+    Observable<ModifyPasswordResult> modifyPassword(@Body ModifyPasswordParam modifyPasswordParam);
 
     @GET("record/list")
     Observable<ChengZhongRecordListResult> getChengZhongRecordList(@Header("token") String token,

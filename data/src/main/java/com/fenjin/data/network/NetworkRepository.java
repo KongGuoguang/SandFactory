@@ -8,6 +8,8 @@ import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
+import com.fenjin.data.entity.ModifyPasswordParam;
+import com.fenjin.data.entity.ModifyPasswordResult;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 
 /**
  * Author:kongguoguang
@@ -120,6 +123,11 @@ public class NetworkRepository {
     public Observable<GetChannelResult> touchChannel(int channel, String line, String protocol){
         return cameraInterface.touchChannel(channel, line, protocol);
     }
+
+    public Observable<ModifyPasswordResult> modifyPassword(ModifyPasswordParam modifyPasswordParam){
+        return serverInterface.modifyPassword(modifyPasswordParam);
+    }
+
 
 //    private static class LoggingInterceptor implements Interceptor {
 //        @Override

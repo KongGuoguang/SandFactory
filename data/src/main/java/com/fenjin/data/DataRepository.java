@@ -7,10 +7,13 @@ import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
+import com.fenjin.data.entity.ModifyPasswordParam;
+import com.fenjin.data.entity.ModifyPasswordResult;
 import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 
 /**
  * Author:kongguoguang
@@ -92,6 +95,10 @@ public class DataRepository {
 
     public Observable<GetChannelResult> touchChannel(int channel, String line, String protocol){
         return networkRepository.touchChannel(channel, line, protocol);
+    }
+
+    public Observable<ModifyPasswordResult> modifyPassword(ModifyPasswordParam modifyPasswordParam){
+        return networkRepository.modifyPassword(modifyPasswordParam);
     }
 
     public void setRememberPassword(boolean rememberPassword){
