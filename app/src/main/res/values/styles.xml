@@ -101,7 +101,7 @@
     <style name="TextDetailKey">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textColor">@color/app_color_main</item>
+        <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_centerVertical">true</item>
     </style>

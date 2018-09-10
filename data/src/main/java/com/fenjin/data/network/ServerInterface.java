@@ -25,7 +25,13 @@ public interface ServerInterface {
     Observable<LoginResult> login(@Body LoginParam loginParam);
 
     @POST("user/updatePwd")
-    Observable<ModifyPasswordResult> modifyPassword(@Body ModifyPasswordParam modifyPasswordParam);
+    Observable<ModifyPasswordResult> modifyPassword(@Header("token") String token,
+                                                    @Body ModifyPasswordParam modifyPasswordParam);
+
+    @GET("user/updatePwd")
+    Observable<ModifyPasswordResult> modifyPassword(@Header("token") String token,
+                                                    @Query("oldPwd") String oldPwd,
+                                                    @Query("newPwd") String newPwd);
 
     @GET("record/list")
     Observable<ChengZhongRecordListResult> getChengZhongRecordList(@Header("token") String token,

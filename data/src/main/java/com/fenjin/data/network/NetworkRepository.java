@@ -19,7 +19,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 
 /**
  * Author:kongguoguang
@@ -124,8 +123,8 @@ public class NetworkRepository {
         return cameraInterface.touchChannel(channel, line, protocol);
     }
 
-    public Observable<ModifyPasswordResult> modifyPassword(ModifyPasswordParam modifyPasswordParam){
-        return serverInterface.modifyPassword(modifyPasswordParam);
+    public Observable<ModifyPasswordResult> modifyPassword(String token, ModifyPasswordParam modifyPasswordParam) {
+        return serverInterface.modifyPassword(token, modifyPasswordParam);
     }
 
 

@@ -4,6 +4,7 @@ package com.fenjin.sandfactory.fragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,22 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.fenjin.data.entity.Channel;
-import com.fenjin.sandfactory.activity.PlayActivity;
 import com.fenjin.sandfactory.R;
-import com.fenjin.sandfactory.adapter.ChannelListAdapter;
+import com.fenjin.sandfactory.activity.PlayActivity;
+import com.fenjin.sandfactory.databinding.FragmentMonitorBinding;
 import com.fenjin.sandfactory.viewmodel.MonitorViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
-import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MonitorFragment extends Fragment {
+public class MonitorFragment extends BaseFragment {
 
 
     public MonitorFragment() {
@@ -37,7 +35,6 @@ public class MonitorFragment extends Fragment {
 
     private MonitorViewModel viewModel;
 
-    private ChannelListAdapter adapter;
 
     private QMUITipDialog loadingDialog;
 
@@ -46,14 +43,11 @@ public class MonitorFragment extends Fragment {
 
     private QMUIPullRefreshLayout pullRefreshLayout;
 
-    private boolean firstLoad = true;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(MonitorViewModel.class);
-        adapter = new ChannelListAdapter();
-        init();
+        registerObserver();
     }
 
     @Override
@@ -61,7 +55,10 @@ public class MonitorFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_monitor, container, false);
+        FragmentMonitorBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_monitor, container, false);
+        binding.setViewModel(viewModel);
+
+        return binding.getRoot();
     }
 
     @Override
@@ -69,11 +66,10 @@ public class MonitorFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         GridView gridView = view.findViewById(R.id.grid_view);
-        gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Channel channel = (Channel) adapter.getItem(i);
+                Channel channel = (Channel) viewModel.adapter.getItem(i);
                 if (channel.getOnline() == 1){
                     Intent intent = new Intent(getActivity(), PlayActivity.class);
                     intent.putExtra("channel", channel.getChannel());
@@ -101,20 +97,7 @@ public class MonitorFragment extends Fragment {
         isViewCreated = true;
     }
 
-    private void init(){
-        viewModel.channelListLive.observe(this, new Observer<List<Channel>>() {
-            @Override
-            public void onChanged(@Nullable List<Channel> channels) {
-                if (channels != null){
-                    adapter.setChannelList(channels);
-                    adapter.notifyDataSetChanged();
-
-                    if (channels.size() > 0){
-                        firstLoad = false;
-                    }
-                }
-            }
-        });
+    private void registerObserver() {
 
         viewModel.loading.observe(this, new Observer<Boolean>() {
             @Override
@@ -137,13 +120,21 @@ public class MonitorFragment extends Fragment {
                 }
             }
         });
+
+        viewModel.errorCode.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                if (integer == null) return;
+                dealErrorCode(integer);
+            }
+        });
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-        if (isVisibleToUser && isViewCreated && firstLoad){
+        if (isVisibleToUser && isViewCreated && viewModel.adapter.getCount() == 0) {
             viewModel.getAllChannel();
         }
     }

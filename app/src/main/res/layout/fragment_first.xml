@@ -46,7 +46,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_centerVertical="true"
                 android:textSize="12sp"
-                android:textColor="@color/hint_color"
+                android:textColor="@color/gray"
                 android:text="@string/total_truck"/>
 
             <TextView
@@ -65,7 +65,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/tv_zong_zhong_liang"
                 android:textSize="12sp"
-                android:textColor="@color/hint_color"
+                android:textColor="@color/gray"
                 android:text="@string/total_weight"/>
 
             <TextView
@@ -88,7 +88,7 @@
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:textSize="12sp"
-            android:textColor="@color/hint_color"
+            android:textColor="@color/gray"
             android:text="@string/latest_cheng_zhong"/>
 
         <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout

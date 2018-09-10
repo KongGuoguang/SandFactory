@@ -37,7 +37,7 @@
                 android:paddingBottom="5dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textColorHint="@color/hint_color"
+                android:textColorHint="@color/gray"
                 android:hint="@string/hint_search"
                 android:text="@={viewModel.searchKey}"
                 android:background="@{viewModel.drawable}"/>

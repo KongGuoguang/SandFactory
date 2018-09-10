@@ -3,6 +3,7 @@ package com.fenjin.sandfactory.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.DataRepository;
@@ -19,6 +20,10 @@ import org.greenrobot.eventbus.Subscribe;
  * Summary:
  */
 public class BaseViewModel extends AndroidViewModel {
+
+    protected void showToast(String message) {
+        Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show();
+    }
 
 
     public BaseViewModel(@NonNull Application application) {

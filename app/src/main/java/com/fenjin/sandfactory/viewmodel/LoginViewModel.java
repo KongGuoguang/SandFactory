@@ -6,9 +6,9 @@ import android.databinding.Observable;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.sandfactory.usecase.LoginUseCase;
+import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -46,13 +46,12 @@ public class LoginViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> loginIng = new MutableLiveData<>();
 
-    public String loginErrorMessage = "登录失败";
+    public MutableLiveData<Integer> errorCode = new MutableLiveData<>();
+
+    public MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     private LoginUseCase loginUseCase;
 
-    private void loadFromSharedPreferences(){
-
-    }
 
     public void login(){
 
@@ -75,8 +74,7 @@ public class LoginViewModel extends BaseViewModel {
                         if (loginResult.getFlag() == 1){
                             loginSuccess.postValue(true);
                         }else {
-                            loginErrorMessage = loginResult.getMessage();
-                            loginSuccess.postValue(false);
+                            errorMessage.postValue(loginResult.getMessage());
                         }
 
                     }
@@ -84,9 +82,7 @@ public class LoginViewModel extends BaseViewModel {
                     @Override
                     public void onError(Throwable e) {
                         loginIng.postValue(false);
-                        LogUtils.d(e.getMessage());
-                        loginErrorMessage = "登录失败,请检查网络设置";
-                        loginSuccess.postValue(false);
+                        errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
                     }
 
                     @Override

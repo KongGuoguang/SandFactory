@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -46,7 +45,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="120dp"
             android:src="@mipmap/ic_logo"/>
 
         <TextView
@@ -93,7 +92,7 @@
                 android:layout_marginEnd="16dp"
                 android:drawablePadding="10dp"
                 android:textSize="14sp"
-                android:textColor="@color/hint_color"
+                android:textColor="@color/gray"
                 android:drawableEnd="@mipmap/ic_arrow"
                 android:text="@{viewModel.updateResult}"/>
 

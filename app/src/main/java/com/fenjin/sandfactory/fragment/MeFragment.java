@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.AboutActivity;
 import com.fenjin.sandfactory.activity.LoginActivity;
-import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.PasswordActivity;
 import com.fenjin.sandfactory.databinding.FragmentMeBinding;
 import com.fenjin.sandfactory.viewmodel.MeViewModel;
@@ -24,7 +24,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MeFragment extends Fragment {
+public class MeFragment extends BaseFragment {
 
 
     public MeFragment() {

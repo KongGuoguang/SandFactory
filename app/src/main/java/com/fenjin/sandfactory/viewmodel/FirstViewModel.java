@@ -21,6 +21,8 @@ public class FirstViewModel extends BaseViewModel {
 
     public MutableLiveData<Integer> errorCode = new MutableLiveData<>();
 
+    public MutableLiveData<String> errorMessage = new MutableLiveData<>();
+
     public ObservableField<String> totalTruckNumber = new ObservableField<>();
 
     public ObservableField<String> totalWeight = new ObservableField<>();
@@ -47,13 +49,19 @@ public class FirstViewModel extends BaseViewModel {
                         if (chengZhongRecordListResult.getFlag() == 1){
                             adapter.setChengZhongRecordList(chengZhongRecordListResult.getResult().getList());
                             adapter.notifyDataSetChanged();
+                        } else {
+                            errorMessage.postValue(chengZhongRecordListResult.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         loading.postValue(false);
-                        errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
+                        int code = ErrorCodeUtil.getErrorCode(e);
+                        if (code == ErrorCodeUtil.TOKEN_TIME_OUT) {
+                            dataRepository.saveToken("");
+                        }
+                        errorCode.postValue(code);
                     }
 
                     @Override

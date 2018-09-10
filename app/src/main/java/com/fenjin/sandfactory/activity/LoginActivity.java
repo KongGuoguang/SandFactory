@@ -4,10 +4,9 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-import com.fenjin.sandfactory.app.BaseActivity;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityLoginBinding;
 import com.fenjin.sandfactory.viewmodel.LoginViewModel;
@@ -39,8 +38,6 @@ public class LoginActivity extends BaseActivity {
                 if (aBoolean){
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
-                }else {
-                    showErrorDialog(viewModel.loginErrorMessage);
                 }
             }
         });
@@ -63,6 +60,21 @@ public class LoginActivity extends BaseActivity {
                         loadingDialog.dismiss();
                     }
                 }
+            }
+        });
+
+        viewModel.errorCode.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                if (integer == null) return;
+                dealErrorCode(integer);
+            }
+        });
+
+        viewModel.errorMessage.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                showErrorDialog(s);
             }
         });
     }

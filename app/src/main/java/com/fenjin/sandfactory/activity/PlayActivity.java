@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.OrientationEventListener;
@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.fenjin.sandfactory.app.BaseActivity;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityPlayBinding;
 import com.fenjin.sandfactory.viewmodel.PlayViewModel;
@@ -126,10 +125,15 @@ public class PlayActivity extends BaseActivity {
             public boolean onError(IMediaPlayer iMediaPlayer, int what, int i1) {
                 LogUtils.d("PlayActivity", "onError(), what = " + what);
                 loadingDialog.dismiss();
-                switch (what)
-                {
+                switch (what) {
                     case KSYMediaPlayer.MEDIA_ERROR_IO:
-                        showToast("视频播放失败，请返回重试");
+                        mVideoSurfaceView.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 500);
+                        showToast("视频播放失败，请重试");
                         break;
                 }
                 return false;
@@ -216,7 +220,13 @@ public class PlayActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                 }else {
-                    showToast("视频地址获取失败，请返回重试");
+                    mVideoSurfaceView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            finish();
+                        }
+                    }, 500);
+                    showToast("视频地址获取失败，请重试");
                 }
 
             }

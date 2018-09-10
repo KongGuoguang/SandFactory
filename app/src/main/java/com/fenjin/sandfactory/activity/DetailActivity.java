@@ -3,13 +3,11 @@ package com.fenjin.sandfactory.activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
-import com.fenjin.sandfactory.app.BaseActivity;
 import com.fenjin.sandfactory.databinding.ActivityDetailBinding;
 import com.fenjin.sandfactory.viewmodel.DetailViewModel;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;

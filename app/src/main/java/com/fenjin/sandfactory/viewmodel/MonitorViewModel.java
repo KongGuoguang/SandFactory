@@ -3,14 +3,12 @@ package com.fenjin.sandfactory.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.Channel;
 import com.fenjin.data.entity.GetAllChannelResult;
-import com.fenjin.data.entity.GetChannelResult;
+import com.fenjin.sandfactory.adapter.ChannelListAdapter;
 import com.fenjin.sandfactory.usecase.GetAllChannelUseCase;
-import com.fenjin.sandfactory.usecase.GetChannelUseCase;
+import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
 import java.util.List;
 
@@ -28,6 +26,10 @@ public class MonitorViewModel extends BaseViewModel {
 
     private GetAllChannelUseCase getAllChannelUseCase = new GetAllChannelUseCase(getApplication());
 
+    public MutableLiveData<Integer> errorCode = new MutableLiveData<>();
+
+    public ChannelListAdapter adapter = new ChannelListAdapter();
+
 
 
     public void getAllChannel(){
@@ -41,12 +43,14 @@ public class MonitorViewModel extends BaseViewModel {
             @Override
             public void onNext(GetAllChannelResult getAllChannelResult) {
                 loading.postValue(false);
-                channelListLive.postValue(getAllChannelResult.getEasyDarwin().getBody().getChannels());
+                adapter.setChannelList(getAllChannelResult.getEasyDarwin().getBody().getChannels());
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onError(Throwable e) {
                 loading.postValue(false);
+                errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
 
             }
 

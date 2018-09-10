@@ -13,7 +13,6 @@ import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
 
 /**
  * Author:kongguoguang
@@ -97,8 +96,8 @@ public class DataRepository {
         return networkRepository.touchChannel(channel, line, protocol);
     }
 
-    public Observable<ModifyPasswordResult> modifyPassword(ModifyPasswordParam modifyPasswordParam){
-        return networkRepository.modifyPassword(modifyPasswordParam);
+    public Observable<ModifyPasswordResult> modifyPassword(String token, ModifyPasswordParam modifyPasswordParam) {
+        return networkRepository.modifyPassword(token, modifyPasswordParam);
     }
 
     public void setRememberPassword(boolean rememberPassword){

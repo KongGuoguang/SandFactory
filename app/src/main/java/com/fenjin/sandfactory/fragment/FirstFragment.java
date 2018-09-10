@@ -15,13 +15,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.DetailActivity;
-import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.databinding.FragmentFirstBinding;
-import com.fenjin.sandfactory.util.ErrorCodeUtil;
 import com.fenjin.sandfactory.viewmodel.FirstViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
@@ -29,7 +26,7 @@ import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstFragment extends Fragment {
+public class FirstFragment extends BaseFragment {
 
 
     public FirstFragment() {
@@ -126,13 +123,14 @@ public class FirstFragment extends Fragment {
             public void onChanged(@Nullable Integer integer) {
 
                 if (integer == null) return;
+                dealErrorCode(integer);
+            }
+        });
 
-                if (integer == ErrorCodeUtil.TOKEN_TIME_OUT){
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                    getActivity().finish();
-                    ToastUtils.showShort("登录信息超时，请重新登录");
-                    viewModel.dataRepository.saveToken("");
-                }
+        viewModel.errorMessage.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                showErrorDialog(s);
             }
         });
     }

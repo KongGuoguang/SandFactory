@@ -17,13 +17,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.DetailActivity;
-import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.databinding.FragmentQueryBinding;
-import com.fenjin.sandfactory.util.ErrorCodeUtil;
 import com.fenjin.sandfactory.viewmodel.QueryViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
@@ -141,6 +138,9 @@ public class QueryFragment extends BaseFragment {
         viewModel.lastPage.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
+
+                if (aBoolean == null) return;
+
                 if (aBoolean){
                     noMoreData.setText(R.string.no_more_data);
                 }else {
@@ -154,13 +154,7 @@ public class QueryFragment extends BaseFragment {
             public void onChanged(@Nullable Integer integer) {
 
                 if (integer == null) return;
-
-                if (integer == ErrorCodeUtil.TOKEN_TIME_OUT){
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                    getActivity().finish();
-                    ToastUtils.showShort("登录信息超时，请重新登录");
-                    viewModel.dataRepository.saveToken("");
-                }
+                dealErrorCode(integer);
             }
         });
 

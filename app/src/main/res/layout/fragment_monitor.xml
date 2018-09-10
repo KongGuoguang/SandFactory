@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragment.MonitorFragment"
-    android:background="@color/app_color_background">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.MonitorViewModel" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:background="@color/app_color_main"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".fragment.MonitorFragment"
+        android:background="@color/app_color_background">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="38dp"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:text="@string/monitor"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/app_color_main"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="@string/monitor" />
+
+        </LinearLayout>
+
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/layout_pull_refresh">
+
+            <GridView
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:adapter="@{viewModel.adapter}">
+
+            </GridView>
+
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+
 
     </LinearLayout>
 
-    <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/layout_pull_refresh">
-
-        <GridView
-            android:id="@+id/grid_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="2"
-            android:stretchMode="columnWidth"
-            android:horizontalSpacing="5dp"
-            android:verticalSpacing="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp">
-
-        </GridView>
-
-    </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
-
-
-
-</LinearLayout>
+</layout>

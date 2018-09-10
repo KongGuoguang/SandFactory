@@ -39,6 +39,10 @@ public class ErrorCodeUtil {
 
     public static final int TOKEN_TIME_OUT = 401;//登录超时
 
+    public static final int SERVER_NOT_FOUND = 404;
+
+    public static final int SERVER_INNER_ERROR = 500;
+
     public static int getErrorCode(Throwable t){
 
         if (t instanceof HttpException){

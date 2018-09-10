@@ -5,9 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.widget.TextView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.fenjin.data.entity.ModifyPasswordResult;
 import com.fenjin.sandfactory.usecase.ModifyPasswordUseCase;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
@@ -44,7 +42,9 @@ public class PasswordViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
-    public ModifyPasswordUseCase modifyPasswordUseCase = new ModifyPasswordUseCase(getApplication());
+    public MutableLiveData<Boolean> modifySuccess = new MutableLiveData<>();
+
+    private ModifyPasswordUseCase modifyPasswordUseCase = new ModifyPasswordUseCase(getApplication());
 
     public void submitPassword(){
 
@@ -59,22 +59,22 @@ public class PasswordViewModel extends BaseViewModel {
 
     private boolean checkInputContent(){
         if (TextUtils.isEmpty(oldPassword.get())){
-            ToastUtils.showShort("原密码不能为空！");
+            showToast("原密码不能为空！");
             return false;
         }
 
         if (!isFormatWord(newPassword.get())){
-            ToastUtils.showShort("新密码格式错误！");
+            showToast("新密码格式错误！");
             return false;
         }
 
         if (!isFormatWord(confirmPassword.get())){
-            ToastUtils.showShort("确认密码格式错误！");
+            showToast("确认密码格式错误！");
             return false;
         }
 
         if (!newPassword.get().equals(confirmPassword.get())){
-            ToastUtils.showShort("两次输入的新密码不一致！");
+            showToast("两次输入的新密码不一致！");
             return false;
         }
 
@@ -99,7 +99,7 @@ public class PasswordViewModel extends BaseViewModel {
 
                         if (modifyPasswordResult.getFlag() == 1){
                             dataRepository.saveToken("");
-                            errorCode.postValue(0);
+                            modifySuccess.postValue(true);
                         }else {
                             errorMessage.postValue(modifyPasswordResult.getMessage());
                         }
@@ -130,7 +130,7 @@ public class PasswordViewModel extends BaseViewModel {
 
         if (str.length() < 6) return false;
 
-        Pattern pattern = Pattern.compile("^[A-Za-z0-9]+$");
+        Pattern pattern = Pattern.compile("([0-9]+[a-zA-Z]+|[a-zA-Z]+[0-9]+)[0-9a-zA-Z]*");
 
         Matcher isEngWord = pattern.matcher(str);
 
