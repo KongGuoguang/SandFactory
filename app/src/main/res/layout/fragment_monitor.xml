@@ -17,21 +17,62 @@
         tools:context=".fragment.MonitorFragment"
         android:background="@color/app_color_background">
 
-        <LinearLayout
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="73dp"-->
+        <!--android:background="@color/app_color_main"-->
+        <!--android:gravity="center_horizontal">-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="38dp"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="16sp"-->
+        <!--android:text="@string/monitor" />-->
+
+        <!--</LinearLayout>-->
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@color/app_color_main"
-            android:gravity="center_horizontal">
+            android:background="@color/app_color_main">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/tv_search"
+                android:layout_marginStart="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textColorHint="@color/gray"
+                android:hint="@string/hint_search_camera"
+                android:text="@={viewModel.searchKey}"
+                android:background="@{viewModel.drawable}" />
 
             <TextView
+                android:id="@+id/tv_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
-                android:textColor="#ffffff"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/et_search"
+                android:layout_alignBottom="@+id/et_search"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:textSize="16sp"
-                android:text="@string/monitor" />
+                android:textColor="@color/white"
+                android:text="@string/search"
+                android:onClick="@{() -> viewModel.searchChannel()}" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
             android:layout_width="match_parent"

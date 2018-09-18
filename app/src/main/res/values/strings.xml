@@ -9,6 +9,7 @@
     <string name="total_weight">总重量：</string>
     <string name="latest_cheng_zhong">最新称重记录</string>
     <string name="hint_search">输入票据编号、车号或货名等</string>
+    <string name="hint_search_camera">输入监控名称</string>
     <string name="search">搜索</string>
     <string name="monitor">监控</string>
     <string name="offline">离线</string>

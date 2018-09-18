@@ -77,7 +77,7 @@ public class NetworkRepository {
     }
 
     private void initServerInterface(OkHttpClient client){
-        String baseUrl = "http://112.35.23.101:9090/api/";
+        String baseUrl = "http://117.158.160.210:9090/api/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
@@ -91,6 +91,7 @@ public class NetworkRepository {
     private void initCameraInterface(OkHttpClient client){
 
         String baseUrl = "http://112.35.23.101:10800/api/v1/";
+//        String baseUrl = "http://117.158.160.210:10800/api/v1/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
