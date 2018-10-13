@@ -5,6 +5,7 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.TodayCountResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -38,5 +39,8 @@ public interface ServerInterface {
                                                                    @Query("pageNum") int pageNum,
                                                                    @Query("pageSize") int pageSize,
                                                                    @Query("searchKey") String searchKey);
+
+    @GET("record/todayCount")
+    Observable<TodayCountResult> getTodayCountResult(@Header("token") String token);
 
 }

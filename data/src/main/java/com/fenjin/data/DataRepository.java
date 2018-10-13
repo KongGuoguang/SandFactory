@@ -9,6 +9,7 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
 
@@ -106,5 +107,9 @@ public class DataRepository {
 
     public boolean getRememberPassword(){
         return preferencesRepository.getRememberPassword();
+    }
+
+    public Observable<TodayCountResult> getTodayCountResult(String token) {
+        return networkRepository.getTodayCountResult(token);
     }
 }

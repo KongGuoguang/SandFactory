@@ -6,16 +6,21 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.sandfactory.adapter.ChengZhongListAdapter;
 import com.fenjin.sandfactory.usecase.GetChengZhongrecordListUseCase;
+import com.fenjin.sandfactory.usecase.GetTodayCountUseCase;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class FirstViewModel extends BaseViewModel {
 
     private GetChengZhongrecordListUseCase useCase = new GetChengZhongrecordListUseCase(getApplication());
+
+    private GetTodayCountUseCase todayCountUseCase = new GetTodayCountUseCase(getApplication());
 
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
@@ -70,5 +75,23 @@ public class FirstViewModel extends BaseViewModel {
                     }
                 }
         );
+
+        todayCountUseCase.execute(new Consumer<TodayCountResult>() {
+            @Override
+            public void accept(TodayCountResult todayCountResult) throws Exception {
+                if (todayCountResult.getFlag() == 1) {
+                    totalTruckNumber.set(String.valueOf(todayCountResult.getResult().getTodayNo()));
+                    totalWeight.set(subZeroAndDot(String.valueOf(todayCountResult.getResult().getTodayWeight())));
+                }
+            }
+        });
+    }
+
+    private String subZeroAndDot(String s) {
+        if (s.indexOf(".") > 0) {
+            s = s.replaceAll("0+?$", "");//去掉多余的0
+            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+        return s + "千克";
     }
 }

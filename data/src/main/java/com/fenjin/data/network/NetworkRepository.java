@@ -10,6 +10,7 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.TodayCountResult;
 
 import java.util.concurrent.TimeUnit;
 
@@ -126,6 +127,10 @@ public class NetworkRepository {
 
     public Observable<ModifyPasswordResult> modifyPassword(String token, ModifyPasswordParam modifyPasswordParam) {
         return serverInterface.modifyPassword(token, modifyPasswordParam);
+    }
+
+    public Observable<TodayCountResult> getTodayCountResult(String token) {
+        return serverInterface.getTodayCountResult(token);
     }
 
 
