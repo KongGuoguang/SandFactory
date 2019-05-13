@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">商城采砂</string>
+    <string name="app_name">采砂监管</string>
     <string name="hint_user_name">请输入用户名</string>
     <string name="hint_password">请输入密码</string>
     <string name="remember_me">记住我</string>

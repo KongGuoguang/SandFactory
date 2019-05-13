@@ -6,8 +6,8 @@ android {
         applicationId "com.fenjin.sandfactory"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 110513
+        versionName "1.1.0513"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
 //        buildConfigField 'String', 'KEY', '"79393674363536526D343241692F4E61705178304A655A76636D63755A57467A65575268636E64706269356C59584E356347786865575679567778576F502B6C34456468646D6C754A6B4A68596D397A595541794D4445325257467A65555268636E6470626C526C5957316C59584E35"'
@@ -18,6 +18,13 @@ android {
         ndk {
             abiFilters 'armeabi-v7a'
 //            abiFilters 'armeabi-v7a','arm64-v8a'
+        }
+
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
         }
     }
     buildTypes {
