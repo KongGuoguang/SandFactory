@@ -92,6 +92,6 @@ public class FirstViewModel extends BaseViewModel {
             s = s.replaceAll("0+?$", "");//去掉多余的0
             s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
         }
-        return s + "千克";
+        return s + "kg";
     }
 }
