@@ -6,12 +6,11 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'http://120.194.4.152:8081/nexus/content/groups/public/' }
-        google()
 //        google()
 //        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'com.android.tools.build:gradle:3.4.1'
         
 
         // NOTE: Do not place your application dependencies here; they belong

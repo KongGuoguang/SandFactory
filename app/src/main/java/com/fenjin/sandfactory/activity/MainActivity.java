@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.fragment.FirstFragment;
 import com.fenjin.sandfactory.fragment.MeFragment;
-import com.fenjin.sandfactory.fragment.MonitorFragment;
 import com.fenjin.sandfactory.fragment.QueryFragment;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -20,8 +19,6 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     private QMUITabSegment tabSegment;
-
-    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +40,25 @@ public class MainActivity extends BaseActivity {
                 ContextCompat.getDrawable(this, R.mipmap.ic_tab_search_normal),
                 ContextCompat.getDrawable(this, R.mipmap.ic_tab_search_pressed),
                 "查询",false);
-        QMUITabSegment.Tab workStatistics = new QMUITabSegment.Tab(
-                ContextCompat.getDrawable(this, R.mipmap.ic_monitor_normal),
-                ContextCompat.getDrawable(this, R.mipmap.ic_monitor_selected),
-                "监控",false);
+//        QMUITabSegment.Tab workStatistics = new QMUITabSegment.Tab(
+//                ContextCompat.getDrawable(this, R.mipmap.ic_monitor_normal),
+//                ContextCompat.getDrawable(this, R.mipmap.ic_monitor_selected),
+//                "监控",false);
         QMUITabSegment.Tab me = new QMUITabSegment.Tab(
                 ContextCompat.getDrawable(this, R.mipmap.ic_mine_normal),
                 ContextCompat.getDrawable(this, R.mipmap.ic_mine_pressed),
                 "我的",false);
-        tabSegment.addTab(workRecord).addTab(modifyAudit).addTab(workStatistics).addTab(me);
+        tabSegment.addTab(workRecord)
+                .addTab(modifyAudit)
+//                .addTab(workStatistics)
+                .addTab(me);
     }
 
     private void initPagers(){
         final List<Fragment> fragments = new ArrayList<>();
         fragments.add(new FirstFragment());
         fragments.add(new QueryFragment());
-        fragments.add(new MonitorFragment());
+//        fragments.add(new MonitorFragment());
         fragments.add(new MeFragment());
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
             }
         };
 
-        viewPager = findViewById(R.id.pager);
+        ViewPager viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         tabSegment.setupWithViewPager(viewPager, false);
