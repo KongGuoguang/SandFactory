@@ -21,7 +21,6 @@ import com.fenjin.sandfactory.databinding.ActivityPlayBinding;
 import com.fenjin.sandfactory.viewmodel.PlayViewModel;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.io.IOException;
@@ -47,8 +46,6 @@ public class PlayActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this);
-
         ActivityPlayBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_play);
         viewModel = ViewModelProviders.of(this).get(PlayViewModel.class);
         binding.setViewModel(viewModel);

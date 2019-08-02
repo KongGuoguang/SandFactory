@@ -10,7 +10,6 @@ import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityDetailBinding;
 import com.fenjin.sandfactory.viewmodel.DetailViewModel;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 public class DetailActivity extends BaseActivity {
 
@@ -19,7 +18,6 @@ public class DetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this);
         ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
         viewModel = ViewModelProviders.of(this).get(DetailViewModel.class);

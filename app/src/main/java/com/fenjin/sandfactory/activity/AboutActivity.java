@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityAboutBinding;
 import com.fenjin.sandfactory.viewmodel.AboutViewModel;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 public class AboutActivity extends BaseActivity {
 
@@ -18,7 +17,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this);
         ActivityAboutBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_about);
         viewModel = ViewModelProviders.of(this).get(AboutViewModel.class);
         binding.setViewModel(viewModel);

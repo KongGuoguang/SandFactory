@@ -18,6 +18,9 @@ package com.fenjin.sandfactory.adapter;
 
 import android.databinding.BindingAdapter;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 
 public class BindingAdapters {
@@ -35,5 +38,12 @@ public class BindingAdapters {
     public static void enableOrNot(View view, boolean enable){
         view.setEnabled(enable);
         view.setAlpha(enable ? 1f : 0.5f);
+    }
+
+    @BindingAdapter("imageUrl")
+    public static void loadImage(ImageView imageView, String url) {
+        Glide.with(imageView)
+                .load(url)
+                .into(imageView);
     }
 }

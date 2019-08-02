@@ -14,19 +14,20 @@ public class MeViewModel extends BaseViewModel {
 
     public ObservableField<String> userName = new ObservableField<>();
 
-   public MutableLiveData<Boolean> logoutDialog = new MutableLiveData<>();
+    public MutableLiveData<Boolean> logoutDialog = new MutableLiveData<>();
 
-   public MutableLiveData<Boolean> startAboutActivity = new MutableLiveData<>();
+    public MutableLiveData<Boolean> startAboutActivity = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> startPasswordActivity = new MutableLiveData<>();
 
-   public void showLogoutDialog(){
+    public MutableLiveData<Boolean> startPersonalInfoActivity = new MutableLiveData<>();
+
+    public void showLogoutDialog() {
        logoutDialog.postValue(true);
    }
 
     public void logout(){
         dataRepository.saveToken("");
-
     }
 
     public void startModifyPasswordActicity(){
@@ -35,5 +36,9 @@ public class MeViewModel extends BaseViewModel {
 
     public void startAboutActivity(){
        startAboutActivity.postValue(true);
+    }
+
+    public void startPersonalInfoActivity() {
+        startPersonalInfoActivity.postValue(true);
     }
 }

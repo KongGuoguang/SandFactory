@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">方城采砂</string>
+    <string name="app_name">智慧采砂</string>
     <string name="hint_user_name">请输入用户名</string>
     <string name="hint_password">请输入密码</string>
     <string name="remember_me">记住我</string>
@@ -45,6 +45,16 @@
     <string name="blank">&#160;</string>
     <string name="detail">详情</string>
     <string name="password_rule">新密码为6–16位数字和字母的组合</string>
+    <string name="personal_info">个人信息</string>
+    <string name="personal_data">个人资料</string>
+    <string name="profile_picture">头像（请上传真实头像）</string>
+    <string name="real_name">姓名</string>
+    <string name="sex">性别</string>
+    <string name="connect">联系方式</string>
+    <string name="phone_number">手机号</string>
+    <string name="address">我的地址</string>
+    <string name="company">公司</string>
+    <string name="two_dimensional_code">二维码</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -17,9 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.PersonalInfoActivity"></activity>
+        <activity android:name=".activity.IpConfigActivity" />
+        <activity android:name=".activity.AppListActivity" />
+
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" />
+
         <activity
             android:name=".activity.InitActivity"
             android:screenOrientation="portrait">

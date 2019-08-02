@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityPasswordBinding;
 import com.fenjin.sandfactory.viewmodel.PasswordViewModel;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 public class PasswordActivity extends BaseActivity {
@@ -22,7 +21,6 @@ public class PasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this);
         ActivityPasswordBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_password);
         viewModel = ViewModelProviders.of(this).get(PasswordViewModel.class);
         binding.setViewModel(viewModel);

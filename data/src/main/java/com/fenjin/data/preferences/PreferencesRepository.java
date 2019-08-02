@@ -3,6 +3,11 @@ package com.fenjin.data.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.fenjin.data.bean.AppInfo;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Author:kongguoguang
  * Date:2018-05-15
@@ -22,6 +27,8 @@ public class PreferencesRepository {
     private static final String TOKEN = "token";
 
     private static final String REMEMBER_PASSWORD = "remember_password";
+
+    private static final String SELECTED_APP_PACKAGE_NAME = "_selected_app_package_name";
 
     private SharedPreferences sharedPreferences;
 
@@ -72,5 +79,21 @@ public class PreferencesRepository {
 
     public boolean getRememberPassword(){
         return sharedPreferences.getBoolean(REMEMBER_PASSWORD, false);
+    }
+
+    public List<String> getSelectedAppPackageNameList() {
+        String userName = sharedPreferences.getString(USER_NAME, "");
+        String selectedAppPackageName = sharedPreferences.getString(userName + SELECTED_APP_PACKAGE_NAME, "");
+        String[] tempArray = selectedAppPackageName.split(",");
+        return Arrays.asList(tempArray);
+    }
+
+    public void setSelectedAppPackageName(List<AppInfo> appInfoList) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (AppInfo appInfo : appInfoList) {
+            stringBuilder.append(appInfo.getPackageName()).append(",");
+        }
+        String userName = sharedPreferences.getString(USER_NAME, "");
+        sharedPreferences.edit().putString(userName + SELECTED_APP_PACKAGE_NAME, stringBuilder.toString()).apply();
     }
 }

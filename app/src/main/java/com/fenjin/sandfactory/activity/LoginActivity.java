@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityLoginBinding;
 import com.fenjin.sandfactory.viewmodel.LoginViewModel;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 public class LoginActivity extends BaseActivity {
@@ -22,7 +21,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this);
         ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         binding.setViewModel(viewModel);

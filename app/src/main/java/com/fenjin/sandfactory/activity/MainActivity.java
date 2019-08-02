@@ -10,7 +10,6 @@ import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.fragment.FirstFragment;
 import com.fenjin.sandfactory.fragment.MeFragment;
 import com.fenjin.sandfactory.fragment.QueryFragment;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        QMUIStatusBarHelper.translucent(this);
         setContentView(R.layout.activity_main);
         initTabs();
         initPagers();
