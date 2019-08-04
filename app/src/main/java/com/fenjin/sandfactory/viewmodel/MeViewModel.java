@@ -4,6 +4,9 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.view.View;
+
+import com.fenjin.sandfactory.R;
 
 
 public class MeViewModel extends BaseViewModel {
@@ -14,7 +17,7 @@ public class MeViewModel extends BaseViewModel {
 
     public ObservableField<String> userName = new ObservableField<>();
 
-    public MutableLiveData<Boolean> logoutDialog = new MutableLiveData<>();
+    public MutableLiveData<Boolean> showLogoutDialog = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> startAboutActivity = new MutableLiveData<>();
 
@@ -22,23 +25,27 @@ public class MeViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> startPersonalInfoActivity = new MutableLiveData<>();
 
-    public void showLogoutDialog() {
-       logoutDialog.postValue(true);
-   }
-
     public void logout(){
         dataRepository.saveToken("");
     }
 
-    public void startModifyPasswordActicity(){
-        startPasswordActivity.postValue(true);
-    }
 
-    public void startAboutActivity(){
-       startAboutActivity.postValue(true);
-    }
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.layout_personal_dta:
+                startPersonalInfoActivity.postValue(true);
+                break;
+            case R.id.layout_modify_password:
+                startPasswordActivity.postValue(true);
+                break;
+            case R.id.layout_about:
+                startAboutActivity.postValue(true);
+                break;
+            case R.id.bt_logout:
+                showLogoutDialog.postValue(true);
+                break;
+        }
 
-    public void startPersonalInfoActivity() {
-        startPersonalInfoActivity.postValue(true);
     }
 }

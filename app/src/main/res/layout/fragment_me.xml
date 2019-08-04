@@ -54,20 +54,22 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/layout_personal_dta"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/common_cilck_item_bg"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> viewModel.startPersonalInfoActivity()}">
+            android:onClick="@{viewModel::onClick}">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:src="@mipmap/ic_modify_password" />
+                android:src="@mipmap/ic_modify_password"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,7 +78,8 @@
                 android:layout_centerVertical="true"
                 android:textColor="#2a2f2f"
                 android:textSize="16sp"
-                android:text="@string/personal_data" />
+                android:text="@string/personal_data"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -84,25 +87,28 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="16dp"
-                android:src="@mipmap/ic_arrow" />
+                android:src="@mipmap/ic_arrow"
+                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/layout_modify_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="1dp"
             android:background="@drawable/common_cilck_item_bg"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> viewModel.startModifyPasswordActicity()}">
+            android:onClick="@{viewModel::onClick}">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:src="@mipmap/ic_modify_password"/>
+                android:src="@mipmap/ic_modify_password"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,7 +117,8 @@
                 android:layout_centerVertical="true"
                 android:textColor="#2a2f2f"
                 android:textSize="16sp"
-                android:text="@string/modify_password"/>
+                android:text="@string/modify_password"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -119,25 +126,28 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="16dp"
-                android:src="@mipmap/ic_arrow"/>
+                android:src="@mipmap/ic_arrow"
+                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/layout_about"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="1dp"
             android:background="@drawable/common_cilck_item_bg"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> viewModel.startAboutActivity()}">
+            android:onClick="@{viewModel::onClick}">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:src="@mipmap/ic_about"/>
+                android:src="@mipmap/ic_about"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,7 +156,8 @@
                 android:layout_centerVertical="true"
                 android:textColor="#2a2f2f"
                 android:textSize="16sp"
-                android:text="@string/about"/>
+                android:text="@string/about"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -154,15 +165,17 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="16dp"
-                android:src="@mipmap/ic_arrow"/>
+                android:src="@mipmap/ic_arrow"
+                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/bt_logout"
             style="@style/RoundButtonWhite"
             android:text="@string/logout"
-            android:onClick="@{() -> viewModel.showLogoutDialog()}"
+            android:onClick="@{viewModel::onClick}"
             app:changeAlphaWhenPress="@{true}"/>
 
     </LinearLayout>

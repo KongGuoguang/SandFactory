@@ -23,24 +23,50 @@
             android:layout_height="73dp"
             android:background="@color/app_color_main">
 
-            <EditText
+            <LinearLayout
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:layout_toStartOf="@+id/tv_search"
                 android:layout_marginStart="20dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textColorHint="@color/gray"
-                android:hint="@string/hint_search"
-                android:text="@={viewModel.searchKey}"
-                android:background="@{viewModel.drawable}"/>
+                android:background="@drawable/shape_corner_border_gray">
+
+                <TextView
+                    android:id="@+id/tv_query_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/select_condition" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textColorHint="@color/gray"
+                    android:hint="@string/hint_search"
+                    android:text="@={viewModel.searchKey}"
+                    android:background="@null"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tv_search"

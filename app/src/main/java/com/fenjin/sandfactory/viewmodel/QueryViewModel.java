@@ -2,9 +2,7 @@ package com.fenjin.sandfactory.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.res.ColorStateList;
 import android.databinding.ObservableField;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -13,7 +11,6 @@ import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.sandfactory.adapter.ChengZhongListAdapter;
 import com.fenjin.sandfactory.usecase.GetChengZhongrecordListUseCase;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +26,9 @@ import io.reactivex.disposables.Disposable;
  */
 public class QueryViewModel extends BaseViewModel {
 
-    public QMUIRoundButtonDrawable drawable;
 
     public QueryViewModel(@NonNull Application application) {
         super(application);
-        drawable = new QMUIRoundButtonDrawable();
-        drawable.setBgData(ColorStateList.valueOf(Color.WHITE));
-        drawable.setIsRadiusAdjustBounds(true);
     }
 
     public ObservableField<String> searchKey = new ObservableField<>();

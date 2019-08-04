@@ -22,7 +22,11 @@ import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.DetailActivity;
 import com.fenjin.sandfactory.databinding.FragmentQueryBinding;
 import com.fenjin.sandfactory.viewmodel.QueryViewModel;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.qmuiteam.qmui.widget.popup.QMUIPopup;
+
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +49,9 @@ public class QueryFragment extends BaseFragment {
 
     private TextView noMoreData;
 
+    private TextView queryCondition;
+
+    private QMUIPopup popup;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,6 +115,23 @@ public class QueryFragment extends BaseFragment {
         });
 
         noMoreData = footerView.findViewById(R.id.tv_no_more_data);
+
+        queryCondition = view.findViewById(R.id.tv_query_condition);
+        queryCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (popup == null) {
+                    popup = new QMUIPopup(view.getContext(), QMUIPopup.DIRECTION_BOTTOM);
+                    popup.setAnimStyle(QMUIPopup.ANIM_GROW_FROM_CENTER);
+                    View contentView = LayoutInflater.from(view.getContext()).inflate(R.layout.layout_query_condition, null, false);
+                    contentView.setLayoutParams(popup.generateLayoutParam(
+                            QMUIDisplayHelper.dp2px(view.getContext(), 70), WRAP_CONTENT));
+                    popup.setContentView(contentView);
+                }
+
+                popup.show(view);
+            }
+        });
 
         isViewCreated = true;
     }

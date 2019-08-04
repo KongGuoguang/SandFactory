@@ -55,7 +55,7 @@ public class MeFragment extends BaseFragment {
     }
 
     private void init(){
-        viewModel.logoutDialog.observe(this, new Observer<Boolean>() {
+        viewModel.showLogoutDialog.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 new QMUIDialog.MessageDialogBuilder(getActivity())
