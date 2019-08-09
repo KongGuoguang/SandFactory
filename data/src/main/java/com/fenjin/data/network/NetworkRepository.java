@@ -4,13 +4,26 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.ChengZhongStaticParam;
+import com.fenjin.data.entity.ChengZhongStaticResult;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
+import com.fenjin.data.entity.GetChartStaticResult;
+import com.fenjin.data.entity.GetStaticCountParam;
+import com.fenjin.data.entity.GetStaticCountResult;
+import com.fenjin.data.entity.GetStaticDetailCountParam;
+import com.fenjin.data.entity.GetStaticDetailCountResult;
+import com.fenjin.data.entity.GetStaticDetailListParam;
+import com.fenjin.data.entity.GetStaticDetailListResult;
+import com.fenjin.data.entity.GetStaticListParam;
+import com.fenjin.data.entity.GetStaticListResult;
+import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
 import com.fenjin.data.entity.TodayCountResult;
+import com.fenjin.data.preferences.PreferencesRepository;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,25 +48,18 @@ public class NetworkRepository {
 
     private static final int WRITE_TIMEOUT = 15;
 
-    private static NetworkRepository instance;
-
     private ServerInterface serverInterface;
 
     private CameraInterface cameraInterface;
 
-    public static NetworkRepository getInstance(){
-        if (instance == null){
-            synchronized (NetworkRepository.class){
-                if (instance == null){
-                    instance = new NetworkRepository();
-                    instance.init();
-                }
-            }
-        }
-        return instance;
+    private PreferencesRepository preferencesRepository;
+
+    public NetworkRepository(PreferencesRepository preferencesRepository) {
+        this.preferencesRepository = preferencesRepository;
+        init();
     }
 
-    private void init(){
+    public void init() {
 
         HttpLoggingInterceptor.Logger logger = new HttpLoggingInterceptor.Logger() {
             @Override
@@ -78,7 +84,9 @@ public class NetworkRepository {
     }
 
     private void initServerInterface(OkHttpClient client){
-        String baseUrl = "http://111.6.77.67:9090/api/";
+        String ip = preferencesRepository.getIp();
+        String port = preferencesRepository.getPort();
+        String baseUrl = "http://" + ip + ":" + port + "/admin/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
@@ -124,12 +132,40 @@ public class NetworkRepository {
         return cameraInterface.touchChannel(channel, line, protocol);
     }
 
-    public Observable<ModifyPasswordResult> modifyPassword(String token, ModifyPasswordParam modifyPasswordParam) {
-        return serverInterface.modifyPassword(token, modifyPasswordParam);
+    public Observable<ModifyPasswordResult> modifyPassword(ModifyPasswordParam modifyPasswordParam) {
+        return serverInterface.modifyPassword(preferencesRepository.getAuthorization(), modifyPasswordParam);
     }
 
-    public Observable<TodayCountResult> getTodayCountResult(String token) {
-        return serverInterface.getTodayCountResult(token);
+    public Observable<TodayCountResult> getTodayCountResult() {
+        return serverInterface.getTodayCountResult(preferencesRepository.getAuthorization());
+    }
+
+    public Observable<ChengZhongStaticResult> getChengZhongStatic(ChengZhongStaticParam param) {
+        return serverInterface.getChengZhongStaticResult(preferencesRepository.getAuthorization(), param);
+    }
+
+    public Observable<GetChartStaticResult> getChartStatic() {
+        return serverInterface.getChartStaticResult(preferencesRepository.getAuthorization());
+    }
+
+    public Observable<GetStaticCountResult> getStaticCount(GetStaticCountParam param) {
+        return serverInterface.getStaticCount(preferencesRepository.getAuthorization(), param);
+    }
+
+    public Observable<GetStaticListResult> getStaticList(GetStaticListParam param) {
+        return serverInterface.getStaticList(preferencesRepository.getAuthorization(), param);
+    }
+
+    public Observable<GetStaticDetailCountResult> getStaticDetailCount(GetStaticDetailCountParam param) {
+        return serverInterface.getStaticDetailCount(preferencesRepository.getAuthorization(), param);
+    }
+
+    public Observable<GetStaticDetailListResult> getStaticDetailList(GetStaticDetailListParam param) {
+        return serverInterface.getStaticDetailList(preferencesRepository.getAuthorization(), param);
+    }
+
+    public Observable<GetSysConfigResult> getSysConfig() {
+        return serverInterface.getSysConfig(preferencesRepository.getAuthorization());
     }
 
 

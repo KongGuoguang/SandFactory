@@ -25,6 +25,7 @@ public class LoginActivity extends BaseActivity {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         binding.setViewModel(viewModel);
         init();
+        viewModel.getSysConfig();
     }
 
     private void init(){

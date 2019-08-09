@@ -29,6 +29,6 @@ public class ModifyPasswordUseCase extends BaseUseCase<ModifyPasswordResult> {
 
     @Override
     public Observable<ModifyPasswordResult> buildObservable() {
-        return dataRepository.modifyPassword(dataRepository.getToken(), new ModifyPasswordParam(oldPwd, newPwd));
+        return dataRepository.modifyPassword(new ModifyPasswordParam(oldPwd, newPwd));
     }
 }

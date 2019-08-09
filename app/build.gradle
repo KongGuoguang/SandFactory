@@ -67,6 +67,7 @@ dependencies {
     implementation project(':data')
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //implementation 'com.ksyun.media:libksyplayer-java:1.9.2'
     //    implementation 'com.ksyun.media:libksyplayer-armv7a:1.9.2'
     //    implementation 'com.ksyun.media:libksyplayer-arm64:1.9.2'

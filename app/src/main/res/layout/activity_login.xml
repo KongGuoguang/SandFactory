@@ -23,7 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
-            android:src="@mipmap/ic_logo"/>
+            android:src="@mipmap/ic_logo"
+            app:imageUrl="@{viewModel.sysLogo}" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +32,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:text="@string/app_name"/>
+            android:text="@{viewModel.sysName}" />
 
         <LinearLayout
             android:layout_width="match_parent"

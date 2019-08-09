@@ -35,10 +35,18 @@
 
         </RelativeLayout>
 
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+        </com.github.mikephil.charting.charts.BarChart>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,7 +102,8 @@
         <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/layout_pull_refresh">
+            android:id="@+id/layout_pull_refresh"
+            android:visibility="gone">
 
             <ListView
                 android:id="@+id/list_view"

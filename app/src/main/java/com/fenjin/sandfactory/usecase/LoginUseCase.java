@@ -34,7 +34,7 @@ public class LoginUseCase extends BaseUseCase<LoginResult> {
                 .doOnNext(new Consumer<LoginResult>() {
                     @Override
                     public void accept(LoginResult loginResult) throws Exception {
-                        dataRepository.saveUserNameAndPassword(userName, password);
+                        dataRepository.saveUserNameAndPassword(context, userName, password);
                         dataRepository.saveToken(loginResult.getResult());
                     }
                 });

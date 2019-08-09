@@ -6,12 +6,15 @@ import android.databinding.Observable;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 
+import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoginResult;
+import com.fenjin.sandfactory.usecase.GetSysConfigUseCase;
 import com.fenjin.sandfactory.usecase.LoginUseCase;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Author:kongguoguang
@@ -36,6 +39,10 @@ public class LoginViewModel extends BaseViewModel {
         });
     }
 
+    public ObservableField<String> sysLogo = new ObservableField<>(dataRepository.getSysLogoUrl());
+
+    public ObservableField<String> sysName = new ObservableField<>(dataRepository.getSysName());
+
     public ObservableField<String> userName = new ObservableField<>();
 
     public ObservableField<String> password = new ObservableField<>();
@@ -52,10 +59,24 @@ public class LoginViewModel extends BaseViewModel {
 
     private LoginUseCase loginUseCase;
 
+    private GetSysConfigUseCase getSysConfigUseCase;
+
+    public void getSysConfig() {
+        if (getSysConfigUseCase == null) {
+            getSysConfigUseCase = new GetSysConfigUseCase(getApplication());
+        }
+
+        getSysConfigUseCase.execute(new Consumer<GetSysConfigResult>() {
+            @Override
+            public void accept(GetSysConfigResult getSysConfigResult) throws Exception {
+                sysLogo.set(dataRepository.getSysLogoUrl());
+                sysName.set(dataRepository.getSysName());
+            }
+        });
+    }
+
 
     public void login(){
-
-//        loginSuccess.postValue(true);
 
         loginIng.setValue(true);
         if (loginUseCase == null){

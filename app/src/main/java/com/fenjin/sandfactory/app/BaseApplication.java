@@ -19,7 +19,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        dataRepository = DataRepository.getInstance(this);
+        dataRepository = new DataRepository(getApplicationContext());
         initLUtils();
     }
 

@@ -13,6 +13,6 @@ public class GetTodayCountUseCase extends BaseUseCase<TodayCountResult> {
 
     @Override
     public Observable<TodayCountResult> buildObservable() {
-        return dataRepository.getTodayCountResult(dataRepository.getToken());
+        return dataRepository.getTodayCountResult();
     }
 }
