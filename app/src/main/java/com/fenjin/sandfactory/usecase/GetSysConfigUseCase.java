@@ -2,6 +2,7 @@ package com.fenjin.sandfactory.usecase;
 
 import android.content.Context;
 
+import com.fenjin.data.bean.SysConfig;
 import com.fenjin.data.entity.GetSysConfigResult;
 
 import io.reactivex.Observable;
@@ -24,7 +25,7 @@ public class GetSysConfigUseCase extends BaseUseCase<GetSysConfigResult> {
                 .doOnNext(new Consumer<GetSysConfigResult>() {
                     @Override
                     public void accept(GetSysConfigResult getSysConfigResult) throws Exception {
-                        for (GetSysConfigResult.Config config : getSysConfigResult.getResult()) {
+                        for (SysConfig config : getSysConfigResult.getResult()) {
                             if (config.getId() == 1) {
                                 dataRepository.setSysName(config.getValue());
                             }

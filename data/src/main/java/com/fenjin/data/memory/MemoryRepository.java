@@ -1,7 +1,7 @@
 package com.fenjin.data.memory;
 
-import com.fenjin.data.entity.GetChartStaticResult;
-import com.fenjin.data.entity.GetPersonInfoResult;
+import com.fenjin.data.bean.ChartStatisticsItem;
+import com.fenjin.data.bean.PersonalInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,24 +14,25 @@ import java.util.List;
  */
 public class MemoryRepository {
 
-    private GetPersonInfoResult.PersonalInfo personalInfo = new GetPersonInfoResult().new PersonalInfo();
+    private PersonalInfo personalInfo = new PersonalInfo();
 
-    private List<GetChartStaticResult.ChartItem> chartItemList = new ArrayList<>();
+    private List<ChartStatisticsItem> chartStatisticsItemList = new ArrayList<>();
 
 
-    public GetPersonInfoResult.PersonalInfo getPersonalInfo() {
+    public PersonalInfo getPersonalInfo() {
         return personalInfo;
     }
 
-    public void setPersonalInfo(GetPersonInfoResult.PersonalInfo personalInfo) {
+    public void setPersonalInfo(PersonalInfo personalInfo) {
         this.personalInfo = personalInfo;
     }
 
-    public List<GetChartStaticResult.ChartItem> getChartItemList() {
-        return chartItemList;
+    public List<ChartStatisticsItem> getChartStatisticsItemList() {
+        return chartStatisticsItemList;
     }
 
-    public void setChartItemList(List<GetChartStaticResult.ChartItem> chartItemList) {
-        this.chartItemList = chartItemList;
+    public void setChartStatisticsItemList(List<ChartStatisticsItem> chartStatisticsItemList) {
+        this.chartStatisticsItemList.clear();
+        this.chartStatisticsItemList.addAll(chartStatisticsItemList);
     }
 }

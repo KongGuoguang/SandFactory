@@ -19,10 +19,38 @@
         android:gravity="center_horizontal"
         android:background="@mipmap/bg_login_activity">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="40dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@mipmap/ic_arrow_back"
+                android:onClick="@{viewModel::onClick}"
+                android:contentDescription="@null" />
+
+            <ImageView
+                android:id="@+id/iv_setting"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:src="@mipmap/ic_setting"
+                android:onClick="@{viewModel::onClick}"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="87dp"
+            android:layout_height="87dp"
+            android:layout_marginTop="62dp"
             android:src="@mipmap/ic_logo"
             app:imageUrl="@{viewModel.sysLogo}" />
 
@@ -46,7 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:src="@mipmap/ic_user"/>
+                android:src="@mipmap/ic_user"
+                android:contentDescription="@null" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -144,9 +173,10 @@
         </RelativeLayout>
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/bt_login"
             style="@style/RoundButtonLogin"
             android:text="@string/login"
-            android:onClick="@{() -> viewModel.login()}"
+            android:onClick="@{viewModel::onClick}"
             app:changeAlphaWhenPress="@{true}"
             app:enableOrNot="@{viewModel.userName.get().length() > 0 &amp;&amp; viewModel.password.get().length() > 0}"/>
 

@@ -4,11 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
-import com.fenjin.data.entity.ChengZhongStaticParam;
-import com.fenjin.data.entity.ChengZhongStaticResult;
+import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.GetChartStaticResult;
+import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetStaticCountParam;
 import com.fenjin.data.entity.GetStaticCountResult;
 import com.fenjin.data.entity.GetStaticDetailCountParam;
@@ -18,6 +18,8 @@ import com.fenjin.data.entity.GetStaticDetailListResult;
 import com.fenjin.data.entity.GetStaticListParam;
 import com.fenjin.data.entity.GetStaticListResult;
 import com.fenjin.data.entity.GetSysConfigResult;
+import com.fenjin.data.entity.LoadCompanyNamesResult;
+import com.fenjin.data.entity.LoadSandFactoryNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
@@ -84,9 +86,10 @@ public class NetworkRepository {
     }
 
     private void initServerInterface(OkHttpClient client){
-        String ip = preferencesRepository.getIp();
-        String port = preferencesRepository.getPort();
-        String baseUrl = "http://" + ip + ":" + port + "/admin/";
+//        String ip = preferencesRepository.getIp();
+//        String port = preferencesRepository.getPort();
+//        String baseUrl = "http://" + ip + ":" + port + "/admin/";
+        String baseUrl = "http://www.shidand.com.cn:9090/admin/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
@@ -96,6 +99,7 @@ public class NetworkRepository {
 
         serverInterface = retrofit.create(ServerInterface.class);
     }
+
 
     private void initCameraInterface(OkHttpClient client){
 
@@ -140,7 +144,7 @@ public class NetworkRepository {
         return serverInterface.getTodayCountResult(preferencesRepository.getAuthorization());
     }
 
-    public Observable<ChengZhongStaticResult> getChengZhongStatic(ChengZhongStaticParam param) {
+    public Observable<GetChengZhongStatisticsResult> getChengZhongStatic(ChengZhongStatisticsParam param) {
         return serverInterface.getChengZhongStaticResult(preferencesRepository.getAuthorization(), param);
     }
 
@@ -166,6 +170,14 @@ public class NetworkRepository {
 
     public Observable<GetSysConfigResult> getSysConfig() {
         return serverInterface.getSysConfig(preferencesRepository.getAuthorization());
+    }
+
+    public Observable<LoadSandFactoryNamesResult> loadSandFactoryNames() {
+        return serverInterface.getSandFactoryNames(preferencesRepository.getAuthorization());
+    }
+
+    public Observable<LoadCompanyNamesResult> loadCompanyNames() {
+        return serverInterface.getCompanyNames(preferencesRepository.getAuthorization());
     }
 
 

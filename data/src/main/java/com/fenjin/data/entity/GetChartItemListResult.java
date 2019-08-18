@@ -1,6 +1,6 @@
 package com.fenjin.data.entity;
 
-import com.fenjin.data.bean.ChartItem;
+import com.fenjin.data.bean.ChartStatisticsItem;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
  * Time:11:03
  * Summary:
  */
-public class GetChartItemListResult extends BaseResult<List<ChartItem>> {
+public class GetChartItemListResult extends BaseResult<List<ChartStatisticsItem>> {
 }

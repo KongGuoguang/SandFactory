@@ -6,7 +6,7 @@ package com.fenjin.data.entity;
  * Time:14:54
  * Summary:
  */
-public class ChengZhongStaticParam {
+public class ChengZhongStatisticsParam {
     private String startTime;
 
     private String endTime;

@@ -107,7 +107,7 @@
             <RelativeLayout style="@style/DetailItem">
 
                 <TextView style="@style/TextDetailKey"
-                    android:text="@string/jin_e_1"/>
+                    android:text="@string/jin_e" />
 
                 <TextView style="@style/TextDetailValue"
                     android:text="@{record.jeString + @string/yuan}"/>

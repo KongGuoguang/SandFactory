@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.databinding.ActivityLoginBinding;
@@ -25,7 +26,7 @@ public class LoginActivity extends BaseActivity {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         binding.setViewModel(viewModel);
         init();
-        viewModel.getSysConfig();
+
     }
 
     private void init(){
@@ -41,23 +42,20 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        viewModel.loginIng.observe(this, new Observer<Boolean>() {
+        viewModel.loading.observe(this, new Observer<String>() {
             @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean == null) return;
-                if (aBoolean){
-                   if (loadingDialog == null){
-                       loadingDialog = new QMUITipDialog.Builder(LoginActivity.this)
-                               .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-                               .setTipWord("正在登录")
-                               .create();
-                       loadingDialog.setCancelable(true);
-                   }
-                   loadingDialog.show();
-                }else {
-                    if (loadingDialog != null && loadingDialog.isShowing()){
+            public void onChanged(@Nullable String s) {
+                if (TextUtils.isEmpty(s)) {
+                    if (loadingDialog != null && loadingDialog.isShowing()) {
                         loadingDialog.dismiss();
                     }
+                } else {
+                    loadingDialog = new QMUITipDialog.Builder(LoginActivity.this)
+                            .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                            .setTipWord(s)
+                            .create();
+                    loadingDialog.setCancelable(true);
+                    loadingDialog.show();
                 }
             }
         });
@@ -76,5 +74,25 @@ public class LoginActivity extends BaseActivity {
                 showErrorDialog(s);
             }
         });
+
+        viewModel.clickLiveData.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                if (integer == null) return;
+                if (integer == viewModel.CLICK_INTENT_FINISH) {
+                    finish();
+                }
+
+                if (integer == viewModel.CLICK_INTENT_CONFIG_IP) {
+                    startActivity(new Intent(LoginActivity.this, IpConfigActivity.class));
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //viewModel.loadSysConfig();
     }
 }

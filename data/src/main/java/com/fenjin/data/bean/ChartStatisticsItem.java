@@ -6,19 +6,19 @@ package com.fenjin.data.bean;
  * Time:11:03
  * Summary:
  */
-public class ChartItem {
-    private String key;
+public class ChartStatisticsItem {
+    private String month;
 
     private float weight;
 
     private float money;
 
-    public String getKey() {
-        return key;
+    public String getMonth() {
+        return month;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setMonth(String month) {
+        this.month = month;
     }
 
     public float getWeight() {
@@ -35,5 +35,15 @@ public class ChartItem {
 
     public void setMoney(float money) {
         this.money = money;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ChartStatisticsItem{" +
+                "month='" + month + '\'' +
+                ", weight=" + weight +
+                ", money=" + money +
+                '}';
     }
 }

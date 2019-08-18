@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.fenjin.data.bean.AppInfo;
-import com.fenjin.data.entity.GetPersonInfoResult;
+import com.fenjin.data.bean.PersonalInfo;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,7 +54,9 @@ public class PreferencesRepository {
 
     private static final String HEAD_IMG = "head_img";
 
+    private static final String SAND_FACTORY_NAME = "sand_factory_name";
 
+    private static final String COMPANY_NAME = "company_name";
 
     private SharedPreferences sharedPreferences;
 
@@ -171,7 +173,7 @@ public class PreferencesRepository {
         sharedPreferences.edit().putString(userName + SELECTED_APP_PACKAGE_NAME, stringBuilder.toString()).apply();
     }
 
-    public void savePersonalInfo(GetPersonInfoResult.PersonalInfo personalInfo) {
+    public void savePersonalInfo(PersonalInfo personalInfo) {
         userPreferences.edit()
                 .putInt(ID, personalInfo.getId())
                 .putString(NAME, personalInfo.getName())
@@ -183,9 +185,9 @@ public class PreferencesRepository {
                 .apply();
     }
 
-    public GetPersonInfoResult.PersonalInfo getPersonalInfo() {
+    public PersonalInfo getPersonalInfo() {
         if (userPreferences == null) return null;
-        GetPersonInfoResult.PersonalInfo personalInfo = new GetPersonInfoResult().new PersonalInfo();
+        PersonalInfo personalInfo = new PersonalInfo();
         personalInfo.setId(userPreferences.getInt(ID, 0));
         personalInfo.setName(userPreferences.getString(NAME, ""));
         personalInfo.setSex(userPreferences.getInt(SEX, 0));
@@ -194,5 +196,33 @@ public class PreferencesRepository {
         personalInfo.setAddress(userPreferences.getString(ADDRESS, ""));
         personalInfo.setCompany(userPreferences.getString(COMPANY, ""));
         return personalInfo;
+    }
+
+    public List<String> getSandFactoryNames() {
+        String[] array = sharedPreferences.getString(SAND_FACTORY_NAME, "").split(",");
+        return Arrays.asList(array);
+    }
+
+    public void setSandFactoryNames(List<String> names) {
+        StringBuilder builder = new StringBuilder();
+        for (String name : names) {
+            builder.append(name).append(",");
+        }
+
+        sharedPreferences.edit().putString(SAND_FACTORY_NAME, builder.toString()).apply();
+    }
+
+    public List<String> getCompanyNames() {
+        String[] array = sharedPreferences.getString(COMPANY_NAME, "").split(",");
+        return Arrays.asList(array);
+    }
+
+    public void setCompanyNames(List<String> names) {
+        StringBuilder builder = new StringBuilder();
+        for (String name : names) {
+            builder.append(name).append(",");
+        }
+
+        sharedPreferences.edit().putString(COMPANY_NAME, builder.toString()).apply();
     }
 }

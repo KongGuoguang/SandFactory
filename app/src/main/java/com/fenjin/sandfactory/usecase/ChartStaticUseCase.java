@@ -12,8 +12,8 @@ import io.reactivex.Observable;
  * Time:9:17
  * Summary:
  */
-public class GetChartStaticUseCase extends BaseUseCase<GetChartStaticResult> {
-    public GetChartStaticUseCase(Context context) {
+public class ChartStaticUseCase extends BaseUseCase<GetChartStaticResult> {
+    public ChartStaticUseCase(Context context) {
         super(context);
     }
 

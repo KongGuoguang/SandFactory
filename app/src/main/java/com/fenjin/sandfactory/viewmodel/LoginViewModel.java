@@ -5,16 +5,17 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoginResult;
+import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.usecase.GetSysConfigUseCase;
 import com.fenjin.sandfactory.usecase.LoginUseCase;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * Author:kongguoguang
@@ -39,6 +40,12 @@ public class LoginViewModel extends BaseViewModel {
         });
     }
 
+    public final int CLICK_INTENT_FINISH = 1;
+
+    public final int CLICK_INTENT_CONFIG_IP = 2;
+
+    public MutableLiveData<Integer> clickLiveData = new MutableLiveData<>();
+
     public ObservableField<String> sysLogo = new ObservableField<>(dataRepository.getSysLogoUrl());
 
     public ObservableField<String> sysName = new ObservableField<>(dataRepository.getSysName());
@@ -51,7 +58,7 @@ public class LoginViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> loginSuccess = new MutableLiveData<>();
 
-    public MutableLiveData<Boolean> loginIng = new MutableLiveData<>();
+    public MutableLiveData<String> loading = new MutableLiveData<>();
 
     public MutableLiveData<Integer> errorCode = new MutableLiveData<>();
 
@@ -61,24 +68,45 @@ public class LoginViewModel extends BaseViewModel {
 
     private GetSysConfigUseCase getSysConfigUseCase;
 
-    public void getSysConfig() {
+    public void loadSysConfig() {
         if (getSysConfigUseCase == null) {
             getSysConfigUseCase = new GetSysConfigUseCase(getApplication());
         }
 
-        getSysConfigUseCase.execute(new Consumer<GetSysConfigResult>() {
+        getSysConfigUseCase.execute(new Observer<GetSysConfigResult>() {
             @Override
-            public void accept(GetSysConfigResult getSysConfigResult) throws Exception {
-                sysLogo.set(dataRepository.getSysLogoUrl());
-                sysName.set(dataRepository.getSysName());
+            public void onSubscribe(Disposable d) {
+                loading.setValue("正在加载配置");
+            }
+
+            @Override
+            public void onNext(GetSysConfigResult getSysConfigResult) {
+                loading.postValue("");
+                if (getSysConfigResult.getFlag() == 1) {
+                    sysLogo.set(dataRepository.getSysLogoUrl());
+                    sysName.set(dataRepository.getSysName());
+                } else {
+                    errorMessage.postValue(getSysConfigResult.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                loading.postValue("");
+                errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
+            }
+
+            @Override
+            public void onComplete() {
+
             }
         });
     }
 
 
-    public void login(){
+    private void login() {
 
-        loginIng.setValue(true);
         if (loginUseCase == null){
             loginUseCase = new LoginUseCase(getApplication());
         }
@@ -86,12 +114,12 @@ public class LoginViewModel extends BaseViewModel {
                 .execute(new Observer<LoginResult>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        loading.setValue("正在登录");
                     }
 
                     @Override
                     public void onNext(LoginResult loginResult) {
-                        loginIng.postValue(false);
+                        loading.postValue("");
                         if (loginResult.getFlag() == 1){
                             loginSuccess.postValue(true);
                         }else {
@@ -102,7 +130,7 @@ public class LoginViewModel extends BaseViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        loginIng.postValue(false);
+                        loading.postValue("");
                         errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
                     }
 
@@ -111,5 +139,20 @@ public class LoginViewModel extends BaseViewModel {
 
                     }
                 });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.bt_login:
+                login();
+                break;
+            case R.id.iv_back:
+                clickLiveData.postValue(CLICK_INTENT_FINISH);
+                break;
+            case R.id.iv_setting:
+                clickLiveData.postValue(CLICK_INTENT_CONFIG_IP);
+                break;
+        }
     }
 }

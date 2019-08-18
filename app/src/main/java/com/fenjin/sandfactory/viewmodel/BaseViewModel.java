@@ -3,6 +3,7 @@ package com.fenjin.sandfactory.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -43,4 +44,7 @@ public class BaseViewModel extends AndroidViewModel {
 
     @Subscribe
     public void onNullEvent(LoginParam loginParam){}
+
+    public void onClick(View view) {
+    }
 }

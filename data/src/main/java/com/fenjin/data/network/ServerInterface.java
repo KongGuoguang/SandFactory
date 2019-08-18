@@ -1,10 +1,11 @@
 package com.fenjin.data.network;
 
+import com.fenjin.data.bean.PersonalInfo;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
-import com.fenjin.data.entity.ChengZhongStaticParam;
-import com.fenjin.data.entity.ChengZhongStaticResult;
+import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.EditPersonalInfoResult;
 import com.fenjin.data.entity.GetChartStaticResult;
+import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetPersonInfoResult;
 import com.fenjin.data.entity.GetStaticCountParam;
 import com.fenjin.data.entity.GetStaticCountResult;
@@ -15,11 +16,14 @@ import com.fenjin.data.entity.GetStaticDetailListResult;
 import com.fenjin.data.entity.GetStaticListParam;
 import com.fenjin.data.entity.GetStaticListResult;
 import com.fenjin.data.entity.GetSysConfigResult;
+import com.fenjin.data.entity.LoadCompanyNamesResult;
+import com.fenjin.data.entity.LoadSandFactoryNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
 import com.fenjin.data.entity.TodayCountResult;
+import com.fenjin.data.entity.UploadHeadImgResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -53,9 +57,9 @@ public interface ServerInterface {
     @GET("record/todayCount")
     Observable<TodayCountResult> getTodayCountResult(@Header("Authorization") String authorization);
 
-    @POST("record/count")
-    Observable<ChengZhongStaticResult> getChengZhongStaticResult(@Header("Authorization") String authorization,
-                                                                 @Body ChengZhongStaticParam chengZhongStaticParam);
+    @POST("record/newcount")
+    Observable<GetChengZhongStatisticsResult> getChengZhongStaticResult(@Header("Authorization") String authorization,
+                                                                        @Body ChengZhongStatisticsParam chengZhongStatisticsParam);
 
     @GET("record/echart/count")
     Observable<GetChartStaticResult> getChartStaticResult(@Header("Authorization") String authorization);
@@ -84,6 +88,16 @@ public interface ServerInterface {
 
     @POST("sysuser/edit")
     Observable<EditPersonalInfoResult> editPersonalInfo(@Header("Authorization") String authorization,
-                                                        @Body GetPersonInfoResult.PersonalInfo param);
+                                                        @Body PersonalInfo param);
+
+    @POST("sysuser/upload/headImg")
+    Observable<UploadHeadImgResult> uploadHeadImg(@Header("Authorization") String authorization,
+                                                  @Body PersonalInfo param);
+
+    @GET("sandfactory/list")
+    Observable<LoadSandFactoryNamesResult> getSandFactoryNames(@Header("Authorization") String authorization);
+
+    @GET("prepayment/enterpriseNamelist")
+    Observable<LoadCompanyNamesResult> getCompanyNames(@Header("Authorization") String authorization);
 
 }

@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.PersonalInfoActivity"></activity>
+        <activity android:name=".activity.PersonalInfoActivity" />
         <activity android:name=".activity.IpConfigActivity" />
         <activity android:name=".activity.AppListActivity" />
 

@@ -2,11 +2,16 @@ package com.fenjin.data;
 
 import android.content.Context;
 
+import com.fenjin.data.bean.ChartStatisticsItem;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.GetChartStaticResult;
+import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetSysConfigResult;
+import com.fenjin.data.entity.LoadCompanyNamesResult;
+import com.fenjin.data.entity.LoadSandFactoryNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
@@ -126,15 +131,32 @@ public class DataRepository {
         preferencesRepository.setRememberPassword(rememberPassword);
     }
 
+    public List<String> getSandFactoryNames() {
+        return preferencesRepository.getSandFactoryNames();
+    }
+
+    public void setSandFactoryNames(List<String> names) {
+        preferencesRepository.setSandFactoryNames(names);
+    }
+
+    public List<String> getCompanyNames() {
+        return preferencesRepository.getCompanyNames();
+    }
+
+    public void setCompanyNames(List<String> names) {
+        preferencesRepository.setCompanyNames(names);
+    }
+
     public boolean getRememberPassword() {
         return preferencesRepository.getRememberPassword();
     }
 
-    public List<GetChartStaticResult.ChartItem> getChartItemList() {
-        return memoryRepository.getChartItemList();
+    public List<ChartStatisticsItem> getChartItemList() {
+        return memoryRepository.getChartStatisticsItemList();
     }
 
-    public void setChartItemList() {
+    public void setChartItemList(List<ChartStatisticsItem> chartStatisticsItemList) {
+        memoryRepository.setChartStatisticsItemList(chartStatisticsItemList);
     }
 
     public Observable<GetAllChannelResult> getAllChannel(){
@@ -158,11 +180,23 @@ public class DataRepository {
         return networkRepository.getTodayCountResult();
     }
 
+    public Observable<GetChengZhongStatisticsResult> getChengZhongStatic(ChengZhongStatisticsParam param) {
+        return networkRepository.getChengZhongStatic(param);
+    }
+
     public Observable<GetSysConfigResult> getSysConfig() {
         return networkRepository.getSysConfig();
     }
 
     public Observable<GetChartStaticResult> getChartStatic() {
         return networkRepository.getChartStatic();
+    }
+
+    public Observable<LoadSandFactoryNamesResult> loadSandFactoryNames() {
+        return networkRepository.loadSandFactoryNames();
+    }
+
+    public Observable<LoadCompanyNamesResult> loadCompanyNames() {
+        return networkRepository.loadCompanyNames();
     }
 }
