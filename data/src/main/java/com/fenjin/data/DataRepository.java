@@ -16,6 +16,10 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.StatisticQueryCountParam;
+import com.fenjin.data.entity.StatisticQueryCountResult;
+import com.fenjin.data.entity.StatisticQueryListParam;
+import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.data.memory.MemoryRepository;
 import com.fenjin.data.network.NetworkRepository;
@@ -198,5 +202,13 @@ public class DataRepository {
 
     public Observable<LoadCompanyNamesResult> loadCompanyNames() {
         return networkRepository.loadCompanyNames();
+    }
+
+    public Observable<StatisticQueryCountResult> getStaticCount(StatisticQueryCountParam param) {
+        return networkRepository.getStaticCount(param);
+    }
+
+    public Observable<StatisticQueryListResult> getStatisticQueryList(StatisticQueryListParam param) {
+        return networkRepository.getStatisticQueryList(param);
     }
 }

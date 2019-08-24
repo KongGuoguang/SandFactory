@@ -4,9 +4,9 @@ package com.fenjin.data.entity;
  * Author:kongguoguang
  * Date:2019/8/5
  * Time:16:51
- * Summary:获取统计列表参数
+ * Summary:获取统计查询列表参数
  */
-public class GetStaticListParam {
+public class StatisticQueryListParam {
     private int type;
 
     private String sandName;

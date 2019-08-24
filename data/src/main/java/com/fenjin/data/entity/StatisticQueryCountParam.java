@@ -4,9 +4,10 @@ package com.fenjin.data.entity;
  * Author:kongguoguang
  * Date:2019/8/5
  * Time:16:36
- * Summary:获取统计总数参数
+ * Summary:获取统计查询总数参数
  */
-public class GetStaticCountParam {
+public class StatisticQueryCountParam {
+
     private String sandName;
 
     private String sh;

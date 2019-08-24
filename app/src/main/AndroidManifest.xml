@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fenjin.sandfactory">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <application
         android:name=".app.BaseApplication"
         android:allowBackup="true"
@@ -17,14 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.StatisticQueryDetailActivity"></activity>
+        <activity android:name=".activity.BalanceQueryActivity" />
+        <activity android:name=".activity.CompanyQueryActivity" />
+        <activity android:name=".activity.StatisticQuertActivity" />
         <activity android:name=".activity.PersonalInfoActivity" />
         <activity android:name=".activity.IpConfigActivity" />
         <activity android:name=".activity.AppListActivity" />
-
-        <meta-data
-            android:name="android.max_aspect"
-            android:value="2.4" />
-
         <activity
             android:name=".activity.InitActivity"
             android:screenOrientation="portrait">
@@ -54,6 +47,17 @@
         <activity
             android:name=".activity.DetailActivity"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
     </application>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>

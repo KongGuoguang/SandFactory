@@ -7,14 +7,8 @@ import com.fenjin.data.entity.EditPersonalInfoResult;
 import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetPersonInfoResult;
-import com.fenjin.data.entity.GetStaticCountParam;
-import com.fenjin.data.entity.GetStaticCountResult;
 import com.fenjin.data.entity.GetStaticDetailCountParam;
 import com.fenjin.data.entity.GetStaticDetailCountResult;
-import com.fenjin.data.entity.GetStaticDetailListParam;
-import com.fenjin.data.entity.GetStaticDetailListResult;
-import com.fenjin.data.entity.GetStaticListParam;
-import com.fenjin.data.entity.GetStaticListResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
 import com.fenjin.data.entity.LoadSandFactoryNamesResult;
@@ -22,6 +16,12 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.StatisticQueryCountParam;
+import com.fenjin.data.entity.StatisticQueryCountResult;
+import com.fenjin.data.entity.StatisticQueryDetailListParam;
+import com.fenjin.data.entity.StatisticQueryDetailListResult;
+import com.fenjin.data.entity.StatisticQueryListParam;
+import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.data.entity.UploadHeadImgResult;
 
@@ -65,20 +65,20 @@ public interface ServerInterface {
     Observable<GetChartStaticResult> getChartStaticResult(@Header("Authorization") String authorization);
 
     @POST("record/statisticalQuery/count")
-    Observable<GetStaticCountResult> getStaticCount(@Header("Authorization") String authorization,
-                                                    @Body GetStaticCountParam param);
+    Observable<StatisticQueryCountResult> getStaticCount(@Header("Authorization") String authorization,
+                                                         @Body StatisticQueryCountParam param);
 
     @POST("record/statisticalQuery/list")
-    Observable<GetStaticListResult> getStaticList(@Header("Authorization") String authorization,
-                                                  @Body GetStaticListParam param);
+    Observable<StatisticQueryListResult> getStatisticQueryList(@Header("Authorization") String authorization,
+                                                               @Body StatisticQueryListParam param);
 
     @POST("record/statisticalQuery/detail/count")
     Observable<GetStaticDetailCountResult> getStaticDetailCount(@Header("Authorization") String authorization,
                                                                 @Body GetStaticDetailCountParam param);
 
     @POST("record/statisticalQuery/detail/list")
-    Observable<GetStaticDetailListResult> getStaticDetailList(@Header("Authorization") String authorization,
-                                                              @Body GetStaticDetailListParam param);
+    Observable<StatisticQueryDetailListResult> getStaticDetailList(@Header("Authorization") String authorization,
+                                                                   @Body StatisticQueryDetailListParam param);
 
     @POST("sysconf/all")
     Observable<GetSysConfigResult> getSysConfig(@Header("Authorization") String authorization);

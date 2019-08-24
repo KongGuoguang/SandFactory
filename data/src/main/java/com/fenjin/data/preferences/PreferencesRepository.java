@@ -142,7 +142,7 @@ public class PreferencesRepository {
     }
 
     public String getIp() {
-        return sharedPreferences.getString(IP, "111.6.77.67");
+        return sharedPreferences.getString(IP, "www.shidand.com.cn");
     }
 
     public void setIp(String ip) {

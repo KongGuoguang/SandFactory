@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.fenjin.data.bean.StatisticsQueryItem" />
+
+        <variable
+            name="type"
+            type="Integer" />
+
+        <variable
+            name="adapter"
+            type="com.fenjin.sandfactory.adapter.StatisticQueryAdapter" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/shape_corner_white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#2c2c2c"
+                android:textSize="16sp"
+                android:layout_marginStart="10dp"
+                android:text="@{type == 1 ? item.sh : item.sandName}" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                app:onCheckedChangeListener="@{adapter::onCheckedChanged}" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="14dp"
+            app:visibleGone="@{item.checked.get}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#9D9E9E"
+                android:textSize="14sp"
+                android:text="@{@string/total_weight_colon + item.weight + @string/unit_t}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#9D9E9E"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:text="@{@string/total_car_colon + item.car + @string/unit_che}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#9D9E9E"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:text="@{@string/total_money_colon + item.money + @string/unit_wan}" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9D9E9E"
+                    android:textSize="14sp"
+                    android:text="@{@string/balance_colon + item.balance + @string/unit_wan}" />
+
+                <TextView
+                    android:id="@+id/check_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#3076F6"
+                    android:textSize="14sp"
+                    android:text="@string/check_detail"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

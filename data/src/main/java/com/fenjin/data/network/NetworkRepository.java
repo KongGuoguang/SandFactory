@@ -9,14 +9,8 @@ import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
-import com.fenjin.data.entity.GetStaticCountParam;
-import com.fenjin.data.entity.GetStaticCountResult;
 import com.fenjin.data.entity.GetStaticDetailCountParam;
 import com.fenjin.data.entity.GetStaticDetailCountResult;
-import com.fenjin.data.entity.GetStaticDetailListParam;
-import com.fenjin.data.entity.GetStaticDetailListResult;
-import com.fenjin.data.entity.GetStaticListParam;
-import com.fenjin.data.entity.GetStaticListResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
 import com.fenjin.data.entity.LoadSandFactoryNamesResult;
@@ -24,6 +18,12 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.StatisticQueryCountParam;
+import com.fenjin.data.entity.StatisticQueryCountResult;
+import com.fenjin.data.entity.StatisticQueryDetailListParam;
+import com.fenjin.data.entity.StatisticQueryDetailListResult;
+import com.fenjin.data.entity.StatisticQueryListParam;
+import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.data.preferences.PreferencesRepository;
 
@@ -86,10 +86,9 @@ public class NetworkRepository {
     }
 
     private void initServerInterface(OkHttpClient client){
-//        String ip = preferencesRepository.getIp();
-//        String port = preferencesRepository.getPort();
-//        String baseUrl = "http://" + ip + ":" + port + "/admin/";
-        String baseUrl = "http://www.shidand.com.cn:9090/admin/";
+        String ip = preferencesRepository.getIp();
+        String port = preferencesRepository.getPort();
+        String baseUrl = "http://" + ip + ":" + port + "/admin/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
@@ -152,19 +151,19 @@ public class NetworkRepository {
         return serverInterface.getChartStaticResult(preferencesRepository.getAuthorization());
     }
 
-    public Observable<GetStaticCountResult> getStaticCount(GetStaticCountParam param) {
+    public Observable<StatisticQueryCountResult> getStaticCount(StatisticQueryCountParam param) {
         return serverInterface.getStaticCount(preferencesRepository.getAuthorization(), param);
     }
 
-    public Observable<GetStaticListResult> getStaticList(GetStaticListParam param) {
-        return serverInterface.getStaticList(preferencesRepository.getAuthorization(), param);
+    public Observable<StatisticQueryListResult> getStatisticQueryList(StatisticQueryListParam param) {
+        return serverInterface.getStatisticQueryList(preferencesRepository.getAuthorization(), param);
     }
 
     public Observable<GetStaticDetailCountResult> getStaticDetailCount(GetStaticDetailCountParam param) {
         return serverInterface.getStaticDetailCount(preferencesRepository.getAuthorization(), param);
     }
 
-    public Observable<GetStaticDetailListResult> getStaticDetailList(GetStaticDetailListParam param) {
+    public Observable<StatisticQueryDetailListResult> getStaticDetailList(StatisticQueryDetailListParam param) {
         return serverInterface.getStaticDetailList(preferencesRepository.getAuthorization(), param);
     }
 
