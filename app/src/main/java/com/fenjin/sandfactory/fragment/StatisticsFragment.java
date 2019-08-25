@@ -3,6 +3,7 @@ package com.fenjin.sandfactory.fragment;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.PopupWindow;
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.bean.ChartStatisticsItem;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.activity.StatisticQueryActivity;
 import com.fenjin.sandfactory.databinding.FragmentStaticBinding;
 import com.fenjin.sandfactory.databinding.LayoutPopBarChartValueBinding;
 import com.fenjin.sandfactory.viewmodel.StatisticsViewModel;
@@ -42,12 +44,16 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class statisticsFragment extends BaseFragment {
+public class StatisticsFragment extends BaseFragment {
 
 
-    public statisticsFragment() {
+    public StatisticsFragment() {
         // Required empty public constructor
     }
+
+    public static final int STATISTIC_TYPE_SITE = 0;
+    public static final int STATISTIC_TYPE_COMPANY = 1;
+    public static final int STATISTIC_TYPE_BALANCE = 2;
 
     private StatisticsViewModel viewModel;
 
@@ -58,8 +64,6 @@ public class statisticsFragment extends BaseFragment {
     private TabLayout tabLayout;
 
     private BarChart barChart;
-
-    private View chartLegend;
 
 
     @Override
@@ -128,8 +132,6 @@ public class statisticsFragment extends BaseFragment {
         });
         tabLayout.getTabAt(0).select();
 
-        chartLegend = view.findViewById(R.id.layout_chart_legend);
-
         barChart = view.findViewById(R.id.bar_chart);
         initBarChart();
 
@@ -139,7 +141,7 @@ public class statisticsFragment extends BaseFragment {
 
 
     private void initBarChart() {
-        LogUtils.d("statisticsFragment, initBarChart()");
+        LogUtils.d("StatisticsFragment, initBarChart()");
         barChart.setNoDataText("暂无数据");
 
         //是否能缩放(总开关)
@@ -173,6 +175,8 @@ public class statisticsFragment extends BaseFragment {
                 PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
+                popupWindow.setOutsideTouchable(true);
+
                 int offsetX = (int) (getResources().getDisplayMetrics().density * 125);
                 popupWindow.showAsDropDown(tabLayout, offsetX, 0);
             }
@@ -196,7 +200,7 @@ public class statisticsFragment extends BaseFragment {
 
     private void showBarChart() {
         final List<ChartStatisticsItem> chartStatisticsItems = viewModel.dataRepository.getChartItemList();
-        LogUtils.d("statisticsFragment, chartStatisticsItems = " + chartStatisticsItems.toString());
+        LogUtils.d("StatisticsFragment, chartStatisticsItems = " + chartStatisticsItems.toString());
 
         /*    设置X轴坐标  */
         XAxis xAxis = barChart.getXAxis();
@@ -338,7 +342,6 @@ public class statisticsFragment extends BaseFragment {
         viewModel.errorCode.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
-
                 if (integer == null) return;
                 dealErrorCode(integer);
             }
@@ -356,6 +359,24 @@ public class statisticsFragment extends BaseFragment {
             public void onChanged(@Nullable Boolean aBoolean) {
                 if (aBoolean) {
                     showBarChart();
+                }
+            }
+        });
+
+        viewModel.statisticContent.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                if (integer == null) return;
+                if (integer == STATISTIC_TYPE_SITE) {
+                    Intent intent = new Intent(getActivity(), StatisticQueryActivity.class);
+                    intent.putExtra(StatisticQueryActivity.QUERY_TYPE, 1);
+                    startActivity(intent);
+                } else if (integer == STATISTIC_TYPE_COMPANY) {
+                    Intent intent = new Intent(getActivity(), StatisticQueryActivity.class);
+                    intent.putExtra(StatisticQueryActivity.QUERY_TYPE, 2);
+                    startActivity(intent);
+                } else {
+
                 }
             }
         });

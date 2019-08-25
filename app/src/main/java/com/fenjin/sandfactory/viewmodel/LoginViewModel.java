@@ -76,7 +76,7 @@ public class LoginViewModel extends BaseViewModel {
         getSysConfigUseCase.execute(new Observer<GetSysConfigResult>() {
             @Override
             public void onSubscribe(Disposable d) {
-                loading.setValue("正在加载配置");
+                loading.setValue("加载系统配置");
             }
 
             @Override

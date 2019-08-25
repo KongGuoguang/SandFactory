@@ -51,8 +51,8 @@
             android:layout_width="87dp"
             android:layout_height="87dp"
             android:layout_marginTop="62dp"
-            android:src="@mipmap/ic_logo"
-            app:imageUrl="@{viewModel.sysLogo}" />
+            app:imageUrl="@{viewModel.sysLogo}"
+            app:placeHolder="@{@drawable/ic_logo}" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:text="@{viewModel.sysName}" />
+            android:text="@{viewModel.sysName, default=@string/app_name}" />
 
         <LinearLayout
             android:layout_width="match_parent"

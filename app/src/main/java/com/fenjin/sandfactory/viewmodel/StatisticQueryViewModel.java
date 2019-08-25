@@ -1,11 +1,29 @@
 package com.fenjin.sandfactory.viewmodel;
 
 import android.app.Application;
+import android.arch.lifecycle.MutableLiveData;
+import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.view.View;
 
+import com.fenjin.data.bean.StatisticsQueryCount;
+import com.fenjin.data.entity.LoadCompanyNamesResult;
+import com.fenjin.data.entity.LoadSiteNamesResult;
+import com.fenjin.data.entity.StatisticQueryCountParam;
+import com.fenjin.data.entity.StatisticQueryCountResult;
+import com.fenjin.data.entity.StatisticQueryListParam;
+import com.fenjin.data.entity.StatisticQueryListResult;
+import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.adapter.StatisticQueryAdapter;
 import com.fenjin.sandfactory.usecase.LoadCompanyNamesUseCase;
-import com.fenjin.sandfactory.usecase.LoadSandFactoryNamesUseCase;
-import com.fenjin.sandfactory.usecase.StatisticQueryUseCase;
+import com.fenjin.sandfactory.usecase.LoadSiteNamesUseCase;
+import com.fenjin.sandfactory.usecase.StatisticQueryCountUseCase;
+import com.fenjin.sandfactory.usecase.StatisticQueryListUseCase;
+import com.fenjin.sandfactory.util.ErrorCodeUtil;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Author:kongguoguang
@@ -18,10 +36,215 @@ public class StatisticQueryViewModel extends BaseViewModel {
         super(application);
     }
 
-    public int type = 1;// 1- 以沙场查询，2-以公司查询
+    public ObservableField<Integer> queryType = new ObservableField<>();// 1- 以沙场查询，2-以公司查询
 
-    private StatisticQueryUseCase statisticQueryUseCase = new StatisticQueryUseCase(getApplication());
+    public ObservableField<String> siteOrCompany = new ObservableField<>();
 
-    private LoadSandFactoryNamesUseCase loadSandFactoryNamesUseCase = new LoadSandFactoryNamesUseCase(getApplication());
+    public ObservableField<String> startTime = new ObservableField<>();
+
+    public ObservableField<String> endTime = new ObservableField<>();
+
+    public ObservableField<Integer> totalCar = new ObservableField<>();
+
+    public ObservableField<Float> totalWeight = new ObservableField<>();
+
+    public ObservableField<Float> totalMoney = new ObservableField<>();
+
+    public ObservableField<Boolean> showQueryResult = new ObservableField<>();
+
+    public MutableLiveData<String> loadingMsg = new MutableLiveData<>();
+
+    public MutableLiveData<Integer> errorCode = new MutableLiveData<>();
+
+    public MutableLiveData<String> errorMsg = new MutableLiveData<>();
+
+    public MutableLiveData<Integer> clickedViewId = new MutableLiveData<>();
+
+    public StatisticQueryAdapter adapter = new StatisticQueryAdapter();
+
+    private LoadSiteNamesUseCase loadSiteNamesUseCase = new LoadSiteNamesUseCase(getApplication());
     private LoadCompanyNamesUseCase loadCompanyNamesUseCase = new LoadCompanyNamesUseCase(getApplication());
+
+    private StatisticQueryCountUseCase statisticQueryCountUseCase = new StatisticQueryCountUseCase(getApplication());
+    private StatisticQueryListUseCase statisticQueryListUseCase = new StatisticQueryListUseCase(getApplication());
+
+    public void loadSiteOrCompanyNames() {
+        if (queryType.get() == 1) {
+            loadSiteNamesUseCase.execute(new Observer<LoadSiteNamesResult>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+                    loadingMsg.postValue("更新站点");
+                }
+
+                @Override
+                public void onNext(LoadSiteNamesResult loadSiteNamesResult) {
+                    loadingMsg.postValue("");
+                    if (loadSiteNamesResult.getFlag() != 1) {
+                        errorMsg.postValue(loadSiteNamesResult.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    loadingMsg.postValue("");
+                    errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+        } else {
+            loadCompanyNamesUseCase.execute(new Observer<LoadCompanyNamesResult>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+                    loadingMsg.postValue("更新单位");
+                }
+
+                @Override
+                public void onNext(LoadCompanyNamesResult loadCompanyNamesResult) {
+                    loadingMsg.postValue("");
+                    if (loadCompanyNamesResult.getFlag() != 1) {
+                        errorMsg.postValue(loadCompanyNamesResult.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    loadingMsg.postValue("");
+                    errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+        }
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        clickedViewId.postValue(view.getId());
+    }
+
+    public void startQuery() {
+        if (TextUtils.isEmpty(siteOrCompany.get())) {
+            if (queryType.get() == 1) {
+                showToast(R.string.select_site);
+            } else {
+                showToast(R.string.select_company);
+            }
+            return;
+        }
+
+        if (TextUtils.isEmpty(startTime.get())) {
+            showToast(R.string.select_start_time);
+            return;
+        }
+
+        if (TextUtils.isEmpty(endTime.get())) {
+            showToast(R.string.select_end_time);
+            return;
+        }
+
+        showQueryResult.set(false);
+
+        queryStatisticQueryCount();
+
+    }
+
+    private void queryStatisticQueryCount() {
+        StatisticQueryCountParam param = new StatisticQueryCountParam();
+        if (queryType.get() == 1) {
+            param.setSandName(siteOrCompany.get());
+        } else {
+            param.setSh(siteOrCompany.get());
+        }
+
+        param.setStartTime(startTime.get());
+        param.setEndTime(endTime.get());
+
+        statisticQueryCountUseCase.get(param).execute(new Observer<StatisticQueryCountResult>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                loadingMsg.postValue("正在查询");
+            }
+
+            @Override
+            public void onNext(StatisticQueryCountResult statisticQueryCountResult) {
+                if (statisticQueryCountResult.getFlag() == 1) {
+                    StatisticsQueryCount count = statisticQueryCountResult.getResult();
+                    totalCar.set(count.getCar());
+                    totalWeight.set(count.getWeight());
+                    totalMoney.set(count.getMoney());
+                    queryStatisticQueryList();
+                } else {
+                    loadingMsg.postValue("");
+                    errorMsg.postValue(statisticQueryCountResult.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                loadingMsg.postValue("");
+                errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+    }
+
+    private void queryStatisticQueryList() {
+        StatisticQueryListParam param = new StatisticQueryListParam();
+        param.setType(queryType.get());
+        if (queryType.get() == 1) {
+            param.setSandName(siteOrCompany.get());
+        } else {
+            param.setSh(siteOrCompany.get());
+        }
+
+        param.setStartTime(startTime.get());
+        param.setEndTime(endTime.get());
+        param.setPageNum(1);
+        param.setPageSize(10);
+
+        statisticQueryListUseCase.get(param).execute(new Observer<StatisticQueryListResult>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(StatisticQueryListResult statisticQueryListResult) {
+                loadingMsg.setValue("");
+                if (statisticQueryListResult.getFlag() == 1) {
+                    adapter.setItems(statisticQueryListResult.getResult());
+                    adapter.notifyDataSetChanged();
+                    showQueryResult.set(true);
+                } else {
+                    errorMsg.postValue(statisticQueryListResult.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                loadingMsg.setValue("");
+                errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+    }
 }

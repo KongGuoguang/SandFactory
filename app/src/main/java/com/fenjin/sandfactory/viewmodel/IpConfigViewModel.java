@@ -20,8 +20,8 @@ public class IpConfigViewModel extends BaseViewModel {
         super(application);
     }
 
-    public ObservableField<String> ip = new ObservableField<>();
-    public ObservableField<String> port = new ObservableField<>();
+    public ObservableField<String> ip = new ObservableField<>(dataRepository.getIp());
+    public ObservableField<String> port = new ObservableField<>(dataRepository.getPort());
 
     public MutableLiveData<Boolean> finishActivity = new MutableLiveData<>();
 

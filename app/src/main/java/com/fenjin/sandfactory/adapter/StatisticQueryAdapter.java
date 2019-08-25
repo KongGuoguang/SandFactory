@@ -28,7 +28,7 @@ public class StatisticQueryAdapter extends RecyclerView.Adapter<StatisticQueryAd
 
     private int type;
 
-    public StatisticQueryAdapter(int type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -50,7 +50,7 @@ public class StatisticQueryAdapter extends RecyclerView.Adapter<StatisticQueryAd
 
     @Override
     public void onBindViewHolder(@NonNull StatisticQueryAdapter.StatisticQueryViewHolder viewHolder, int i) {
-        viewHolder.binding.setType(1);
+        viewHolder.binding.setType(type);
         viewHolder.binding.setItem(items.get(i));
         viewHolder.binding.checkbox.setTag(i);
         viewHolder.binding.checkDetail.setTag(i);
@@ -73,16 +73,21 @@ public class StatisticQueryAdapter extends RecyclerView.Adapter<StatisticQueryAd
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int position = (int) buttonView.getTag();
         items.get(position).checked.set(isChecked);
+        if (isChecked) {
+            buttonView.setText("收起");
+        } else {
+            buttonView.setText("展开");
+        }
     }
 
     public void onClick(View view) {
         int position = (int) view.getTag();
         if (checkDetailListener != null) {
-            checkDetailListener.checkDetail(position);
+            checkDetailListener.checkDetail(items.get(position));
         }
     }
 
     public interface CheckDetailListener {
-        void checkDetail(int position);
+        void checkDetail(StatisticsQueryItem item);
     }
 }

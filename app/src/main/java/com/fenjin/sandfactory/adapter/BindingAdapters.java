@@ -17,10 +17,12 @@
 package com.fenjin.sandfactory.adapter;
 
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 
 public class BindingAdapters {
@@ -44,6 +46,15 @@ public class BindingAdapters {
     public static void loadImage(ImageView imageView, String url) {
         Glide.with(imageView)
                 .load(url)
+                .into(imageView);
+    }
+
+    @BindingAdapter({"imageUrl", "placeHolder"})
+    public static void loadImage(ImageView imageView, String url, Drawable resId) {
+        RequestOptions options = new RequestOptions().placeholder(resId).error(resId);
+        Glide.with(imageView)
+                .load(url)
+                .apply(options)
                 .into(imageView);
     }
 }

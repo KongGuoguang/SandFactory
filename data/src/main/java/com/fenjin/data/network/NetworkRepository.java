@@ -13,7 +13,7 @@ import com.fenjin.data.entity.GetStaticDetailCountParam;
 import com.fenjin.data.entity.GetStaticDetailCountResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
-import com.fenjin.data.entity.LoadSandFactoryNamesResult;
+import com.fenjin.data.entity.LoadSiteNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
@@ -168,10 +168,10 @@ public class NetworkRepository {
     }
 
     public Observable<GetSysConfigResult> getSysConfig() {
-        return serverInterface.getSysConfig(preferencesRepository.getAuthorization());
+        return serverInterface.getSysConfig();
     }
 
-    public Observable<LoadSandFactoryNamesResult> loadSandFactoryNames() {
+    public Observable<LoadSiteNamesResult> loadSandFactoryNames() {
         return serverInterface.getSandFactoryNames(preferencesRepository.getAuthorization());
     }
 

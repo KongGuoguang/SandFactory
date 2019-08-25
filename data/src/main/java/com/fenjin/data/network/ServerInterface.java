@@ -11,7 +11,7 @@ import com.fenjin.data.entity.GetStaticDetailCountParam;
 import com.fenjin.data.entity.GetStaticDetailCountResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
-import com.fenjin.data.entity.LoadSandFactoryNamesResult;
+import com.fenjin.data.entity.LoadSiteNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
@@ -80,8 +80,8 @@ public interface ServerInterface {
     Observable<StatisticQueryDetailListResult> getStaticDetailList(@Header("Authorization") String authorization,
                                                                    @Body StatisticQueryDetailListParam param);
 
-    @POST("sysconf/all")
-    Observable<GetSysConfigResult> getSysConfig(@Header("Authorization") String authorization);
+    @GET("public/sysconf/all")
+    Observable<GetSysConfigResult> getSysConfig();
 
     @POST("sysuser/getCurrent")
     Observable<GetPersonInfoResult> getPersonalInfo(@Header("Authorization") String authorization);
@@ -95,7 +95,7 @@ public interface ServerInterface {
                                                   @Body PersonalInfo param);
 
     @GET("sandfactory/list")
-    Observable<LoadSandFactoryNamesResult> getSandFactoryNames(@Header("Authorization") String authorization);
+    Observable<LoadSiteNamesResult> getSandFactoryNames(@Header("Authorization") String authorization);
 
     @GET("prepayment/enterpriseNamelist")
     Observable<LoadCompanyNamesResult> getCompanyNames(@Header("Authorization") String authorization);

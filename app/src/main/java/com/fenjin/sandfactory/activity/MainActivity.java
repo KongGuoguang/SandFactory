@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.fragment.MeFragment;
 import com.fenjin.sandfactory.fragment.QueryFragment;
-import com.fenjin.sandfactory.fragment.statisticsFragment;
+import com.fenjin.sandfactory.fragment.StatisticsFragment;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
         initTabs();
         initPagers();
     }
+
 
     private void initTabs(){
         tabSegment = findViewById(R.id.tabs);
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActivity {
 
     private void initPagers(){
         final List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new statisticsFragment());
+        fragments.add(new StatisticsFragment());
         fragments.add(new QueryFragment());
 //        fragments.add(new MonitorFragment());
         fragments.add(new MeFragment());

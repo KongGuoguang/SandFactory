@@ -3,12 +3,15 @@ package com.fenjin.sandfactory.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.fenjin.data.bean.ChengZhongStatisticsItem;
 import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
+import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.adapter.ChengZhongStatisticsAdapter;
+import com.fenjin.sandfactory.fragment.StatisticsFragment;
 import com.fenjin.sandfactory.usecase.ChartStaticUseCase;
 import com.fenjin.sandfactory.usecase.ChengZhongStaticUseCase;
 import com.fenjin.sandfactory.util.DateUtil;
@@ -35,6 +38,8 @@ public class StatisticsViewModel extends BaseViewModel {
     public MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> showBarChart = new MutableLiveData<>();
+
+    public MutableLiveData<Integer> statisticContent = new MutableLiveData<>();
 
     public ChengZhongStatisticsAdapter adapter = new ChengZhongStatisticsAdapter();
 
@@ -126,6 +131,22 @@ public class StatisticsViewModel extends BaseViewModel {
                 loadAllStatisticsData = false;
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()) {
+            case R.id.tv_site_statistics:
+                statisticContent.postValue(StatisticsFragment.STATISTIC_TYPE_SITE);
+                break;
+            case R.id.tv_company_statistics:
+                statisticContent.postValue(StatisticsFragment.STATISTIC_TYPE_COMPANY);
+                break;
+            case R.id.tv_balance_query:
+                statisticContent.postValue(StatisticsFragment.STATISTIC_TYPE_BALANCE);
+                break;
+        }
     }
 
     private String subZeroAndDot(String s) {

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Author:kongguoguang
@@ -19,6 +20,14 @@ public class LoadCompanyNamesUseCase extends BaseUseCase<LoadCompanyNamesResult>
 
     @Override
     public Observable<LoadCompanyNamesResult> buildObservable() {
-        return null;
+        return dataRepository.loadCompanyNames()
+                .doOnNext(new Consumer<LoadCompanyNamesResult>() {
+                    @Override
+                    public void accept(LoadCompanyNamesResult loadCompanyNamesResult) throws Exception {
+                        if (loadCompanyNamesResult.getFlag() == 1) {
+                            dataRepository.setCompanyNames(loadCompanyNamesResult.getResult());
+                        }
+                    }
+                });
     }
 }

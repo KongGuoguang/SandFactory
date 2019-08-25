@@ -3,6 +3,7 @@ package com.fenjin.sandfactory.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +25,10 @@ public class BaseViewModel extends AndroidViewModel {
 
     protected void showToast(String message) {
         Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show();
+    }
+
+    protected void showToast(@StringRes int stringId) {
+        Toast.makeText(getApplication(), stringId, Toast.LENGTH_LONG).show();
     }
 
 

@@ -198,9 +198,8 @@ public class PreferencesRepository {
         return personalInfo;
     }
 
-    public List<String> getSandFactoryNames() {
-        String[] array = sharedPreferences.getString(SAND_FACTORY_NAME, "").split(",");
-        return Arrays.asList(array);
+    public String[] getSandFactoryNames() {
+        return sharedPreferences.getString(SAND_FACTORY_NAME, "").split(",");
     }
 
     public void setSandFactoryNames(List<String> names) {
@@ -212,9 +211,8 @@ public class PreferencesRepository {
         sharedPreferences.edit().putString(SAND_FACTORY_NAME, builder.toString()).apply();
     }
 
-    public List<String> getCompanyNames() {
-        String[] array = sharedPreferences.getString(COMPANY_NAME, "").split(",");
-        return Arrays.asList(array);
+    public String[] getCompanyNames() {
+        return sharedPreferences.getString(COMPANY_NAME, "").split(",");
     }
 
     public void setCompanyNames(List<String> names) {

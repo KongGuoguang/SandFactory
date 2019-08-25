@@ -13,14 +13,14 @@ import io.reactivex.Observable;
  * Time:18:22
  * Summary:
  */
-public class StatisticQueryUseCase extends BaseUseCase<StatisticQueryListResult> {
-    public StatisticQueryUseCase(Context context) {
+public class StatisticQueryListUseCase extends BaseUseCase<StatisticQueryListResult> {
+    public StatisticQueryListUseCase(Context context) {
         super(context);
     }
 
     private StatisticQueryListParam param;
 
-    public StatisticQueryUseCase get(StatisticQueryListParam param) {
+    public StatisticQueryListUseCase get(StatisticQueryListParam param) {
         this.param = param;
         return this;
     }

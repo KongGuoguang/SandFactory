@@ -14,7 +14,7 @@
         <activity android:name=".activity.StatisticQueryDetailActivity"></activity>
         <activity android:name=".activity.BalanceQueryActivity" />
         <activity android:name=".activity.CompanyQueryActivity" />
-        <activity android:name=".activity.StatisticQuertActivity" />
+        <activity android:name=".activity.StatisticQueryActivity" />
         <activity android:name=".activity.PersonalInfoActivity" />
         <activity android:name=".activity.IpConfigActivity" />
         <activity android:name=".activity.AppListActivity" />

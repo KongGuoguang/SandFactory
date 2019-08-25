@@ -11,7 +11,7 @@ import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
-import com.fenjin.data.entity.LoadSandFactoryNamesResult;
+import com.fenjin.data.entity.LoadSiteNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
@@ -135,15 +135,15 @@ public class DataRepository {
         preferencesRepository.setRememberPassword(rememberPassword);
     }
 
-    public List<String> getSandFactoryNames() {
+    public String[] getSiteNames() {
         return preferencesRepository.getSandFactoryNames();
     }
 
-    public void setSandFactoryNames(List<String> names) {
+    public void setSiteNames(List<String> names) {
         preferencesRepository.setSandFactoryNames(names);
     }
 
-    public List<String> getCompanyNames() {
+    public String[] getCompanyNames() {
         return preferencesRepository.getCompanyNames();
     }
 
@@ -196,7 +196,7 @@ public class DataRepository {
         return networkRepository.getChartStatic();
     }
 
-    public Observable<LoadSandFactoryNamesResult> loadSandFactoryNames() {
+    public Observable<LoadSiteNamesResult> loadSandFactoryNames() {
         return networkRepository.loadSandFactoryNames();
     }
 
@@ -204,7 +204,7 @@ public class DataRepository {
         return networkRepository.loadCompanyNames();
     }
 
-    public Observable<StatisticQueryCountResult> getStaticCount(StatisticQueryCountParam param) {
+    public Observable<StatisticQueryCountResult> getStatisticQueryCount(StatisticQueryCountParam param) {
         return networkRepository.getStaticCount(param);
     }
 
