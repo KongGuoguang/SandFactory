@@ -2,8 +2,9 @@ package com.fenjin.sandfactory.usecase;
 
 import android.content.Context;
 
-import com.fenjin.data.entity.StatisticQueryCountParam;
 import com.fenjin.data.entity.StatisticQueryCountResult;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 
@@ -18,9 +19,9 @@ public class StatisticQueryCountUseCase extends BaseUseCase<StatisticQueryCountR
         super(context);
     }
 
-    private StatisticQueryCountParam param;
+    private Map<String, Object> param;
 
-    public StatisticQueryCountUseCase get(StatisticQueryCountParam param) {
+    public StatisticQueryCountUseCase get(Map<String, Object> param) {
         this.param = param;
         return this;
     }

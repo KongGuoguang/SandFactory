@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.DatePicker;
 
+import com.fenjin.data.bean.StatisticsQueryItem;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.adapter.StatisticQueryAdapter;
 import com.fenjin.sandfactory.adapter.StatisticQueryItemDecoration;
 import com.fenjin.sandfactory.databinding.ActivityStatisticQueryBinding;
 import com.fenjin.sandfactory.viewmodel.StatisticQueryViewModel;
@@ -23,13 +27,11 @@ import java.util.Calendar;
 
 public class StatisticQueryActivity extends BaseActivity {
 
-    public static final int SELECT_TYPE_NAME = 0;
-
-    public static final int SELECT_TYPE_START_TIME = 1;
-
-    public static final int SELECT_TYPE_END_TIME = 2;
-
     public static final String QUERY_TYPE = "query_type";
+    public static final String SITE_NAME = "site_name";
+    public static final String COMPANY_NAME = "company_name";
+    public static final String START_TIME = "start_time";
+    public static final String END_TIME = "end_time";
 
     private StatisticQueryViewModel viewModel;
 
@@ -42,13 +44,31 @@ public class StatisticQueryActivity extends BaseActivity {
         viewModel = ViewModelProviders.of(this).get(StatisticQueryViewModel.class);
         binding.setViewModel(viewModel);
 
-        int queryType = getIntent().getIntExtra(QUERY_TYPE, 1);
+        final int queryType = getIntent().getIntExtra(QUERY_TYPE, 1);
         viewModel.queryType.set(queryType);
 
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new StatisticQueryItemDecoration());
         recyclerView.setAdapter(viewModel.adapter);
+        viewModel.adapter.setCheckDetailListener(new StatisticQueryAdapter.CheckDetailListener() {
+            @Override
+            public void checkDetail(StatisticsQueryItem item) {
+                Intent intent = new Intent(StatisticQueryActivity.this, StatisticQueryDetailActivity.class);
+                intent.putExtra(QUERY_TYPE, queryType);
+                if (queryType == 1) {
+                    intent.putExtra(SITE_NAME, viewModel.siteOrCompany.get());
+                    intent.putExtra(COMPANY_NAME, item.getSh());
+                } else {
+                    intent.putExtra(SITE_NAME, item.getSandName());
+                    intent.putExtra(COMPANY_NAME, viewModel.siteOrCompany.get());
+                }
+
+                intent.putExtra(START_TIME, viewModel.startTime.get());
+                intent.putExtra(END_TIME, viewModel.endTime.get());
+                startActivity(intent);
+            }
+        });
 
         registerObserver();
 
@@ -103,10 +123,10 @@ public class StatisticQueryActivity extends BaseActivity {
                         selectSiteOrCompany();
                         break;
                     case R.id.tv_select_start_time:
-                        selectStartTime();
+                        selectTime(viewModel.startTime);
                         break;
                     case R.id.tv_select_end_time:
-                        selectEndTime();
+                        selectTime(viewModel.endTime);
                         break;
                     case R.id.bt_query:
                         viewModel.startQuery();
@@ -147,12 +167,13 @@ public class StatisticQueryActivity extends BaseActivity {
                 .create(R.style.QMUI_Dialog).show();
     }
 
-    private void selectStartTime() {
+
+    private void selectTime(final ObservableField<String> observableField) {
         int mYear;
         int mMonth;
         int mDay;
 
-        final String date = viewModel.startTime.get();
+        final String date = observableField.get();
         if (TextUtils.isEmpty(date)) {
             Calendar ca = Calendar.getInstance();
             mYear = ca.get(Calendar.YEAR);
@@ -168,35 +189,17 @@ public class StatisticQueryActivity extends BaseActivity {
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                viewModel.startTime.set(year + "-" + (month + 1) + "-" + dayOfMonth);
-            }
-        }, mYear, mMonth, mDay);
-
-        dialog.show();
-    }
-
-    private void selectEndTime() {
-        int mYear;
-        int mMonth;
-        int mDay;
-
-        final String date = viewModel.endTime.get();
-        if (TextUtils.isEmpty(date)) {
-            Calendar ca = Calendar.getInstance();
-            mYear = ca.get(Calendar.YEAR);
-            mMonth = ca.get(Calendar.MONTH);
-            mDay = ca.get(Calendar.DAY_OF_MONTH);
-        } else {
-            String[] array = date.split("-");
-            mYear = Integer.parseInt(array[0]);
-            mMonth = Integer.parseInt(array[1]) - 1;
-            mDay = Integer.parseInt(array[2]);
-        }
-
-        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                viewModel.endTime.set(year + "-" + (month + 1) + "-" + dayOfMonth);
+                StringBuilder builder = new StringBuilder();
+                builder.append(year).append("-");
+                if (++month < 10) {
+                    builder.append(0);
+                }
+                builder.append(month).append("-");
+                if (dayOfMonth < 10) {
+                    builder.append(0);
+                }
+                builder.append(dayOfMonth);
+                observableField.set(builder.toString());
             }
         }, mYear, mMonth, mDay);
 

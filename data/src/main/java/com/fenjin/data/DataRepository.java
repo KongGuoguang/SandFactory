@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.fenjin.data.bean.ChartStatisticsItem;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
-import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.GetChartStaticResult;
@@ -16,9 +15,8 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
-import com.fenjin.data.entity.StatisticQueryCountParam;
 import com.fenjin.data.entity.StatisticQueryCountResult;
-import com.fenjin.data.entity.StatisticQueryListParam;
+import com.fenjin.data.entity.StatisticQueryDetailListResult;
 import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.data.memory.MemoryRepository;
@@ -26,6 +24,7 @@ import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 
@@ -184,7 +183,7 @@ public class DataRepository {
         return networkRepository.getTodayCountResult();
     }
 
-    public Observable<GetChengZhongStatisticsResult> getChengZhongStatic(ChengZhongStatisticsParam param) {
+    public Observable<GetChengZhongStatisticsResult> getChengZhongStatic(Map<String, Object> param) {
         return networkRepository.getChengZhongStatic(param);
     }
 
@@ -204,11 +203,15 @@ public class DataRepository {
         return networkRepository.loadCompanyNames();
     }
 
-    public Observable<StatisticQueryCountResult> getStatisticQueryCount(StatisticQueryCountParam param) {
-        return networkRepository.getStaticCount(param);
+    public Observable<StatisticQueryCountResult> getStatisticQueryCount(Map<String, Object> param) {
+        return networkRepository.getStatisticQueryCount(param);
     }
 
-    public Observable<StatisticQueryListResult> getStatisticQueryList(StatisticQueryListParam param) {
+    public Observable<StatisticQueryListResult> getStatisticQueryList(Map<String, Object> param) {
         return networkRepository.getStatisticQueryList(param);
+    }
+
+    public Observable<StatisticQueryDetailListResult> getStatisticQueryDetailList(Map<String, Object> param) {
+        return networkRepository.getStatisticQueryDetailList(param);
     }
 }

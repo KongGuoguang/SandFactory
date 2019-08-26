@@ -47,8 +47,7 @@
             android:background="@color/white"
             android:layout_marginTop="1dp"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:onClick="@{viewModel::onClick}">
+            android:paddingEnd="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,8 +60,9 @@
             <TextView
                 android:id="@+id/tv_select_site_or_company"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
+                android:gravity="center_vertical"
                 android:layout_marginStart="80dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
@@ -81,8 +81,7 @@
             android:background="@color/white"
             android:layout_marginTop="1dp"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:onClick="@{viewModel::onClick}">
+            android:paddingEnd="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,8 +94,9 @@
             <TextView
                 android:id="@+id/tv_select_start_time"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
+                android:gravity="center_vertical"
                 android:layout_marginStart="80dp"
                 android:textSize="16sp"
                 android:textColor="@color/black"
@@ -116,8 +116,7 @@
             android:background="@color/white"
             android:layout_marginTop="1dp"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:onClick="@{viewModel::onClick}">
+            android:paddingEnd="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,7 +129,8 @@
             <TextView
                 android:id="@+id/tv_select_end_time"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="80dp"
                 android:textSize="16sp"

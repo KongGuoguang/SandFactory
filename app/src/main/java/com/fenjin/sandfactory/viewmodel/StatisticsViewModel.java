@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.fenjin.data.bean.ChengZhongStatisticsItem;
-import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.sandfactory.R;
@@ -19,7 +18,9 @@ import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -51,33 +52,30 @@ public class StatisticsViewModel extends BaseViewModel {
     }
 
     public void loadTodayChengZhongStatistics() {
-        ChengZhongStatisticsParam chengZhongStatisticsParam = new ChengZhongStatisticsParam();
-        chengZhongStatisticsParam.setStartTime(DateUtil.getTodayDate());
-        chengZhongStatisticsParam.setEndTime(DateUtil.getTodayDate());
-
-        loadChengZhongStatistics(chengZhongStatisticsParam);
+        Map<String, Object> param = new HashMap<>();
+        param.put("startTime", DateUtil.getTodayDate());
+        param.put("endTime", DateUtil.getTodayDate());
+        loadChengZhongStatistics(param);
     }
 
     public void loadMonthChengZhongStatistics() {
-        ChengZhongStatisticsParam chengZhongStatisticsParam = new ChengZhongStatisticsParam();
-        chengZhongStatisticsParam.setStartTime(DateUtil.getMonthFirstDayDate());
-        chengZhongStatisticsParam.setEndTime(DateUtil.getMonthLastDayDate());
-
-        loadChengZhongStatistics(chengZhongStatisticsParam);
+        Map<String, Object> param = new HashMap<>();
+        param.put("startTime", DateUtil.getMonthFirstDayDate());
+        param.put("endTime", DateUtil.getMonthLastDayDate());
+        loadChengZhongStatistics(param);
     }
 
     public void loadYearChengZhongStatistics() {
-        ChengZhongStatisticsParam chengZhongStatisticsParam = new ChengZhongStatisticsParam();
-        chengZhongStatisticsParam.setStartTime(DateUtil.getYearFirstDayDate());
-        chengZhongStatisticsParam.setEndTime(DateUtil.getYearLastDayDate());
-
-        loadChengZhongStatistics(chengZhongStatisticsParam);
+        Map<String, Object> param = new HashMap<>();
+        param.put("startTime", DateUtil.getYearFirstDayDate());
+        param.put("endTime", DateUtil.getYearLastDayDate());
+        loadChengZhongStatistics(param);
     }
 
     /**
      * 加载称重统计数据
      */
-    private void loadChengZhongStatistics(ChengZhongStatisticsParam param) {
+    private void loadChengZhongStatistics(Map<String, Object> param) {
 
         chengZhongStaticUseCase.get(param)
                 .execute(new Observer<GetChengZhongStatisticsResult>() {

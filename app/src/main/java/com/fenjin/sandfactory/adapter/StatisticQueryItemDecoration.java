@@ -19,14 +19,16 @@ public class StatisticQueryItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
-        if (position > 0) {
-            float density = getDensity(parent.getContext());
-            int count = parent.getAdapter().getItemCount();
-            if (position < count - 1) {
-                outRect.bottom = (int) (10 * density);
-            }
-        }
+        float density = getDensity(parent.getContext());
+        outRect.bottom = (int) (10 * density);
+//        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
+//        if (position > 0) {
+//            float density = getDensity(parent.getContext());
+//            int count = parent.getAdapter().getItemCount();
+//            if (position < count - 1) {
+//                outRect.bottom = (int) (10 * density);
+//            }
+//        }
     }
 
     private float getDensity(Context context) {

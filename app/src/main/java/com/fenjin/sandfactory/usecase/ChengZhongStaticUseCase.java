@@ -4,9 +4,10 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 
 import com.fenjin.data.bean.ChengZhongStatisticsItem;
-import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.sandfactory.R;
+
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -16,9 +17,9 @@ public class ChengZhongStaticUseCase extends BaseUseCase<GetChengZhongStatistics
         super(context);
     }
 
-    private ChengZhongStatisticsParam param;
+    private Map<String, Object> param;
 
-    public ChengZhongStaticUseCase get(ChengZhongStatisticsParam param) {
+    public ChengZhongStaticUseCase get(Map<String, Object> param) {
         this.param = param;
         return this;
     }

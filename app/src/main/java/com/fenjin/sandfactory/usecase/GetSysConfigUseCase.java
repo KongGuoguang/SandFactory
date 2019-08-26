@@ -31,12 +31,12 @@ public class GetSysConfigUseCase extends BaseUseCase<GetSysConfigResult> {
                             }
 
                             if (config.getId() == 2) {
-                                String logoUrl = "http://" + dataRepository.getIp() + ":" + dataRepository.getPort() + "/admin/sysuser/" + config.getValue();
+                                String logoUrl = "http://" + dataRepository.getIp() + ":" + dataRepository.getPort() + config.getValue();
                                 dataRepository.setSysLogoUrl(logoUrl);
                             }
 
                             if (config.getId() == 3) {
-                                String qrImgUrl = "http://" + dataRepository.getIp() + ":" + dataRepository.getPort() + "/admin/sysuser/" + config.getValue();
+                                String qrImgUrl = "http://" + dataRepository.getIp() + ":" + dataRepository.getPort() + config.getValue();
                                 dataRepository.setSysQrImgUrl(qrImgUrl);
                             }
                         }

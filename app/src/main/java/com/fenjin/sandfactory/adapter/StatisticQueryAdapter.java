@@ -40,6 +40,10 @@ public class StatisticQueryAdapter extends RecyclerView.Adapter<StatisticQueryAd
         this.checkDetailListener = checkDetailListener;
     }
 
+    public StatisticQueryAdapter(List<StatisticsQueryItem> items) {
+        this.items = items;
+    }
+
     @NonNull
     @Override
     public StatisticQueryAdapter.StatisticQueryViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -52,8 +56,10 @@ public class StatisticQueryAdapter extends RecyclerView.Adapter<StatisticQueryAd
     public void onBindViewHolder(@NonNull StatisticQueryAdapter.StatisticQueryViewHolder viewHolder, int i) {
         viewHolder.binding.setType(type);
         viewHolder.binding.setItem(items.get(i));
+        viewHolder.binding.setAdapter(StatisticQueryAdapter.this);
         viewHolder.binding.checkbox.setTag(i);
         viewHolder.binding.checkDetail.setTag(i);
+        viewHolder.binding.executePendingBindings();
     }
 
     @Override

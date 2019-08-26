@@ -2,12 +2,10 @@ package com.fenjin.data.network;
 
 import com.fenjin.data.bean.PersonalInfo;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
-import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.EditPersonalInfoResult;
 import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetPersonInfoResult;
-import com.fenjin.data.entity.GetStaticDetailCountParam;
 import com.fenjin.data.entity.GetStaticDetailCountResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
@@ -16,17 +14,18 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
-import com.fenjin.data.entity.StatisticQueryCountParam;
 import com.fenjin.data.entity.StatisticQueryCountResult;
-import com.fenjin.data.entity.StatisticQueryDetailListParam;
 import com.fenjin.data.entity.StatisticQueryDetailListResult;
-import com.fenjin.data.entity.StatisticQueryListParam;
 import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.data.entity.UploadHeadImgResult;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -57,28 +56,33 @@ public interface ServerInterface {
     @GET("record/todayCount")
     Observable<TodayCountResult> getTodayCountResult(@Header("Authorization") String authorization);
 
+    @FormUrlEncoded
     @POST("record/newcount")
     Observable<GetChengZhongStatisticsResult> getChengZhongStaticResult(@Header("Authorization") String authorization,
-                                                                        @Body ChengZhongStatisticsParam chengZhongStatisticsParam);
+                                                                        @FieldMap Map<String, Object> param);
 
     @GET("record/echart/count")
     Observable<GetChartStaticResult> getChartStaticResult(@Header("Authorization") String authorization);
 
+    @FormUrlEncoded
     @POST("record/statisticalQuery/count")
-    Observable<StatisticQueryCountResult> getStaticCount(@Header("Authorization") String authorization,
-                                                         @Body StatisticQueryCountParam param);
+    Observable<StatisticQueryCountResult> getStatisticQueryCount(@Header("Authorization") String authorization,
+                                                                 @FieldMap Map<String, Object> param);
 
+    @FormUrlEncoded
     @POST("record/statisticalQuery/list")
     Observable<StatisticQueryListResult> getStatisticQueryList(@Header("Authorization") String authorization,
-                                                               @Body StatisticQueryListParam param);
+                                                               @FieldMap Map<String, Object> param);
 
+    @FormUrlEncoded
     @POST("record/statisticalQuery/detail/count")
     Observable<GetStaticDetailCountResult> getStaticDetailCount(@Header("Authorization") String authorization,
-                                                                @Body GetStaticDetailCountParam param);
+                                                                @FieldMap Map<String, Object> param);
 
+    @FormUrlEncoded
     @POST("record/statisticalQuery/detail/list")
-    Observable<StatisticQueryDetailListResult> getStaticDetailList(@Header("Authorization") String authorization,
-                                                                   @Body StatisticQueryDetailListParam param);
+    Observable<StatisticQueryDetailListResult> getStatisticQueryDetailList(@Header("Authorization") String authorization,
+                                                                           @FieldMap Map<String, Object> param);
 
     @GET("public/sysconf/all")
     Observable<GetSysConfigResult> getSysConfig();

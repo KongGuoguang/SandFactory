@@ -8,11 +8,10 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.fenjin.data.bean.StatisticsQueryCount;
+import com.fenjin.data.bean.StatisticsQueryItem;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
 import com.fenjin.data.entity.LoadSiteNamesResult;
-import com.fenjin.data.entity.StatisticQueryCountParam;
 import com.fenjin.data.entity.StatisticQueryCountResult;
-import com.fenjin.data.entity.StatisticQueryListParam;
 import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.adapter.StatisticQueryAdapter;
@@ -21,6 +20,11 @@ import com.fenjin.sandfactory.usecase.LoadSiteNamesUseCase;
 import com.fenjin.sandfactory.usecase.StatisticQueryCountUseCase;
 import com.fenjin.sandfactory.usecase.StatisticQueryListUseCase;
 import com.fenjin.sandfactory.util.ErrorCodeUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -60,7 +64,9 @@ public class StatisticQueryViewModel extends BaseViewModel {
 
     public MutableLiveData<Integer> clickedViewId = new MutableLiveData<>();
 
-    public StatisticQueryAdapter adapter = new StatisticQueryAdapter();
+    private List<StatisticsQueryItem> items = new ArrayList<>();
+
+    public StatisticQueryAdapter adapter = new StatisticQueryAdapter(items);
 
     private LoadSiteNamesUseCase loadSiteNamesUseCase = new LoadSiteNamesUseCase(getApplication());
     private LoadCompanyNamesUseCase loadCompanyNamesUseCase = new LoadCompanyNamesUseCase(getApplication());
@@ -158,17 +164,18 @@ public class StatisticQueryViewModel extends BaseViewModel {
     }
 
     private void queryStatisticQueryCount() {
-        StatisticQueryCountParam param = new StatisticQueryCountParam();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", queryType.get());
         if (queryType.get() == 1) {
-            param.setSandName(siteOrCompany.get());
+            map.put("sandName", siteOrCompany.get());
         } else {
-            param.setSh(siteOrCompany.get());
+            map.put("sh", siteOrCompany.get());
         }
+        map.put("startTime", startTime.get());
+        map.put("endTime", endTime.get());
 
-        param.setStartTime(startTime.get());
-        param.setEndTime(endTime.get());
-
-        statisticQueryCountUseCase.get(param).execute(new Observer<StatisticQueryCountResult>() {
+        statisticQueryCountUseCase.get(map).execute(new Observer<StatisticQueryCountResult>() {
             @Override
             public void onSubscribe(Disposable d) {
                 loadingMsg.postValue("正在查询");
@@ -203,20 +210,22 @@ public class StatisticQueryViewModel extends BaseViewModel {
     }
 
     private void queryStatisticQueryList() {
-        StatisticQueryListParam param = new StatisticQueryListParam();
-        param.setType(queryType.get());
+
+        adapter.setType(queryType.get());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", queryType.get());
         if (queryType.get() == 1) {
-            param.setSandName(siteOrCompany.get());
+            map.put("sandName", siteOrCompany.get());
         } else {
-            param.setSh(siteOrCompany.get());
+            map.put("sh", siteOrCompany.get());
         }
+        map.put("startTime", startTime.get());
+        map.put("endTime", endTime.get());
+        map.put("pageNum", 1);
+        map.put("pageSize", 10);
 
-        param.setStartTime(startTime.get());
-        param.setEndTime(endTime.get());
-        param.setPageNum(1);
-        param.setPageSize(10);
-
-        statisticQueryListUseCase.get(param).execute(new Observer<StatisticQueryListResult>() {
+        statisticQueryListUseCase.get(map).execute(new Observer<StatisticQueryListResult>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -226,7 +235,7 @@ public class StatisticQueryViewModel extends BaseViewModel {
             public void onNext(StatisticQueryListResult statisticQueryListResult) {
                 loadingMsg.setValue("");
                 if (statisticQueryListResult.getFlag() == 1) {
-                    adapter.setItems(statisticQueryListResult.getResult());
+                    items.addAll(statisticQueryListResult.getResult().getList());
                     adapter.notifyDataSetChanged();
                     showQueryResult.set(true);
                 } else {

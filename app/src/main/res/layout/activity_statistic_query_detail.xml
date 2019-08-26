@@ -1,8 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.StatisticQueryDetailActivity">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.StatisticQueryDetailViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/app_color_background"
+        tools:context=".activity.StatisticQueryDetailActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/app_color_main">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="@{viewModel.queryType.get() == 1 ? viewModel.company : viewModel.site}"
+                android:drawableStart="@mipmap/ic_arrow_back"
+                android:drawablePadding="10dp"
+                android:onClick="@{viewModel::onClick}" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginTop="1dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="@{viewModel.queryType.get() == 1 ? @string/site : @string/company}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="80dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textColorHint="#c9c9c9"
+                android:text="@{viewModel.queryType.get() == 1 ? viewModel.site : viewModel.company}" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginTop="1dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="@string/start_time" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="80dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textColorHint="#c9c9c9"
+                android:text="@{viewModel.startTime}" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginTop="1dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="@string/end_time" />
+
+            <TextView
+                android:id="@+id/tv_select_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="80dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textColorHint="#c9c9c9"
+                android:text="@{viewModel.endTime}" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:visibleOrNot="@{viewModel.showQueryResult}">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:text="@string/query_result"
+                android:textSize="14sp"
+                android:textColor="#9D9E9E" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

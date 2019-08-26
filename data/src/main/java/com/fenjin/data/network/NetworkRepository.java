@@ -4,13 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
-import com.fenjin.data.entity.ChengZhongStatisticsParam;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
-import com.fenjin.data.entity.GetStaticDetailCountParam;
-import com.fenjin.data.entity.GetStaticDetailCountResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
 import com.fenjin.data.entity.LoadSiteNamesResult;
@@ -18,15 +15,13 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
-import com.fenjin.data.entity.StatisticQueryCountParam;
 import com.fenjin.data.entity.StatisticQueryCountResult;
-import com.fenjin.data.entity.StatisticQueryDetailListParam;
 import com.fenjin.data.entity.StatisticQueryDetailListResult;
-import com.fenjin.data.entity.StatisticQueryListParam;
 import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
 import com.fenjin.data.preferences.PreferencesRepository;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -143,7 +138,7 @@ public class NetworkRepository {
         return serverInterface.getTodayCountResult(preferencesRepository.getAuthorization());
     }
 
-    public Observable<GetChengZhongStatisticsResult> getChengZhongStatic(ChengZhongStatisticsParam param) {
+    public Observable<GetChengZhongStatisticsResult> getChengZhongStatic(Map<String, Object> param) {
         return serverInterface.getChengZhongStaticResult(preferencesRepository.getAuthorization(), param);
     }
 
@@ -151,20 +146,16 @@ public class NetworkRepository {
         return serverInterface.getChartStaticResult(preferencesRepository.getAuthorization());
     }
 
-    public Observable<StatisticQueryCountResult> getStaticCount(StatisticQueryCountParam param) {
-        return serverInterface.getStaticCount(preferencesRepository.getAuthorization(), param);
+    public Observable<StatisticQueryCountResult> getStatisticQueryCount(Map<String, Object> param) {
+        return serverInterface.getStatisticQueryCount(preferencesRepository.getAuthorization(), param);
     }
 
-    public Observable<StatisticQueryListResult> getStatisticQueryList(StatisticQueryListParam param) {
+    public Observable<StatisticQueryListResult> getStatisticQueryList(Map<String, Object> param) {
         return serverInterface.getStatisticQueryList(preferencesRepository.getAuthorization(), param);
     }
 
-    public Observable<GetStaticDetailCountResult> getStaticDetailCount(GetStaticDetailCountParam param) {
-        return serverInterface.getStaticDetailCount(preferencesRepository.getAuthorization(), param);
-    }
-
-    public Observable<StatisticQueryDetailListResult> getStaticDetailList(StatisticQueryDetailListParam param) {
-        return serverInterface.getStaticDetailList(preferencesRepository.getAuthorization(), param);
+    public Observable<StatisticQueryDetailListResult> getStatisticQueryDetailList(Map<String, Object> param) {
+        return serverInterface.getStatisticQueryDetailList(preferencesRepository.getAuthorization(), param);
     }
 
     public Observable<GetSysConfigResult> getSysConfig() {
