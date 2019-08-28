@@ -14,6 +14,7 @@
     <string name="company_statistics">单位统计</string>
     <string name="select_company">请选择单位</string>
     <string name="balance_query">余额查询</string>
+    <string name="balance_query_hint">输入单位名称/电话搜索</string>
     <string name="cheng_zhong_statistics">称重统计</string>
     <string name="year_trends">近一年趋势</string>
     <string name="total_car">总车数</string>
@@ -24,6 +25,7 @@
     <string name="total_money_colon">总金额：</string>
     <string name="balance">余额</string>
     <string name="balance_colon">余额：</string>
+    <string name="czrj_balance_colon">称重软件余额：</string>
     <string name="hesha">河沙：</string>
     <string name="shashi">砂石：</string>
     <string name="start_time">开始时间</string>
@@ -33,6 +35,9 @@
     <string name="query_result">查询结果</string>
     <string name="latest_cheng_zhong">最新称重记录</string>
     <string name="hint_search">输入票据编号、车号或货名等</string>
+    <string name="bill">票据</string>
+    <string name="car_no">车号</string>
+    <string name="goods_name">货名</string>
     <string name="hint_search_camera">输入监控名称</string>
     <string name="search">搜索</string>
     <string name="monitor">监控</string>
@@ -87,6 +92,7 @@
     <string name="sex">性别</string>
     <string name="connect">联系方式</string>
     <string name="phone_number">手机号</string>
+    <string name="telephone_colon">联系电话：</string>
     <string name="address">我的地址</string>
     <string name="company_query">单位查询</string>
     <string name="two_dimensional_code">二维码</string>

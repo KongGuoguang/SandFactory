@@ -21,7 +21,7 @@ public class StatisticQueryListUseCase extends BaseUseCase<StatisticQueryListRes
 
     private Map<String, Object> param;
 
-    public StatisticQueryListUseCase get(Map<String, Object> param) {
+    public StatisticQueryListUseCase query(Map<String, Object> param) {
         this.param = param;
         return this;
     }

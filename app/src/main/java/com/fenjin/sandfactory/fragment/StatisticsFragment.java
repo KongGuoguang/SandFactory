@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.bean.ChartStatisticsItem;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.activity.BalanceQueryActivity;
 import com.fenjin.sandfactory.activity.StatisticQueryActivity;
 import com.fenjin.sandfactory.databinding.FragmentStaticBinding;
 import com.fenjin.sandfactory.databinding.LayoutPopBarChartValueBinding;
@@ -375,8 +376,9 @@ public class StatisticsFragment extends BaseFragment {
                     Intent intent = new Intent(getActivity(), StatisticQueryActivity.class);
                     intent.putExtra(StatisticQueryActivity.QUERY_TYPE, 2);
                     startActivity(intent);
-                } else {
-
+                } else if (integer == STATISTIC_TYPE_BALANCE) {
+                    Intent intent = new Intent(getActivity(), BalanceQueryActivity.class);
+                    startActivity(intent);
                 }
             }
         });

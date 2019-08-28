@@ -21,7 +21,7 @@ public class StatisticQueryCountUseCase extends BaseUseCase<StatisticQueryCountR
 
     private Map<String, Object> param;
 
-    public StatisticQueryCountUseCase get(Map<String, Object> param) {
+    public StatisticQueryCountUseCase query(Map<String, Object> param) {
         this.param = param;
         return this;
     }

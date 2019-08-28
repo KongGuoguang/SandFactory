@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +17,16 @@ import android.widget.DatePicker;
 
 import com.fenjin.data.bean.StatisticsQueryItem;
 import com.fenjin.sandfactory.R;
+import com.fenjin.sandfactory.adapter.RecyclerViewItemDecoration;
 import com.fenjin.sandfactory.adapter.StatisticQueryAdapter;
-import com.fenjin.sandfactory.adapter.StatisticQueryItemDecoration;
 import com.fenjin.sandfactory.databinding.ActivityStatisticQueryBinding;
 import com.fenjin.sandfactory.viewmodel.StatisticQueryViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.Calendar;
+
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class StatisticQueryActivity extends BaseActivity {
 
@@ -46,11 +49,29 @@ public class StatisticQueryActivity extends BaseActivity {
 
         final int queryType = getIntent().getIntExtra(QUERY_TYPE, 1);
         viewModel.queryType.set(queryType);
+        viewModel.adapter.setType(queryType);
 
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new StatisticQueryItemDecoration());
+        recyclerView.addItemDecoration(new RecyclerViewItemDecoration());
         recyclerView.setAdapter(viewModel.adapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == SCROLL_STATE_IDLE) {//滑动到了底部，加载更多
+                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (linearLayoutManager == null) return;
+                    int itemTotalCount = viewModel.adapter.getItemCount();
+                    int mLastChildPosition = linearLayoutManager.findLastVisibleItemPosition();
+                    if (mLastChildPosition != 0 && mLastChildPosition == itemTotalCount - 1) {
+                        viewModel.queryStatisticQueryList();
+                    }
+                }
+            }
+        });
+
         viewModel.adapter.setCheckDetailListener(new StatisticQueryAdapter.CheckDetailListener() {
             @Override
             public void checkDetail(StatisticsQueryItem item) {

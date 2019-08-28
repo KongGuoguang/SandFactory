@@ -1,6 +1,7 @@
 package com.fenjin.data.network;
 
 import com.fenjin.data.bean.PersonalInfo;
+import com.fenjin.data.entity.BalanceQueryResult;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.data.entity.EditPersonalInfoResult;
 import com.fenjin.data.entity.GetChartStaticResult;
@@ -30,6 +31,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Author:kongguoguang
@@ -83,6 +85,10 @@ public interface ServerInterface {
     @POST("record/statisticalQuery/detail/list")
     Observable<StatisticQueryDetailListResult> getStatisticQueryDetailList(@Header("Authorization") String authorization,
                                                                            @FieldMap Map<String, Object> param);
+
+    @GET("prepayment/enterpriselist")
+    Observable<BalanceQueryResult> getBalanceQueryResult(@Header("Authorization") String authorization,
+                                                         @QueryMap Map<String, Object> map);
 
     @GET("public/sysconf/all")
     Observable<GetSysConfigResult> getSysConfig();

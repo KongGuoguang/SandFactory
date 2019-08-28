@@ -1,8 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.BalanceQueryActivity">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.BalanceQueryViewModel" />
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.BalanceQueryActivity"
+        android:background="@color/app_color_background">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/app_color_main">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="@string/balance_query"
+                android:drawableStart="@mipmap/ic_arrow_back"
+                android:drawablePadding="10dp"
+                android:onClick="@{viewModel::onClick}" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textColorHint="#C9C9C9"
+            android:hint="@string/balance_query_hint"
+            android:text="@={viewModel.keywords}" />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/bt_query"
+            style="@style/RoundButtonLogin"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/query"
+            android:onClick="@{viewModel::onClick}"
+            app:changeAlphaWhenPress="@{true}" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp" />
+
+    </LinearLayout>
+
+
+</layout>

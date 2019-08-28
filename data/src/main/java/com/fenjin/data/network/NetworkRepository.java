@@ -3,6 +3,7 @@ package com.fenjin.data.network;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.fenjin.data.entity.BalanceQueryResult;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
@@ -156,6 +157,10 @@ public class NetworkRepository {
 
     public Observable<StatisticQueryDetailListResult> getStatisticQueryDetailList(Map<String, Object> param) {
         return serverInterface.getStatisticQueryDetailList(preferencesRepository.getAuthorization(), param);
+    }
+
+    public Observable<BalanceQueryResult> getBalanceQueryResult(Map<String, Object> param) {
+        return serverInterface.getBalanceQueryResult(preferencesRepository.getAuthorization(), param);
     }
 
     public Observable<GetSysConfigResult> getSysConfig() {

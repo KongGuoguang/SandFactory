@@ -3,6 +3,7 @@ package com.fenjin.data;
 import android.content.Context;
 
 import com.fenjin.data.bean.ChartStatisticsItem;
+import com.fenjin.data.entity.BalanceQueryResult;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
@@ -213,5 +214,9 @@ public class DataRepository {
 
     public Observable<StatisticQueryDetailListResult> getStatisticQueryDetailList(Map<String, Object> param) {
         return networkRepository.getStatisticQueryDetailList(param);
+    }
+
+    public Observable<BalanceQueryResult> getBalanceQueryResult(Map<String, Object> param) {
+        return networkRepository.getBalanceQueryResult(param);
     }
 }

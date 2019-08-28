@@ -68,6 +68,10 @@ public class StatisticQueryViewModel extends BaseViewModel {
 
     public StatisticQueryAdapter adapter = new StatisticQueryAdapter(items);
 
+    private int currentPage;
+    private int pageSize = 10;
+    private int totalCount;
+
     private LoadSiteNamesUseCase loadSiteNamesUseCase = new LoadSiteNamesUseCase(getApplication());
     private LoadCompanyNamesUseCase loadCompanyNamesUseCase = new LoadCompanyNamesUseCase(getApplication());
 
@@ -158,6 +162,9 @@ public class StatisticQueryViewModel extends BaseViewModel {
         }
 
         showQueryResult.set(false);
+        items.clear();
+        currentPage = 1;
+        totalCount = 0;
 
         queryStatisticQueryCount();
 
@@ -175,7 +182,7 @@ public class StatisticQueryViewModel extends BaseViewModel {
         map.put("startTime", startTime.get());
         map.put("endTime", endTime.get());
 
-        statisticQueryCountUseCase.get(map).execute(new Observer<StatisticQueryCountResult>() {
+        statisticQueryCountUseCase.query(map).execute(new Observer<StatisticQueryCountResult>() {
             @Override
             public void onSubscribe(Disposable d) {
                 loadingMsg.postValue("正在查询");
@@ -209,9 +216,9 @@ public class StatisticQueryViewModel extends BaseViewModel {
 
     }
 
-    private void queryStatisticQueryList() {
+    public void queryStatisticQueryList() {
 
-        adapter.setType(queryType.get());
+        if (totalCount > 0 && items.size() >= totalCount) return;
 
         Map<String, Object> map = new HashMap<>();
         map.put("type", queryType.get());
@@ -222,24 +229,32 @@ public class StatisticQueryViewModel extends BaseViewModel {
         }
         map.put("startTime", startTime.get());
         map.put("endTime", endTime.get());
-        map.put("pageNum", 1);
-        map.put("pageSize", 10);
+        map.put("pageNum", currentPage);
+        map.put("pageSize", pageSize);
 
-        statisticQueryListUseCase.get(map).execute(new Observer<StatisticQueryListResult>() {
+        statisticQueryListUseCase.query(map).execute(new Observer<StatisticQueryListResult>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(StatisticQueryListResult statisticQueryListResult) {
+            public void onNext(StatisticQueryListResult result) {
                 loadingMsg.setValue("");
-                if (statisticQueryListResult.getFlag() == 1) {
-                    items.addAll(statisticQueryListResult.getResult().getList());
+                if (result.getFlag() == 1) {
+                    items.addAll(result.getResult().getList());
                     adapter.notifyDataSetChanged();
-                    showQueryResult.set(true);
+                    totalCount = result.getResult().getTotal();
+                    if (totalCount == 0) {
+                        showToast("暂无数据");
+                    } else {
+                        showQueryResult.set(true);
+                    }
+                    if (items.size() < totalCount) {//
+                        currentPage++;
+                    }
                 } else {
-                    errorMsg.postValue(statisticQueryListResult.getMessage());
+                    errorMsg.postValue(result.getMessage());
                 }
             }
 

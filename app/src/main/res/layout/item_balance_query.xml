@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.fenjin.data.bean.BalanceQueryItem" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_corner_white"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="@{item.name}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#9D9E9E"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:text="@{@string/telephone_colon + item.phone}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#9D9E9E"
+            android:textSize="14sp"
+            android:layout_marginTop="6dp"
+            android:text="@{@string/czrj_balance_colon + item.balance}" />
+
+    </LinearLayout>
+</layout>
