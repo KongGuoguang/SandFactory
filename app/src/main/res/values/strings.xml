@@ -36,8 +36,11 @@
     <string name="latest_cheng_zhong">最新称重记录</string>
     <string name="hint_search">输入票据编号、车号或货名等</string>
     <string name="bill">票据</string>
+    <string name="search_bill_hint">请输入票据编号</string>
     <string name="car_no">车号</string>
+    <string name="search_car_no_hint">请输入车辆号码</string>
     <string name="goods_name">货名</string>
+    <string name="search_goods_name_hint">请输入货物名称</string>
     <string name="hint_search_camera">输入监控名称</string>
     <string name="search">搜索</string>
     <string name="monitor">监控</string>
@@ -63,6 +66,7 @@
     <string name="huo_wu_ming_cheng">货物名称</string>
     <string name="chu_ru_lei_xing">出入类型</string>
     <string name="sha_chang">沙场</string>
+    <string name="search_sha_chang_hint">请输入沙场名称</string>
     <string name="mao_zhong">毛重：</string>
     <string name="mao_zhong_1">毛重</string>
     <string name="jin_e_colon">金额：</string>

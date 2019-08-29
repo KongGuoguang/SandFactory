@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.fenjin.sandfactory.viewmodel.QueryViewModel"/>
+            type="com.fenjin.sandfactory.viewmodel.QueryFragmentViewModel" />
 
     </data>
 
@@ -24,7 +24,7 @@
             android:background="@color/app_color_main">
 
             <LinearLayout
-                android:id="@+id/et_search"
+                android:id="@+id/layout_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -36,11 +36,9 @@
 
                 <TextView
                     android:id="@+id/tv_query_condition"
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:text="@string/select_condition" />
@@ -51,6 +49,7 @@
                     android:background="@color/gray" />
 
                 <EditText
+                    android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
@@ -60,8 +59,8 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textColorHint="@color/gray"
-                    android:hint="@string/hint_search"
-                    android:text="@={viewModel.searchKey}"
+                    android:hint="@{viewModel.searchKeywordsHint}"
+                    android:text="@={viewModel.searchKeywords}"
                     android:background="@null"
                     android:inputType="text" />
 
@@ -73,8 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/et_search"
-                android:layout_alignBottom="@+id/et_search"
+                android:layout_alignTop="@+id/layout_search"
+                android:layout_alignBottom="@+id/layout_search"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"

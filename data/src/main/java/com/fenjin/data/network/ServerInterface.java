@@ -6,10 +6,10 @@ import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.data.entity.EditPersonalInfoResult;
 import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
-import com.fenjin.data.entity.GetPersonInfoResult;
 import com.fenjin.data.entity.GetStaticDetailCountResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
+import com.fenjin.data.entity.LoadPersonInfoResult;
 import com.fenjin.data.entity.LoadSiteNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
@@ -55,6 +55,10 @@ public interface ServerInterface {
                                                                    @Query("pageSize") int pageSize,
                                                                    @Query("searchKey") String searchKey);
 
+    @GET("record/list")
+    Observable<ChengZhongRecordListResult> getChengZhongRecordList(@Header("Authorization") String authorization,
+                                                                   @QueryMap Map<String, Object> param);
+
     @GET("record/todayCount")
     Observable<TodayCountResult> getTodayCountResult(@Header("Authorization") String authorization);
 
@@ -93,8 +97,8 @@ public interface ServerInterface {
     @GET("public/sysconf/all")
     Observable<GetSysConfigResult> getSysConfig();
 
-    @POST("sysuser/getCurrent")
-    Observable<GetPersonInfoResult> getPersonalInfo(@Header("Authorization") String authorization);
+    @GET("sysuser/getCurrent")
+    Observable<LoadPersonInfoResult> getPersonalInfo(@Header("Authorization") String authorization);
 
     @POST("sysuser/edit")
     Observable<EditPersonalInfoResult> editPersonalInfo(@Header("Authorization") String authorization,

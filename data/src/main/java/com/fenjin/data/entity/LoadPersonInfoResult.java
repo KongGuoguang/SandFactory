@@ -8,6 +8,6 @@ import com.fenjin.data.bean.PersonalInfo;
  * Time:17:44
  * Summary:
  */
-public class GetPersonInfoResult extends BaseResult<PersonalInfo> {
+public class LoadPersonInfoResult extends BaseResult<PersonalInfo> {
 
 }

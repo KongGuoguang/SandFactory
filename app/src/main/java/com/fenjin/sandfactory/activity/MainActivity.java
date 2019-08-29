@@ -10,6 +10,7 @@ import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.fragment.MeFragment;
 import com.fenjin.sandfactory.fragment.QueryFragment;
 import com.fenjin.sandfactory.fragment.StatisticsFragment;
+import com.fenjin.sandfactory.usecase.LoadPersonalInfoUseCase;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initTabs();
         initPagers();
+        new LoadPersonalInfoUseCase(getApplicationContext()).execute();
     }
 
 
@@ -76,5 +78,11 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         tabSegment.setupWithViewPager(viewPager, false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(false);
     }
 }

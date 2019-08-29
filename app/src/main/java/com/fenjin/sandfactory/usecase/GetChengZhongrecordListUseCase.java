@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 
 /**
@@ -24,6 +26,13 @@ public class GetChengZhongrecordListUseCase extends BaseUseCase<ChengZhongRecord
         super(context);
     }
 
+    private Map<String, Object> param;
+
+    public GetChengZhongrecordListUseCase query(Map<String, Object> param) {
+        this.param = param;
+        return this;
+    }
+
     public GetChengZhongrecordListUseCase get(int pageNum, int pageSize, String searchKey){
         this.pageNum = pageNum;
         this.pageSize = pageSize;
@@ -33,6 +42,6 @@ public class GetChengZhongrecordListUseCase extends BaseUseCase<ChengZhongRecord
 
     @Override
     public Observable<ChengZhongRecordListResult> buildObservable() {
-        return dataRepository.getChengZhongRecordList(pageNum, pageSize, searchKey);
+        return dataRepository.getChengZhongRecordList(param);
     }
 }

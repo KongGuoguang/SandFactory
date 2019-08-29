@@ -67,7 +67,7 @@
                     android:textSize="16sp"
                     android:textColor="#0b83e2"
                     android:layout_centerVertical="true"
-                    android:text="@{viewModel.hm}" />
+                    android:text="@{viewModel.sandName}" />
 
                 <TextView
                     android:id="@+id/tv_hm"

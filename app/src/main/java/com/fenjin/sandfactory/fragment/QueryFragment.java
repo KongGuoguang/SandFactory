@@ -15,30 +15,28 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.fenjin.data.entity.ChengZhongRecord;
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.DetailActivity;
 import com.fenjin.sandfactory.databinding.FragmentQueryBinding;
-import com.fenjin.sandfactory.viewmodel.QueryViewModel;
+import com.fenjin.sandfactory.viewmodel.QueryFragmentViewModel;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-import com.qmuiteam.qmui.widget.popup.QMUIPopup;
-
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class QueryFragment extends BaseFragment {
+public class QueryFragment extends BaseFragment implements View.OnClickListener {
 
 
     public QueryFragment() {
         // Required empty public constructor
     }
 
-    private QueryViewModel viewModel;
+    private QueryFragmentViewModel viewModel;
 
     private QMUITipDialog loadingDialog;
 
@@ -51,12 +49,14 @@ public class QueryFragment extends BaseFragment {
 
     private TextView queryCondition;
 
-    private QMUIPopup popup;
+    private PopupWindow popupWindow;
+
+    private View popupWindowView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(QueryViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(QueryFragmentViewModel.class);
         registerObserver();
     }
 
@@ -64,6 +64,7 @@ public class QueryFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        popupWindowView = inflater.inflate(R.layout.layout_query_condition, container, false);
 
         FragmentQueryBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_query, container, false);
         binding.setViewModel(viewModel);
@@ -117,21 +118,7 @@ public class QueryFragment extends BaseFragment {
         noMoreData = footerView.findViewById(R.id.tv_no_more_data);
 
         queryCondition = view.findViewById(R.id.tv_query_condition);
-        queryCondition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (popup == null) {
-                    popup = new QMUIPopup(view.getContext(), QMUIPopup.DIRECTION_BOTTOM);
-                    popup.setAnimStyle(QMUIPopup.ANIM_GROW_FROM_CENTER);
-                    View contentView = LayoutInflater.from(view.getContext()).inflate(R.layout.layout_query_condition, null, false);
-                    contentView.setLayoutParams(popup.generateLayoutParam(
-                            QMUIDisplayHelper.dp2px(view.getContext(), 70), WRAP_CONTENT));
-                    popup.setContentView(contentView);
-                }
-
-                popup.show(view);
-            }
-        });
+        queryCondition.setOnClickListener(this);
 
         isViewCreated = true;
     }
@@ -194,9 +181,65 @@ public class QueryFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-        if (isVisibleToUser && isViewCreated && viewModel.currentPage == 0){
-            viewModel.loadFirstPageChengZhongRecords();
-        }
+//        if (isVisibleToUser && isViewCreated && viewModel.currentPage == 0){
+//            viewModel.loadFirstPageChengZhongRecords();
+//        }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_query_condition:
+                if (popupWindow == null) {
+                    popupWindow = new PopupWindow(popupWindowView, QMUIDisplayHelper.dp2px(getContext(), 70),
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                    popupWindow.setFocusable(true);
+                    popupWindow.setOutsideTouchable(true);
+
+                    TextView bill = popupWindowView.findViewById(R.id.tv_bill);
+                    bill.setOnClickListener(this);
+
+                    TextView carNO = popupWindowView.findViewById(R.id.tv_car_no);
+                    carNO.setOnClickListener(this);
+
+                    TextView goodsName = popupWindowView.findViewById(R.id.tv_goods_name);
+                    goodsName.setOnClickListener(this);
+
+                    TextView shaChang = popupWindowView.findViewById(R.id.tv_site_name);
+                    shaChang.setOnClickListener(this);
+                }
+
+                popupWindow.showAsDropDown(queryCondition, 0, QMUIDisplayHelper.dp2px(getContext(), 10));
+                break;
+            case R.id.tv_bill:
+                popupWindow.dismiss();
+                queryCondition.setText(R.string.bill);
+                viewModel.searchKeywords.set("");
+                viewModel.searchKeywordsHint.set(getString(R.string.search_bill_hint));
+                viewModel.searchType = QueryFragmentViewModel.SEARCH_TYPE_BILL;
+                break;
+            case R.id.tv_car_no:
+                popupWindow.dismiss();
+                queryCondition.setText(R.string.car_no);
+                viewModel.searchKeywords.set("");
+                viewModel.searchKeywordsHint.set(getString(R.string.search_car_no_hint));
+                viewModel.searchType = QueryFragmentViewModel.SEARCH_TYPE_CAR_NO;
+                break;
+            case R.id.tv_goods_name:
+                popupWindow.dismiss();
+                queryCondition.setText(R.string.goods_name);
+                viewModel.searchKeywords.set("");
+                viewModel.searchKeywordsHint.set(getString(R.string.search_goods_name_hint));
+                viewModel.searchType = QueryFragmentViewModel.SEARCH_TYPE_GOODS_NAME;
+                break;
+            case R.id.tv_site_name:
+                popupWindow.dismiss();
+                queryCondition.setText(R.string.sha_chang);
+                viewModel.searchKeywords.set("");
+                viewModel.searchKeywordsHint.set(getString(R.string.search_sha_chang_hint));
+                viewModel.searchType = QueryFragmentViewModel.SEARCH_TYPE_SITE_NAME;
+                break;
+        }
+    }
 }

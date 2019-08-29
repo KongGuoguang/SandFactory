@@ -11,6 +11,7 @@ import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
+import com.fenjin.data.entity.LoadPersonInfoResult;
 import com.fenjin.data.entity.LoadSiteNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
@@ -119,6 +120,10 @@ public class NetworkRepository {
         return serverInterface.getChengZhongRecordList(token,pageNum, pageSize, searchKey);
     }
 
+    public Observable<ChengZhongRecordListResult> getChengZhongRecordList(Map<String, Object> param) {
+        return serverInterface.getChengZhongRecordList(preferencesRepository.getAuthorization(), param);
+    }
+
     public Observable<GetAllChannelResult> getAllChannel(){
         return cameraInterface.getAllChannel();
     }
@@ -173,6 +178,10 @@ public class NetworkRepository {
 
     public Observable<LoadCompanyNamesResult> loadCompanyNames() {
         return serverInterface.getCompanyNames(preferencesRepository.getAuthorization());
+    }
+
+    public Observable<LoadPersonInfoResult> loadPersonInfo() {
+        return serverInterface.getPersonalInfo(preferencesRepository.getAuthorization());
     }
 
 

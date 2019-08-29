@@ -3,6 +3,7 @@ package com.fenjin.data;
 import android.content.Context;
 
 import com.fenjin.data.bean.ChartStatisticsItem;
+import com.fenjin.data.bean.PersonalInfo;
 import com.fenjin.data.entity.BalanceQueryResult;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
 import com.fenjin.data.entity.GetAllChannelResult;
@@ -11,6 +12,7 @@ import com.fenjin.data.entity.GetChartStaticResult;
 import com.fenjin.data.entity.GetChengZhongStatisticsResult;
 import com.fenjin.data.entity.GetSysConfigResult;
 import com.fenjin.data.entity.LoadCompanyNamesResult;
+import com.fenjin.data.entity.LoadPersonInfoResult;
 import com.fenjin.data.entity.LoadSiteNamesResult;
 import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
@@ -65,6 +67,10 @@ public class DataRepository {
 
     public Observable<ChengZhongRecordListResult> getChengZhongRecordList(int pageNum, int pageSize, String searchKey){
         return networkRepository.getChengZhongRecordList(getAuthorization(), pageNum, pageSize, searchKey);
+    }
+
+    public Observable<ChengZhongRecordListResult> getChengZhongRecordList(Map<String, Object> param) {
+        return networkRepository.getChengZhongRecordList(param);
     }
 
     public void saveUserNameAndPassword(Context context, String userName, String password) {
@@ -204,6 +210,10 @@ public class DataRepository {
         return networkRepository.loadCompanyNames();
     }
 
+    public Observable<LoadPersonInfoResult> loadPersonalInfo() {
+        return networkRepository.loadPersonInfo();
+    }
+
     public Observable<StatisticQueryCountResult> getStatisticQueryCount(Map<String, Object> param) {
         return networkRepository.getStatisticQueryCount(param);
     }
@@ -218,5 +228,14 @@ public class DataRepository {
 
     public Observable<BalanceQueryResult> getBalanceQueryResult(Map<String, Object> param) {
         return networkRepository.getBalanceQueryResult(param);
+    }
+
+    public PersonalInfo getPersonalInfo() {
+        return memoryRepository.getPersonalInfo();
+    }
+
+    public void savePersonalInfo(PersonalInfo info) {
+        memoryRepository.setPersonalInfo(info);
+        preferencesRepository.savePersonalInfo(info);
     }
 }
