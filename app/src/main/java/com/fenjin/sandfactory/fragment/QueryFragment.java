@@ -181,9 +181,9 @@ public class QueryFragment extends BaseFragment implements View.OnClickListener 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见
-//        if (isVisibleToUser && isViewCreated && viewModel.currentPage == 0){
-//            viewModel.loadFirstPageChengZhongRecords();
-//        }
+        if (isVisibleToUser && isViewCreated && viewModel.totalCount == 0) {
+            viewModel.loadFirstPageChengZhongRecords();
+        }
     }
 
     @Override

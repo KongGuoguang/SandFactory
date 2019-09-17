@@ -26,7 +26,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class StatisticsViewModel extends BaseViewModel {
+public class StatisticsFragmentViewModel extends BaseViewModel {
 
     private ChengZhongStaticUseCase chengZhongStaticUseCase = new ChengZhongStaticUseCase(getApplication());
 
@@ -47,7 +47,7 @@ public class StatisticsViewModel extends BaseViewModel {
     private boolean loadAllStatisticsData = true;
 
 
-    public StatisticsViewModel(@NonNull Application application) {
+    public StatisticsFragmentViewModel(@NonNull Application application) {
         super(application);
     }
 

@@ -25,6 +25,8 @@ public class MeViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> startPersonalInfoActivity = new MutableLiveData<>();
 
+    public MutableLiveData<Boolean> startEditAppActivity = new MutableLiveData<>();
+
     public void logout(){
         dataRepository.saveToken("");
     }
@@ -33,7 +35,7 @@ public class MeViewModel extends BaseViewModel {
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.layout_personal_dta:
+            case R.id.layout_personal_info:
                 startPersonalInfoActivity.postValue(true);
                 break;
             case R.id.layout_modify_password:
@@ -44,6 +46,9 @@ public class MeViewModel extends BaseViewModel {
                 break;
             case R.id.bt_logout:
                 showLogoutDialog.postValue(true);
+                break;
+            case R.id.layout_my_app:
+                startEditAppActivity.postValue(true);
                 break;
         }
 

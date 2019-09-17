@@ -40,7 +40,9 @@ public class BaseActivity extends AppCompatActivity {
     protected void dealErrorCode(int errorCode) {
         switch (errorCode) {
             case ErrorCodeUtil.TOKEN_TIME_OUT:
-                startActivity(new Intent(this, LoginActivity.class));
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
                 showToast("登录信息超时，请重新登录");
                 break;

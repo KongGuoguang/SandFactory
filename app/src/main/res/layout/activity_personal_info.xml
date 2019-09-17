@@ -7,6 +7,10 @@
     <data>
 
         <variable
+            name="personalInfo"
+            type="com.fenjin.data.bean.PersonalInfo" />
+
+        <variable
             name="viewModel"
             type="com.fenjin.sandfactory.viewmodel.PersonalInfoViewModel" />
     </data>
@@ -14,7 +18,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/app_color_background"
+        android:gravity="center_horizontal">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,74 +29,76 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="#ffffff"
                 android:textSize="16sp"
-                android:text="@string/personal_data" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_alignParentBottom="true"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:src="@mipmap/ic_arrow_back"
-                android:onClick="@{() -> viewModel.finishActivity()}"
-                tools:ignore="ContentDescription" />
+                android:text="@string/personal_data"
+                android:drawableStart="@mipmap/ic_arrow_back"
+                android:drawablePadding="10dp"
+                android:onClick="@{viewModel::onClick}" />
 
         </RelativeLayout>
 
-        <!--个人信息-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="@string/personal_info"
-            android:gravity="center_vertical" />
-
         <!--头像-->
         <RelativeLayout
+            android:id="@+id/layout_head_img"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="66dp"
+            android:background="@drawable/common_cilck_item_bg"
+            android:onClick="@{viewModel::onClick}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
                 android:text="@string/profile_picture" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/iv_head_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
-                app:imageUrl="@{viewModel.profilePictureUrl}" />
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="32dp"
+                app:imageUrl="@{personalInfo.headImg}"
+                app:placeHolder="@{@drawable/ic_head}" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
                 android:src="@mipmap/ic_arrow" />
 
         </RelativeLayout>
 
         <!--姓名-->
         <RelativeLayout
+            android:id="@+id/layout_name"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/common_cilck_item_bg"
+            android:onClick="@{viewModel::onClick}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
                 android:text="@string/real_name" />
 
             <TextView
@@ -98,18 +106,38 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@{viewModel.name}" />
+                android:textSize="16sp"
+                android:textColor="@color/gray"
+                android:layout_marginEnd="32dp"
+                android:text="@{personalInfo.name}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
+                android:src="@mipmap/ic_arrow" />
+
         </RelativeLayout>
 
         <!--性别-->
         <RelativeLayout
+            android:id="@+id/layout_sex"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="48dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/common_cilck_item_bg"
+            android:onClick="@{viewModel::onClick}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
                 android:text="@string/sex" />
 
             <TextView
@@ -117,46 +145,77 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@{viewModel.sex}" />
-        </RelativeLayout>
+                android:textSize="16sp"
+                android:textColor="@color/gray"
+                android:layout_marginEnd="32dp"
+                android:text="@{personalInfo.sex == 2 ? @string/female : @string/male}" />
 
-        <!--联系方式-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="@string/connect"
-            android:gravity="center_vertical" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
+                android:src="@mipmap/ic_arrow" />
+
+        </RelativeLayout>
 
         <!--手机号-->
         <RelativeLayout
+            android:id="@+id/layout_phone_number"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:onClick="@{() -> viewModel.showModifyPhoneNumberDialog()}">
+            android:background="@drawable/common_cilck_item_bg"
+            android:layout_marginTop="1dp"
+            android:onClick="@{viewModel::onClick}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/phone_number" />
+                android:text="@string/phone_number"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@{viewModel.phoneNumber}" />
+                android:textSize="16sp"
+                android:textColor="@color/gray"
+                android:layout_marginEnd="32dp"
+                android:text="@{personalInfo.mobileTel}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
+                android:src="@mipmap/ic_arrow" />
+
         </RelativeLayout>
 
         <!--我的地址-->
         <RelativeLayout
+            android:id="@+id/layout_address"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:onClick="@{() -> viewModel.showModifyAddressDialog()}">
+            android:background="@drawable/common_cilck_item_bg"
+            android:layout_marginTop="1dp"
+            android:onClick="@{viewModel::onClick}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
                 android:text="@string/address" />
 
             <TextView
@@ -164,19 +223,38 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@{viewModel.address}" />
+                android:textSize="16sp"
+                android:textColor="@color/gray"
+                android:layout_marginEnd="32dp"
+                android:text="@{personalInfo.address}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
+                android:src="@mipmap/ic_arrow" />
+
         </RelativeLayout>
 
         <!--公司-->
         <RelativeLayout
+            android:id="@+id/layout_company"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:onClick="@{() -> viewModel.showModifyCompanyDialog()}">
+            android:background="@drawable/common_cilck_item_bg"
+            android:layout_marginTop="1dp"
+            android:onClick="@{viewModel::onClick}">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
                 android:text="@string/company" />
 
             <TextView
@@ -184,21 +262,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:text="@{viewModel.company}" />
+                android:textSize="16sp"
+                android:textColor="@color/gray"
+                android:layout_marginEnd="32dp"
+                android:text="@{personalInfo.company}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="6dp"
+                android:padding="10dp"
+                android:src="@mipmap/ic_arrow" />
         </RelativeLayout>
-
-        <!--二维码-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="@string/two_dimensional_code"
-            android:gravity="center_vertical" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:imageUrl="@{viewModel.twoDimensionalCodeUrl}" />
 
 
     </LinearLayout>

@@ -120,7 +120,7 @@
                     android:text="@string/mao_zhong_1"/>
 
                 <TextView style="@style/TextDetailValue"
-                    android:text="@{record.mzString + @string/KG}"/>
+                    android:text="@{record.mzString + @string/unit_t}" />
 
             </RelativeLayout>
 
@@ -130,7 +130,7 @@
                     android:text="@string/jing_zhong_1"/>
 
                 <TextView style="@style/TextDetailValue"
-                    android:text="@{record.jzString + @string/KG}"/>
+                    android:text="@{record.jzString + @string/unit_t}" />
 
             </RelativeLayout>
 

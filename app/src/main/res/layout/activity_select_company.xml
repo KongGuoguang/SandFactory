@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.SelectCompannyViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.SelectCompanyActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/app_color_main">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_toStartOf="@+id/tv_search"
+                android:layout_marginStart="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/shape_corner_border_gray"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textColorHint="@color/gray"
+                android:hint="@string/company_query_hint"
+                android:text="@={viewModel.searchKeywords}"
+                android:inputType="text" />
+
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/et_search"
+                android:layout_alignBottom="@+id/et_search"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:text="@string/search"
+                android:onClick="@{viewModel::onClick}" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+</layout>

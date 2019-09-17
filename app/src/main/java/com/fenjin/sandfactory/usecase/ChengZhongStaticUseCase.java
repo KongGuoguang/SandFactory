@@ -31,17 +31,17 @@ public class ChengZhongStaticUseCase extends BaseUseCase<GetChengZhongStatistics
                     @Override
                     public void accept(GetChengZhongStatisticsResult getChengZhongStatisticsResult) throws Exception {
                         ChengZhongStatisticsItem carItem = getChengZhongStatisticsResult.getResult().getCar();
-                        carItem.setTitle("车数:" + carItem.getTotal() + "(车)");
+                        carItem.setTitle("车数：" + carItem.getTotalInt() + "(车)");
                         carItem.setBackgroundColor(ContextCompat.getColor(context, R.color.light_yellow));
                         carItem.setTitleColor(ContextCompat.getColor(context, R.color.yellow));
 
                         ChengZhongStatisticsItem weightItem = getChengZhongStatisticsResult.getResult().getWeight();
-                        weightItem.setTitle("重量：" + weightItem.getTotal() + "(吨)");
+                        weightItem.setTitle("重量：" + weightItem.getTotalInt() + "(吨)");
                         weightItem.setBackgroundColor(ContextCompat.getColor(context, R.color.light_orange));
                         weightItem.setTitleColor(ContextCompat.getColor(context, R.color.orange));
 
                         ChengZhongStatisticsItem moneyItem = getChengZhongStatisticsResult.getResult().getMoney();
-                        moneyItem.setTitle("金额：" + moneyItem.getTotal() + "万");
+                        moneyItem.setTitle("金额：" + moneyItem.getTotalInt() + "(万)");
                         moneyItem.setBackgroundColor(ContextCompat.getColor(context, R.color.light_blue));
                         moneyItem.setTitleColor(ContextCompat.getColor(context, R.color.blue));
                     }

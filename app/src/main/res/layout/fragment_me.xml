@@ -10,6 +10,10 @@
             name="viewModel"
             type="com.fenjin.sandfactory.viewmodel.MeViewModel"/>
 
+        <variable
+            name="personalInfo"
+            type="com.fenjin.data.bean.PersonalInfo" />
+
     </data>
 
 
@@ -18,11 +22,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".fragment.MeFragment"
-        android:background="#f4f4f4">
+        android:background="@color/app_color_background"
+        android:gravity="center_horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="273dp"
+            android:layout_height="73dp"
             android:background="#3076f6"
             android:orientation="vertical"
             android:gravity="center_horizontal">
@@ -35,68 +40,60 @@
                 android:textSize="16sp"
                 android:text="@string/me"/>
 
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_personal_info"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:background="@color/white"
+            android:onClick="@{viewModel::onClick}">
+
             <ImageView
                 android:id="@+id/image_head"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_head"
-                android:layout_marginTop="62dp"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                app:imageUrl="@{personalInfo.headImg}"
+                app:placeHolder="@{@drawable/ic_head}" />
 
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="76dp"
                 android:layout_marginTop="8dp"
                 android:textSize="16sp"
-                android:textColor="#ffffff"
-                android:text="@{viewModel.userName}"/>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout_personal_dta"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/common_cilck_item_bg"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="@{viewModel::onClick}">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:src="@mipmap/ic_modify_password"
-                tools:ignore="ContentDescription" />
+                android:textColor="@color/black"
+                android:text="@{personalInfo.name}" />
 
             <TextView
+                android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_centerVertical="true"
-                android:textColor="#2a2f2f"
+                android:layout_marginStart="76dp"
+                android:layout_marginTop="36dp"
                 android:textSize="16sp"
-                android:text="@string/personal_data"
-                tools:ignore="RelativeOverlap" />
+                android:textColor="@color/gray"
+                android:text="@{personalInfo.mobileTel}" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
                 android:src="@mipmap/ic_arrow"
-                tools:ignore="ContentDescription" />
+                android:padding="16dp" />
 
         </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/layout_modify_password"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/common_cilck_item_bg"
             android:clickable="true"
             android:focusable="true"
@@ -170,13 +167,72 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/layout_my_app"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/common_cilck_item_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{viewModel::onClick}">
 
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/bt_logout"
-            style="@style/RoundButtonWhite"
-            android:text="@string/logout"
-            android:onClick="@{viewModel::onClick}"
-            app:changeAlphaWhenPress="@{true}"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:src="@mipmap/ic_app"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_centerVertical="true"
+                android:textColor="#2a2f2f"
+                android:textSize="16sp"
+                android:text="@string/my_app"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:src="@mipmap/ic_arrow"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:scrollbars="vertical"
+                android:layout_above="@+id/bt_logout"
+                android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
+                tools:ignore="RtlSymmetry" />
+
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/bt_logout"
+                style="@style/RoundButtonWhite"
+                android:text="@string/logout"
+                android:onClick="@{viewModel::onClick}"
+                app:changeAlphaWhenPress="@{true}"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -27,8 +27,6 @@ public class LoginViewModel extends BaseViewModel {
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
-        userName.set(dataRepository.getUserName());
-        rememberPassword.set(dataRepository.getRememberPassword());
         if (rememberPassword.get()){
             password.set(dataRepository.getPassword());
         }
@@ -38,6 +36,8 @@ public class LoginViewModel extends BaseViewModel {
                 dataRepository.setRememberPassword(rememberPassword.get());
             }
         });
+
+        dataRepository.saveToken("");
     }
 
     public final int CLICK_INTENT_FINISH = 1;
@@ -50,11 +50,11 @@ public class LoginViewModel extends BaseViewModel {
 
     public ObservableField<String> sysName = new ObservableField<>(dataRepository.getSysName());
 
-    public ObservableField<String> userName = new ObservableField<>();
+    public ObservableField<String> userName = new ObservableField<>(dataRepository.getUserName());
 
     public ObservableField<String> password = new ObservableField<>();
 
-    public ObservableField<Boolean> rememberPassword = new ObservableField<>();
+    public ObservableField<Boolean> rememberPassword = new ObservableField<>(dataRepository.getRememberPassword());
 
     public MutableLiveData<Boolean> loginSuccess = new MutableLiveData<>();
 

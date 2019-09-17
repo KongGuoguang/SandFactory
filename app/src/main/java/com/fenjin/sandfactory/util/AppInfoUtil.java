@@ -34,17 +34,17 @@ public class AppInfoUtil {
 
     public static AppInfo getAppInfo(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
+        AppInfo appInfo = new AppInfo();
+        appInfo.setPackageName(packageName);
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
-            AppInfo appInfo = new AppInfo();
             appInfo.setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString());
             appInfo.setAppIcon(packageInfo.applicationInfo.loadIcon(packageManager));
-            appInfo.setPackageName(packageName);
-            return appInfo;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+            appInfo.setAppName(packageName);
         }
-        return null;
+        return appInfo;
     }
 
     public static List<AppInfo> getAppInfoList(Context context) {

@@ -74,4 +74,21 @@ public class ToolUtil {
         return versionName;
     }
 
+    public String subZeroAndDot(String s) {
+        if (s.indexOf(".") > 0) {
+            s = s.replaceAll("0+?$", "");//去掉多余的0
+            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+        return s;
+    }
+
+    public String subZeroAndDot(float f) {
+        String s = String.valueOf(f);
+        if (s.indexOf(".") > 0) {
+            s = s.replaceAll("0+?$", "");//去掉多余的0
+            s = s.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+        return s;
+    }
+
 }

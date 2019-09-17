@@ -1,17 +1,22 @@
 package com.fenjin.data.bean;
 
+import com.fenjin.common.ToolUtil;
+
 public class ChengZhongStatisticsItem {
     private float total;
 
     private float hesha;
 
-    private float shashi;
+    private float feisha;
+
+    private float other;
 
     private String title;
 
     private int titleColor;
 
     private int backgroundColor;
+
 
     public float getTotal() {
         return total;
@@ -29,12 +34,20 @@ public class ChengZhongStatisticsItem {
         this.hesha = hesha;
     }
 
-    public float getShashi() {
-        return shashi;
+    public float getFeisha() {
+        return feisha;
     }
 
-    public void setShashi(float shashi) {
-        this.shashi = shashi;
+    public void setFeisha(float feisha) {
+        this.feisha = feisha;
+    }
+
+    public float getOther() {
+        return other;
+    }
+
+    public void setOther(float other) {
+        this.other = other;
     }
 
     public String getTitle() {
@@ -59,5 +72,21 @@ public class ChengZhongStatisticsItem {
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public String getTotalInt() {
+        return ToolUtil.getInstance().subZeroAndDot(total);
+    }
+
+    public String getHeShaInt() {
+        return ToolUtil.getInstance().subZeroAndDot(hesha);
+    }
+
+    public String getFeiShaInt() {
+        return ToolUtil.getInstance().subZeroAndDot(feisha);
+    }
+
+    public String getOtherInt() {
+        return ToolUtil.getInstance().subZeroAndDot(other);
     }
 }

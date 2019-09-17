@@ -3,8 +3,10 @@ package com.fenjin.data.network;
 import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.fenjin.data.bean.PersonalInfo;
 import com.fenjin.data.entity.BalanceQueryResult;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.EditPersonalInfoResult;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.GetChartStaticResult;
@@ -17,16 +19,19 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.QueryCompanyResult;
 import com.fenjin.data.entity.StatisticQueryCountResult;
 import com.fenjin.data.entity.StatisticQueryDetailListResult;
 import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
+import com.fenjin.data.entity.UploadHeadImgResult;
 import com.fenjin.data.preferences.PreferencesRepository;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -180,8 +185,21 @@ public class NetworkRepository {
         return serverInterface.getCompanyNames(preferencesRepository.getAuthorization());
     }
 
+    public Observable<QueryCompanyResult> queryCompany(String keyword) {
+        return serverInterface.queryCompany(preferencesRepository.getAuthorization(), keyword);
+    }
+
     public Observable<LoadPersonInfoResult> loadPersonInfo() {
         return serverInterface.getPersonalInfo(preferencesRepository.getAuthorization());
+    }
+
+    public Observable<EditPersonalInfoResult> editPersonalInfo(PersonalInfo param) {
+        return serverInterface.editPersonalInfo(preferencesRepository.getAuthorization(), param);
+    }
+
+    public Observable<UploadHeadImgResult> uploadHeadImg(MultipartBody.Part headImg) {
+        return serverInterface.uploadHeadImg(preferencesRepository.getAuthorization(), headImg);
+
     }
 
 

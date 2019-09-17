@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="adapter"
+            type="com.fenjin.sandfactory.adapter.AppAdapter" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_add_app"
+        android:layout_width="106dp"
+        android:layout_height="113dp"
+        android:background="@drawable/shape_corner_white"
+        android:onClick="@{adapter::onClick}">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp"
+            android:src="@mipmap/ic_add" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#c9c9c9"
+            android:textSize="14sp"
+            android:text="@string/add_app" />
+
+    </RelativeLayout>
+
+</layout>

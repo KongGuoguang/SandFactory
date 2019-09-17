@@ -4,19 +4,26 @@ package com.fenjin.sandfactory.fragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.activity.AboutActivity;
+import com.fenjin.sandfactory.activity.EditAppActivity;
 import com.fenjin.sandfactory.activity.LoginActivity;
 import com.fenjin.sandfactory.activity.PasswordActivity;
 import com.fenjin.sandfactory.activity.PersonalInfoActivity;
+import com.fenjin.sandfactory.adapter.AppAdapter;
+import com.fenjin.sandfactory.adapter.GridItemDecoration;
 import com.fenjin.sandfactory.databinding.FragmentMeBinding;
 import com.fenjin.sandfactory.viewmodel.MeViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -33,6 +40,8 @@ public class MeFragment extends BaseFragment {
     }
 
     private MeViewModel viewModel;
+
+    private AppAdapter appAdapter;
 
 
     @Override
@@ -51,7 +60,57 @@ public class MeFragment extends BaseFragment {
 
         binding.setViewModel(viewModel);
 
+        binding.setPersonalInfo(viewModel.dataRepository.getPersonalInfo());
+
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        recyclerView.addItemDecoration(new GridItemDecoration());
+        appAdapter = new AppAdapter(getActivity().getApplicationContext());
+        appAdapter.setEditMode(false);
+        appAdapter.setItems(viewModel.dataRepository.getPackageNames());
+        appAdapter.setOnClickListener(new AppAdapter.onClickListener() {
+            @Override
+            public void addApp() {
+
+            }
+
+            @Override
+            public void deleteApp(int position) {
+
+            }
+
+            @Override
+            public void startApp(int position) {
+                PackageManager packageManager = getActivity().getPackageManager();
+
+                Intent intent = packageManager.getLaunchIntentForPackage(appAdapter.getItems().get(position));
+
+                if (intent == null) {
+
+                    showToast("应用启动失败，请检查是否安装");
+
+                    return;
+
+                }
+
+                startActivity(intent);
+            }
+        });
+
+        recyclerView.setAdapter(appAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        appAdapter.setItems(viewModel.dataRepository.getPackageNames());
+        appAdapter.notifyDataSetChanged();
     }
 
     private void init(){
@@ -70,6 +129,7 @@ public class MeFragment extends BaseFragment {
                         .addAction(0, "退出", QMUIDialogAction.ACTION_PROP_NEGATIVE, new QMUIDialogAction.ActionListener() {
                             @Override
                             public void onClick(QMUIDialog dialog, int index) {
+                                dialog.dismiss();
                                 viewModel.logout();
                                 startActivity(new Intent(getActivity(), LoginActivity.class));
                                 getActivity().finish();
@@ -97,6 +157,13 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+            }
+        });
+
+        viewModel.startEditAppActivity.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                startActivity(new Intent(getActivity(), EditAppActivity.class));
             }
         });
 

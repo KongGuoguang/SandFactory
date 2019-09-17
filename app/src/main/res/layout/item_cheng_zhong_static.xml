@@ -8,38 +8,66 @@
             type="com.fenjin.data.bean.ChengZhongStatisticsItem" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        android:layout_height="100dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:background="@{viewModel.backgroundColor}">
 
         <TextView
+            android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="14sp"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
             android:textColor="@{viewModel.titleColor}"
-            android:text="@{viewModel.title}" />
+            android:text="@{viewModel.title}"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1" />
+
+        <TextView
+            android:id="@+id/hesha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/total"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:text="@{@string/hesha + viewModel.heShaInt}"
+            android:singleLine="true"
+            android:ellipsize="marquee" />
+
+        <TextView
+            android:id="@+id/feisha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hesha"
+            android:layout_alignStart="@+id/hesha"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:text="@{@string/feisha + viewModel.feiShaInt}"
+            android:singleLine="true"
+            android:ellipsize="marquee" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/feisha"
+            android:layout_alignStart="@+id/feisha"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
             android:textColor="@color/black"
             android:textSize="12sp"
-            android:text='@{@string/hesha + viewModel.hesha}' />
+            android:text="@{@string/other + viewModel.otherInt}"
+            android:singleLine="true"
+            android:ellipsize="marquee" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:text='@{@string/shashi + viewModel.shashi}' />
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>

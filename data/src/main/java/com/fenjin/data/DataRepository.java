@@ -6,6 +6,7 @@ import com.fenjin.data.bean.ChartStatisticsItem;
 import com.fenjin.data.bean.PersonalInfo;
 import com.fenjin.data.entity.BalanceQueryResult;
 import com.fenjin.data.entity.ChengZhongRecordListResult;
+import com.fenjin.data.entity.EditPersonalInfoResult;
 import com.fenjin.data.entity.GetAllChannelResult;
 import com.fenjin.data.entity.GetChannelResult;
 import com.fenjin.data.entity.GetChartStaticResult;
@@ -18,10 +19,12 @@ import com.fenjin.data.entity.LoginParam;
 import com.fenjin.data.entity.LoginResult;
 import com.fenjin.data.entity.ModifyPasswordParam;
 import com.fenjin.data.entity.ModifyPasswordResult;
+import com.fenjin.data.entity.QueryCompanyResult;
 import com.fenjin.data.entity.StatisticQueryCountResult;
 import com.fenjin.data.entity.StatisticQueryDetailListResult;
 import com.fenjin.data.entity.StatisticQueryListResult;
 import com.fenjin.data.entity.TodayCountResult;
+import com.fenjin.data.entity.UploadHeadImgResult;
 import com.fenjin.data.memory.MemoryRepository;
 import com.fenjin.data.network.NetworkRepository;
 import com.fenjin.data.preferences.PreferencesRepository;
@@ -30,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 
 /**
  * Author:kongguoguang
@@ -210,8 +214,21 @@ public class DataRepository {
         return networkRepository.loadCompanyNames();
     }
 
+    public Observable<QueryCompanyResult> queryCompany(String keyword) {
+        return networkRepository.queryCompany(keyword);
+    }
+
     public Observable<LoadPersonInfoResult> loadPersonalInfo() {
         return networkRepository.loadPersonInfo();
+    }
+
+    public Observable<EditPersonalInfoResult> editPersonalInfo(PersonalInfo param) {
+        return networkRepository.editPersonalInfo(param);
+    }
+
+    public Observable<UploadHeadImgResult> uploadHeadImg(MultipartBody.Part headImg) {
+        return networkRepository.uploadHeadImg(headImg);
+
     }
 
     public Observable<StatisticQueryCountResult> getStatisticQueryCount(Map<String, Object> param) {
@@ -235,7 +252,17 @@ public class DataRepository {
     }
 
     public void savePersonalInfo(PersonalInfo info) {
+        String url = "http://" + getIp() + ":" + getPort() + info.getHeadImg();
+        info.setHeadImg(url);
         memoryRepository.setPersonalInfo(info);
         preferencesRepository.savePersonalInfo(info);
+    }
+
+    public List<String> getPackageNames() {
+        return preferencesRepository.getPackageNames();
+    }
+
+    public void setPackageNames(List<String> names) {
+        preferencesRepository.setPackageNames(names);
     }
 }

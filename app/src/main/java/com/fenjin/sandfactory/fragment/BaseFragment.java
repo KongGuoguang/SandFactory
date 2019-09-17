@@ -45,7 +45,9 @@ public class BaseFragment extends Fragment {
     protected void dealErrorCode(int errorCode) {
         switch (errorCode) {
             case ErrorCodeUtil.TOKEN_TIME_OUT:
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 getActivity().finish();
                 showToast("登录信息超时，请重新登录");
                 break;

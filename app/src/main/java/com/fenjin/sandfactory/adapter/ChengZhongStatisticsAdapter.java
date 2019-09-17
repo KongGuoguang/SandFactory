@@ -18,6 +18,7 @@ public class ChengZhongStatisticsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+
         return chengZhongStatisticsItemList == null ? 0 : chengZhongStatisticsItemList.size();
     }
 
@@ -51,6 +52,7 @@ public class ChengZhongStatisticsAdapter extends BaseAdapter {
 
         if (binding != null) {
             binding.setViewModel(chengZhongStatisticsItem);
+            binding.total.setSelected(true);
         }
         return view;
     }

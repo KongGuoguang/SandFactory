@@ -18,7 +18,6 @@ public class MemoryRepository {
 
     private List<ChartStatisticsItem> chartStatisticsItemList = new ArrayList<>();
 
-
     public PersonalInfo getPersonalInfo() {
         return personalInfo;
     }

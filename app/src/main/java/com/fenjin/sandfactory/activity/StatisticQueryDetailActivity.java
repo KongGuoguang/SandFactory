@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
 import com.fenjin.sandfactory.R;
-import com.fenjin.sandfactory.adapter.RecyclerViewItemDecoration;
+import com.fenjin.sandfactory.adapter.LinearItemDecoration;
 import com.fenjin.sandfactory.databinding.ActivityStatisticQueryDetailBinding;
 import com.fenjin.sandfactory.viewmodel.StatisticQueryDetailViewModel;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -38,7 +38,7 @@ public class StatisticQueryDetailActivity extends BaseActivity {
 
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new RecyclerViewItemDecoration());
+        recyclerView.addItemDecoration(new LinearItemDecoration());
         recyclerView.setAdapter(viewModel.adapter);
 
         registerObserver();

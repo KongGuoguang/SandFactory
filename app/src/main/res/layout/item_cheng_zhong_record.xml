@@ -105,7 +105,7 @@
                     android:layout_centerVertical="true"
                     android:textSize="12sp"
                     android:textColor="@color/gray"
-                    android:text="@{@string/mao_zhong + viewModel.mzString + @string/KG}" />
+                    android:text="@{@string/mao_zhong + viewModel.mzString + @string/unit_t}" />
 
             </RelativeLayout>
 
@@ -123,7 +123,7 @@
                     android:layout_centerVertical="true"
                     android:textSize="12sp"
                     android:textColor="@color/gray"
-                    android:text="@{@string/jin_e + viewModel.jeString + @string/yuan}" />
+                    android:text="@{@string/jin_e_colon + viewModel.jeString + @string/yuan}" />
 
                 <TextView
                     android:id="@+id/tv_jz"
@@ -133,7 +133,7 @@
                     android:layout_centerVertical="true"
                     android:textSize="12sp"
                     android:textColor="@color/gray"
-                    android:text="@{@string/jing_zhong + viewModel.jzString + @string/KG}" />
+                    android:text="@{@string/jing_zhong + viewModel.jzString + @string/unit_t}" />
 
             </RelativeLayout>
 

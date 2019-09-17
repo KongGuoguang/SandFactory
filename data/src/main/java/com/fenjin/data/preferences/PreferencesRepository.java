@@ -2,11 +2,14 @@ package com.fenjin.data.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.fenjin.data.bean.AppInfo;
 import com.fenjin.data.bean.PersonalInfo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +37,7 @@ public class PreferencesRepository {
 
     private static final String REMEMBER_PASSWORD = "remember_password";
 
-    private static final String SELECTED_APP_PACKAGE_NAME = "_selected_app_package_name";
+    private static final String SELECTED_APP_PACKAGE_NAME = "elected_app_package_name";
 
     private static final String IP = "ip";
 
@@ -58,6 +61,8 @@ public class PreferencesRepository {
 
     private static final String COMPANY_NAME = "company_name";
 
+    private static final String VERSION_CODE = "version_code";
+
     private SharedPreferences sharedPreferences;
 
     private SharedPreferences userPreferences;
@@ -69,6 +74,23 @@ public class PreferencesRepository {
     private void init(Context context){
         sharedPreferences = context.getSharedPreferences(PREFERENCES_FILE_NAME, Context.MODE_PRIVATE);
         createUserPreferences(context);
+        try {
+            // ---get the package info---
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            int versioncode = pi.versionCode;
+            if (versioncode != sharedPreferences.getInt(VERSION_CODE, 0)) {
+                sharedPreferences.edit()
+                        .putInt(VERSION_CODE, versioncode)
+                        .remove(IP)
+                        .remove(PORT)
+                        .apply();
+
+            }
+
+        } catch (Exception e) {
+            Log.e("VersionInfo", "Exception", e);
+        }
     }
 
     public void createUserPreferences(Context context) {
@@ -157,20 +179,23 @@ public class PreferencesRepository {
         sharedPreferences.edit().putString(PORT, port).apply();
     }
 
-    public List<String> getSelectedAppPackageNameList() {
-        String userName = sharedPreferences.getString(USER_NAME, "");
-        String selectedAppPackageName = sharedPreferences.getString(userName + SELECTED_APP_PACKAGE_NAME, "");
+    public List<String> getPackageNames() {
+        String selectedAppPackageName = userPreferences.getString(SELECTED_APP_PACKAGE_NAME, ",");
         String[] tempArray = selectedAppPackageName.split(",");
-        return Arrays.asList(tempArray);
+        return new ArrayList<>(Arrays.asList(tempArray));
     }
 
-    public void setSelectedAppPackageName(List<AppInfo> appInfoList) {
+    public void setPackageNames(List<String> names) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (AppInfo appInfo : appInfoList) {
-            stringBuilder.append(appInfo.getPackageName()).append(",");
+        if (names == null || names.isEmpty()) {
+            stringBuilder.append(",");
+        } else {
+            for (String name : names) {
+                stringBuilder.append(name).append(",");
+            }
         }
-        String userName = sharedPreferences.getString(USER_NAME, "");
-        sharedPreferences.edit().putString(userName + SELECTED_APP_PACKAGE_NAME, stringBuilder.toString()).apply();
+
+        userPreferences.edit().putString(SELECTED_APP_PACKAGE_NAME, stringBuilder.toString()).apply();
     }
 
     public void savePersonalInfo(PersonalInfo personalInfo) {

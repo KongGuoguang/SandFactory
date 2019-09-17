@@ -4,14 +4,13 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.fenjin.data.bean.BalanceQueryItem;
 import com.fenjin.data.entity.BalanceQueryResult;
-import com.fenjin.sandfactory.R;
 import com.fenjin.sandfactory.adapter.BalanceQueryAdapter;
 import com.fenjin.sandfactory.usecase.BalanceQueryUseCase;
+import com.fenjin.sandfactory.util.ErrorCodeUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +31,7 @@ public class BalanceQueryViewModel extends BaseViewModel {
         super(application);
     }
 
-    public ObservableField<String> keywords = new ObservableField<>();
+    public ObservableField<String> keywords = new ObservableField<>("");
 
     public MutableLiveData<String> loadingMsg = new MutableLiveData<>();
 
@@ -59,10 +58,6 @@ public class BalanceQueryViewModel extends BaseViewModel {
     }
 
     public void startQuery(boolean loadMore) {
-        if (TextUtils.isEmpty(keywords.get())) {
-            showToast(R.string.balance_query_hint);
-            return;
-        }
 
         if (!loadMore) {
             totalCount = 0;
@@ -107,7 +102,7 @@ public class BalanceQueryViewModel extends BaseViewModel {
 
             @Override
             public void onError(Throwable e) {
-                loadingMsg.postValue("");
+                errorCode.postValue(ErrorCodeUtil.getErrorCode(e));
 
             }
 

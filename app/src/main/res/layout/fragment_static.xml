@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.fenjin.sandfactory.viewmodel.StatisticsViewModel" />
+            type="com.fenjin.sandfactory.viewmodel.StatisticsFragmentViewModel" />
 
     </data>
 
@@ -58,7 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/common_cilck_item_bg"
+                android:background="@drawable/shape_corner_white"
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/common_cilck_item_bg"
+                android:background="@drawable/shape_corner_white"
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/common_cilck_item_bg"
+                android:background="@drawable/shape_corner_white"
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -112,31 +112,37 @@
             android:textSize="14sp"
             android:textColor="#9D9E9E" />
 
-        <GridView
-            android:id="@+id/grid_view"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@color/white"
-            android:numColumns="3"
-            android:stretchMode="columnWidth"
-            android:horizontalSpacing="10dp"
-            android:padding="10dp"
-            android:adapter="@{viewModel.adapter}">
+            android:background="@drawable/shape_corner_white">
 
-        </GridView>
+            <GridView
+                android:id="@+id/grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:horizontalSpacing="10dp"
+                android:padding="10dp"
+                android:adapter="@{viewModel.adapter}">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:tabIndicatorHeight="0dp"
-            app:tabBackground="@drawable/bg_tab_item"
-            app:tabTextColor="@color/tab_text_color"
-            app:tabSelectedTextColor="@color/tab_text_color" />
+            </GridView>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:tabIndicatorHeight="0dp"
+                app:tabBackground="@drawable/bg_tab_item"
+                app:tabTextColor="@color/gray"
+                app:tabSelectedTextColor="@color/gray" />
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -150,7 +156,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/shape_corner_white"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp">
@@ -225,6 +231,7 @@
                 android:id="@+id/bar_chart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
                 android:layout_below="@+id/layout_chart_unit">
 
             </com.github.mikephil.charting.charts.BarChart>

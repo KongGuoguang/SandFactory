@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.fenjin.sandfactory.viewmodel.EditPersonalInfoViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.EditPersonalInfoActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:background="@color/app_color_main">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="@{viewModel.title}"
+                android:drawableStart="@mipmap/ic_arrow_back"
+                android:drawablePadding="10dp"
+                android:onClick="@{viewModel::onClick}" />
+
+            <TextView
+                android:id="@+id/tv_save"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:text="@string/save"
+                android:onClick="@{viewModel::onClick}" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="@={viewModel.inputContent}"
+            android:inputType="text" />
+
+    </LinearLayout>
+</layout>

@@ -28,6 +28,8 @@
     <string name="czrj_balance_colon">称重软件余额：</string>
     <string name="hesha">河沙：</string>
     <string name="shashi">砂石：</string>
+    <string name="feisha">废沙：</string>
+    <string name="other">其它：</string>
     <string name="start_time">开始时间</string>
     <string name="select_start_time">请选择开始时间</string>
     <string name="end_time">结束时间</string>
@@ -91,15 +93,20 @@
     <string name="password_rule">新密码为6–16位数字和字母的组合</string>
     <string name="personal_info">个人信息</string>
     <string name="personal_data">个人资料</string>
-    <string name="profile_picture">头像（请上传真实头像）</string>
+    <string name="profile_picture">头像</string>
     <string name="real_name">姓名</string>
     <string name="sex">性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
     <string name="connect">联系方式</string>
     <string name="phone_number">手机号</string>
     <string name="telephone_colon">联系电话：</string>
-    <string name="address">我的地址</string>
+    <string name="address">地址</string>
     <string name="company_query">单位查询</string>
+    <string name="company_query_hint">请输入单位名称</string>
     <string name="two_dimensional_code">二维码</string>
+    <string name="my_app">我的应用</string>
+    <string name="add_app">添加应用</string>
 
     <string name="select_condition">票据</string>
 

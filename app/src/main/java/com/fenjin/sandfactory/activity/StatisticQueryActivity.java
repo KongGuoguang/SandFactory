@@ -17,7 +17,7 @@ import android.widget.DatePicker;
 
 import com.fenjin.data.bean.StatisticsQueryItem;
 import com.fenjin.sandfactory.R;
-import com.fenjin.sandfactory.adapter.RecyclerViewItemDecoration;
+import com.fenjin.sandfactory.adapter.LinearItemDecoration;
 import com.fenjin.sandfactory.adapter.StatisticQueryAdapter;
 import com.fenjin.sandfactory.databinding.ActivityStatisticQueryBinding;
 import com.fenjin.sandfactory.viewmodel.StatisticQueryViewModel;
@@ -53,7 +53,7 @@ public class StatisticQueryActivity extends BaseActivity {
 
         RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new RecyclerViewItemDecoration());
+        recyclerView.addItemDecoration(new LinearItemDecoration());
         recyclerView.setAdapter(viewModel.adapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -162,10 +162,11 @@ public class StatisticQueryActivity extends BaseActivity {
         if (viewModel.queryType.get() == 1) {
             items = viewModel.dataRepository.getSiteNames();
         } else {
-            items = viewModel.dataRepository.getCompanyNames();
+            startActivityForResult(new Intent(this, SelectCompanyActivity.class), 0x01);
+            return;
         }
 
-        int checkedIndex = 0;
+        int checkedIndex = -1;
 
         if (!TextUtils.isEmpty(viewModel.siteOrCompany.get())) {
             for (int i = 0; i < items.length; i++) {
@@ -225,5 +226,15 @@ public class StatisticQueryActivity extends BaseActivity {
         }, mYear, mMonth, mDay);
 
         dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (data == null) return;
+            String name = data.getStringExtra("name");
+            viewModel.siteOrCompany.set(name);
+        }
     }
 }

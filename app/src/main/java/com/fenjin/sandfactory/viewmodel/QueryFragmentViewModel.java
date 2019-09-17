@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.fenjin.data.entity.ChengZhongRecord;
@@ -43,7 +42,7 @@ public class QueryFragmentViewModel extends BaseViewModel {
         super(application);
     }
 
-    public ObservableField<String> searchKeywords = new ObservableField<>();
+    public ObservableField<String> searchKeywords = new ObservableField<>("");
     public ObservableField<String> searchKeywordsHint = new ObservableField<>(
             getApplication().getString(R.string.search_bill_hint));
 
@@ -59,11 +58,11 @@ public class QueryFragmentViewModel extends BaseViewModel {
 
     public int searchType = SEARCH_TYPE_BILL;
 
-    public int currentPage;
+    private int currentPage;
 
     private int pageSize = 10;
 
-    private int totalCount;
+    public int totalCount;
 
     private List<ChengZhongRecord> chengZhongRecordList = new ArrayList<>();
 
@@ -71,10 +70,10 @@ public class QueryFragmentViewModel extends BaseViewModel {
 
     public void loadFirstPageChengZhongRecords(){
 
-        if (TextUtils.isEmpty(searchKeywords.get())) {
-            showToast(searchKeywordsHint.get());
-            return;
-        }
+//        if (TextUtils.isEmpty(searchKeywords.get())) {
+//            showToast(searchKeywordsHint.get());
+//            return;
+//        }
 
         chengZhongRecordList.clear();
 

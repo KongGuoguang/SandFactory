@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="appInfo"
+            type="com.fenjin.data.bean.AppInfo" />
+
+        <variable
+            name="isEditMode"
+            type="Boolean" />
+
+        <variable
+            name="adapter"
+            type="com.fenjin.sandfactory.adapter.AppAdapter" />
+    </data>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="106dp"
+        android:layout_height="113dp"
+        android:background="@drawable/shape_corner_white">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            app:imageDrawable="@{appInfo.appIcon}"
+            android:onClick="@{adapter::onClick}" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:text="@{appInfo.appName}"
+            android:onClick="@{adapter::onClick}" />
+
+        <ImageView
+            android:id="@+id/delete_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="10dp"
+            android:src="@mipmap/ic_delete"
+            app:visibleGone="@{isEditMode}"
+            android:onClick="@{adapter::onClick}" />
+
+    </RelativeLayout>
+
+</layout>

@@ -23,7 +23,7 @@ import com.fenjin.sandfactory.activity.BalanceQueryActivity;
 import com.fenjin.sandfactory.activity.StatisticQueryActivity;
 import com.fenjin.sandfactory.databinding.FragmentStaticBinding;
 import com.fenjin.sandfactory.databinding.LayoutPopBarChartValueBinding;
-import com.fenjin.sandfactory.viewmodel.StatisticsViewModel;
+import com.fenjin.sandfactory.viewmodel.StatisticsFragmentViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -56,7 +56,7 @@ public class StatisticsFragment extends BaseFragment {
     public static final int STATISTIC_TYPE_COMPANY = 1;
     public static final int STATISTIC_TYPE_BALANCE = 2;
 
-    private StatisticsViewModel viewModel;
+    private StatisticsFragmentViewModel viewModel;
 
     private QMUITipDialog loadingDialog;
 
@@ -66,11 +66,13 @@ public class StatisticsFragment extends BaseFragment {
 
     private BarChart barChart;
 
+    private PopupWindow popupWindow;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(StatisticsViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(StatisticsFragmentViewModel.class);
         registerObserver();
     }
 
@@ -168,12 +170,16 @@ public class StatisticsFragment extends BaseFragment {
                     return;
                 }
 
+                if (popupWindow != null && popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                }
+
                 LayoutPopBarChartValueBinding binding = DataBindingUtil.inflate(getLayoutInflater(),
                         R.layout.layout_pop_bar_chart_value, null, false);
                 View view = binding.getRoot();
                 binding.setViewModel(items.get(index));
 
-                PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,
+                popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
                 popupWindow.setOutsideTouchable(true);
